@@ -1,0 +1,28 @@
+# Installs Node.js dependencies and Yarn, and checks formatting + linting
+
+name: Lint Node.js
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install dependencies
+        run: yarn install
+      - name: Run lint step
+        run: yarn lint

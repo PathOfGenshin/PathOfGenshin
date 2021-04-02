@@ -10,7 +10,7 @@ module.exports = {
     ".next/*",
     ".out/*",
     "!.prettierrc.js",
-    "**/*.scss",
+    "src/**/*.scss",
   ],
   extends: ["eslint:recommended"],
   overrides: [

@@ -15,7 +15,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint -c .eslintrc.js ./src/** && prettier --plugin=./node_modules/@trivago/prettier-plugin-sort-imports --config .prettierrc.js --check ./src"
+    "lint": "eslint --ext .ts --ext .tsx --no-error-on-unmatched-pattern -c .eslintrc.js \"./src/**\" && prettier --plugin=./node_modules/@trivago/prettier-plugin-sort-imports --config .prettierrc.js --check ./src"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
