@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "eslint --ext .ts --ext .tsx --no-error-on-unmatched-pattern -c .eslintrc.js \"./src/**\" && prettier --plugin=./node_modules/@trivago/prettier-plugin-sort-imports --config .prettierrc.js --check ./src"
   },
