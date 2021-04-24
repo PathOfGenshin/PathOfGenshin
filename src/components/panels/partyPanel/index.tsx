@@ -1,39 +1,18 @@
-import clsx from "clsx"
-
-interface SideIconProps {
-  icon: string
-  isSelected?: boolean
-}
-
-const SideIcon: React.FC<SideIconProps> = ({ icon, isSelected }: SideIconProps) => {
-  return (
-    <div>
-      <button className="relative flex items-center justify-center w-24 h-24">
-        <div
-          className={clsx(
-            "border-4 rounded-full w-18 h-18",
-            isSelected
-              ? "border-g-char-selected bg-g-char-selected-fill"
-              : "border-g-char",
-          )}
-        ></div>
-        <img
-          className="absolute w-24 h-24 select-none -top-4"
-          src={icon}
-          alt="Avatar"
-        />
-      </button>
-    </div>
-  )
-}
+import SideIcon from "@/components/genshin/characters/SideIcon"
+import SideIconAdd from "@/components/genshin/characters/SideIconAdd"
+import { useAppSelector } from "@/store/hooks"
+import { MAX_PARTY_SIZE, selectPartySize } from "@/store/party/partySlice"
 
 export const PartyPanel: React.FC = () => {
+  const partySize: number = useAppSelector(selectPartySize)
+
   return (
-    <div className="flex flex-row py-2 mx-auto">
-      <SideIcon icon="/static/avatar_icon/UI_AvatarIcon_Side_Keqing.png" isSelected />
-      <SideIcon icon="/static/avatar_icon/UI_AvatarIcon_Side_Ambor.png" />
-      <SideIcon icon="/static/avatar_icon/UI_AvatarIcon_Side_Mona.png" />
-      <SideIcon icon="/static/avatar_icon/UI_AvatarIcon_Side_Xiao.png" />
+    <div className="relative flex flex-row items-center justify-center py-2">
+      {partySize === 0 && (
+        <div className="absolute bottom-0">No characters in your party.</div>
+      )}
+      <SideIcon image="/static/avatar_icon/UI_AvatarIcon_Side_Keqing.png" isSelected />
+      {partySize < MAX_PARTY_SIZE && <SideIconAdd />}
     </div>
   )
 }

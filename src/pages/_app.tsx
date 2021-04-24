@@ -1,8 +1,11 @@
+import "@/styles/globals.scss"
+
 import { AppProps } from "next/app"
 import Head from "next/head"
+import { Provider } from "react-redux"
 
 import Layout from "@/components/layouts"
-import "@/styles/globals.scss"
+import { store } from "@/store"
 
 function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
   return (
@@ -14,9 +17,11 @@ function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </>
   )
 }

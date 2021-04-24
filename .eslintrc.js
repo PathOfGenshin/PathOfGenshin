@@ -11,6 +11,7 @@ module.exports = {
     ".out/*",
     "!.prettierrc.js",
     "src/**/*.scss",
+    "src/generated/**/*.ts"
   ],
   extends: ["eslint:recommended"],
   overrides: [
