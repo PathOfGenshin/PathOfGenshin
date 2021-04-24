@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: ["./src/**/*.js", "./src/**/*.ts", "./src/**/*.tsx"],
+  purge: ["./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx"],
   darkMode: "class",
   theme: {
     extend: {
@@ -23,7 +23,7 @@ module.exports = {
         "g-dark-1": "#ece5d8",
         "g-dark-0": "#fffdfa",
         "g-paper-0": "#39444f",
-        "g-talent-lvlboost": "#00ffff"
+        "g-talent-lvlboost": "#00ffff",
       },
       fontFamily: {
         genshin: ["Genshin", "sans-serif"],
