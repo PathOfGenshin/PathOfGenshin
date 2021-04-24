@@ -16,6 +16,9 @@ module.exports = {
         "g-dark-700": "#43434f",
         "g-dark-600": "#4a5366",
         "g-paper": "#ece5d8",
+        "g-dark-2": "#d3bc8e",
+        "g-dark-1": "#ece5d8",
+        "g-dark-0": "#fffdfa",
         "g-cons-electro": "#44295b",
       },
       textColor: {

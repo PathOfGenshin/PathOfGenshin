@@ -1,7 +1,3 @@
 export default function About(): React.ReactNode {
-  return (
-    <main>
-      <h1>About page TBD.</h1>
-    </main>
-  )
+  return <h1>About page TBD.</h1>
 }
