@@ -20,8 +20,8 @@ export const ToggleDarkMode: React.FC = () => {
       onClick={toggleTheme}
     >
       <span className="sr-only">Toggle Dark Mode</span>
-      <MoonIcon className={clsx(isDarkTheme ? "block" : "hidden", "h-8 w-8")} />
-      <SunIcon className={clsx(isDarkTheme ? "hidden" : "block", "h-8 w-8")} />
+      <SunIcon className={clsx(isDarkTheme ? "block" : "hidden", "h-8 w-8")} />
+      <MoonIcon className={clsx(isDarkTheme ? "hidden" : "block", "h-8 w-8")} />
     </button>
   )
 }
