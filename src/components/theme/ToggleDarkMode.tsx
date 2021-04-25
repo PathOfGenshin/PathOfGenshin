@@ -1,6 +1,5 @@
-import { useContext } from "react"
-
 import clsx from "clsx"
+import { useContext } from "react"
 
 import { MoonIcon, SunIcon } from "@heroicons/react/solid"
 

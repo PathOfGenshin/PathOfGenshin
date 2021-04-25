@@ -1,7 +1,7 @@
 import React from "react"
 
-import { WelcomeTab } from "@/components/tabs/WelcomeTab"
 import { PartyAddCharacterTab } from "@/components/tabs/PartyAddCharacterTab"
+import { WelcomeTab } from "@/components/tabs/WelcomeTab"
 import { useAppSelector } from "@/store/hooks"
 import { selectCurrentTab, TabFocus } from "@/store/tab/tabSlice"
 
@@ -18,7 +18,7 @@ export const TabbedPanel: React.FC = () => {
   const CurrentTab = TAB_FOCUS_MAPPING[currentTab]
 
   return (
-    <div className="flex p-4">
+    <div className="flex flex-grow m-4 overflow-y-scroll">
       <CurrentTab />
     </div>
   )

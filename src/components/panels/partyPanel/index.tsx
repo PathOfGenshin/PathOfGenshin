@@ -8,9 +8,6 @@ export const PartyPanel: React.FC = () => {
 
   return (
     <div className="relative flex flex-row items-center justify-center py-2">
-      {partySize === 0 && (
-        <div className="absolute bottom-0">No characters in your party.</div>
-      )}
       <SideIcon image="/static/avatar_icon/UI_AvatarIcon_Side_Keqing.png" isSelected />
       {partySize < MAX_PARTY_SIZE && <SideIconAdd />}
     </div>

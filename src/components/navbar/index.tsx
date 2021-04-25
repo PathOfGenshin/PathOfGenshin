@@ -1,8 +1,6 @@
-import { useState } from "react"
-
-import Link from "next/link"
-
 import clsx from "clsx"
+import Link from "next/link"
+import { useState } from "react"
 
 import { SettingsDropdown } from "@/components/navbar/SettingsDropdown"
 import { ToggleDarkMode } from "@/components/theme/ToggleDarkMode"

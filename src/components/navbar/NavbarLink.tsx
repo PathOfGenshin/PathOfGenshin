@@ -1,9 +1,8 @@
+import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
-import clsx from "clsx"
-
-import type { Route } from "../../routes"
+import type { Route } from "@/routes"
 
 export interface NavbarLinkProps extends Route {
   isSmall: boolean
