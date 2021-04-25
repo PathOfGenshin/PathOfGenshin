@@ -1,7 +1,6 @@
 import { client } from "@/api/client"
 import { DATA_ARTIFACTS, DATA_CHARACTERS, DATA_WEAPONS } from "@/api/endpoints"
 import { addArtifacts, addCharacters, addWeapons } from "@/db"
-
 import type { Artifact } from "@/generated/model/artifacts"
 import type { Character } from "@/generated/model/characters"
 import type { Weapon } from "@/generated/model/weapon"

@@ -5,10 +5,7 @@ interface SideIconProps {
   isSelected?: boolean
 }
 
-const SideIcon: React.FC<SideIconProps> = ({
-  image,
-  isSelected,
-}: SideIconProps) => {
+const SideIcon: React.FC<SideIconProps> = ({ image, isSelected }: SideIconProps) => {
   return (
     <div>
       <button className="relative flex items-center justify-center w-24 h-24">

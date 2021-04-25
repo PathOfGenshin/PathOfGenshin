@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+
 import { useIsFetching, useQueryClient } from "react-query"
 
 import { cacheArtifacts, cacheCharacters, cacheWeapons } from "@/api/queries"

@@ -1,13 +1,13 @@
-import "@/styles/globals.scss"
-
 import { AppProps } from "next/app"
 import Head from "next/head"
+
 import { QueryClientProvider } from "react-query"
 import { Provider } from "react-redux"
 
 import { queryClient } from "@/api/client"
 import Layout from "@/components/layouts"
 import { store } from "@/store"
+import "@/styles/globals.scss"
 
 function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
   return (
