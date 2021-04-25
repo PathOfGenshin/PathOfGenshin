@@ -1,0 +1,7 @@
+export enum Quality {
+    QUALITY_S1 = "QUALITY_S1",
+    QUALITY_S2 = "QUALITY_S2",
+    QUALITY_S3 = "QUALITY_S3",
+    QUALITY_S4 = "QUALITY_S4",
+    QUALITY_S5 = "QUALITY_S5",
+}
