@@ -2,7 +2,12 @@ import { useEffect } from "react"
 
 import { useIsFetching, useQueryClient } from "react-query"
 
-import { cacheArtifacts, cacheCharacters, cacheSkillDepots, cacheWeapons } from "@/api/queries"
+import {
+  cacheArtifacts,
+  cacheCharacters,
+  cacheSkillDepots,
+  cacheWeapons,
+} from "@/api/queries"
 import { Divider } from "@/components/Divider"
 import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"

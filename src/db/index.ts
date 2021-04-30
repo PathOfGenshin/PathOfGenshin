@@ -3,10 +3,11 @@ import Dexie from "dexie"
 import { Artifact } from "@/generated/model/artifacts"
 import { Character, CharacterSkillDepot } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
+import { DATABASE_VERSION } from "@/version"
 
 const db = new Dexie("genshindata")
 
-db.version(1.5).stores({
+db.version(DATABASE_VERSION).stores({
   characters: "id",
   artifacts: "id",
   weapons: "id",
