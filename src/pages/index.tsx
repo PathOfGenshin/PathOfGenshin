@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 import { useIsFetching, useQueryClient } from "react-query"
 
-import { cacheArtifacts, cacheCharacters, cacheWeapons } from "@/api/queries"
+import { cacheArtifacts, cacheCharacters, cacheSkillDepots, cacheWeapons } from "@/api/queries"
 import { Divider } from "@/components/Divider"
 import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"
@@ -37,6 +37,7 @@ export const Calculator: React.FC = () => {
     queryClient.prefetchQuery("cacheCharacters", cacheCharacters)
     queryClient.prefetchQuery("cacheWeapons", cacheWeapons)
     queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts)
+    queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots)
   }, [queryClient])
 
   return isFetching > 0 ? <CalculatorLoading /> : <CalculatorLoaded />

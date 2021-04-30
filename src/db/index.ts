@@ -1,7 +1,7 @@
 import Dexie from "dexie"
 
 import { Artifact } from "@/generated/model/artifacts"
-import { Character } from "@/generated/model/characters"
+import { Character, CharacterSkillDepot } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
 
 const db = new Dexie("genshindata")
@@ -10,6 +10,7 @@ db.version(1.5).stores({
   characters: "id",
   artifacts: "id",
   weapons: "id",
+  skillDepots: "id",
 })
 
 // Dexie will automatically call db.open() on first query to the database
@@ -30,6 +31,12 @@ async function saveBulk(tableName: string, data: unknown[]): Promise<void> {
 
 export async function addCharacters(characters: Character[]): Promise<void> {
   return await saveBulk("characters", characters)
+}
+
+export async function addSkillDepots(
+  skillDepots: CharacterSkillDepot[],
+): Promise<void> {
+  return await saveBulk("skillDepots", skillDepots)
 }
 
 export async function addArtifacts(artifacts: Artifact[]): Promise<void> {
