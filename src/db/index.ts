@@ -6,10 +6,10 @@ import { Weapon } from "@/generated/model/weapon"
 
 const db = new Dexie("genshindata")
 
-db.version(1.4).stores({
-  characters: "baseInfo.id",
+db.version(1.5).stores({
+  characters: "id",
   artifacts: "id",
-  weapons: "baseInfo.id",
+  weapons: "id",
 })
 
 // Dexie will automatically call db.open() on first query to the database
