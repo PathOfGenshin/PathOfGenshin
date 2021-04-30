@@ -1,6 +1,6 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
-import { useIsFetching, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 
 import {
   cacheArtifacts,
@@ -13,10 +13,13 @@ import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"
 import { StatusPanel } from "@/components/panels/statusPanel"
 import { TabbedPanel } from "@/components/panels/tabbedPanel"
-
-const CalculatorLoading: React.FC = () => {
-  return <div className="flex items-center justify-center h-full">LOADING...</div>
-}
+import { connectToDatabase, getGameVersion, setGameVersion } from "@/db"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import {
+  selectIsDatabaseLoaded,
+  setDatabaseIsLoaded,
+} from "@/store/settings/settingsSlice"
+import { CURRENT_GAME_VERSION } from "@/version"
 
 const CalculatorLoaded: React.FC = () => {
   return (
@@ -36,16 +39,37 @@ const CalculatorLoaded: React.FC = () => {
 
 export const Calculator: React.FC = () => {
   const queryClient = useQueryClient()
-  const isFetching = useIsFetching()
+  const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
+  const dispatch = useAppDispatch()
+
+  const loadDatabase = useCallback(async (): Promise<void> => {
+    if (!isDatabaseLoaded) {
+      await connectToDatabase()
+      const gameVersion = await getGameVersion()
+
+      // Create database if it does not exist, or the game version is outdated
+      if (gameVersion === undefined || gameVersion < CURRENT_GAME_VERSION) {
+        await Promise.all([
+          queryClient.prefetchQuery("cacheCharacters", cacheCharacters),
+          queryClient.prefetchQuery("cacheWeapons", cacheWeapons),
+          queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts),
+          queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots),
+          // TODO: add the rest of the game data .json files
+        ])
+        await setGameVersion(CURRENT_GAME_VERSION)
+        console.log("Updating database data.")
+      }
+
+      dispatch(setDatabaseIsLoaded(true))
+      console.log("Database loaded.")
+    }
+  }, [dispatch, queryClient, isDatabaseLoaded])
 
   useEffect(() => {
-    queryClient.prefetchQuery("cacheCharacters", cacheCharacters)
-    queryClient.prefetchQuery("cacheWeapons", cacheWeapons)
-    queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts)
-    queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots)
-  }, [queryClient])
+    loadDatabase()
+  }, [loadDatabase])
 
-  return isFetching > 0 ? <CalculatorLoading /> : <CalculatorLoaded />
+  return <CalculatorLoaded />
 }
 
 export default Calculator

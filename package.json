@@ -23,7 +23,7 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
-    "dexie": "3.1.0-alpha.9",
+    "dexie": "3.1.0-alpha.10",
     "dexie-react-hooks": "^1.0.6",
     "lodash": "^4.17.21",
     "next": "10.2.0",
