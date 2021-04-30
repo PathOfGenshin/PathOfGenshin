@@ -1,10 +1,6 @@
-import { Ascension } from "./ascension"
-import {
-  CharacterConstellation,
-  CharacterPassive,
-  CharacterSkill,
-} from "./character_skills"
-import { PropCurve } from "./stat_curves"
+import { CharacterSkill, CharacterConstellation, CharacterPassive } from "./character_skills";
+import { PropCurve } from "./stat_curves";
+import { Ascension } from "./ascension";
 
 export enum VisionType {
     Anemo = "Anemo",
@@ -49,16 +45,6 @@ export interface CharacterAssets {
     skillBurst: string;
 }
 
-export interface CharacterInfo {
-    id: number;
-    name: string;
-    quality: number;
-    element: string;
-    weaponType: string;
-    icon: string;
-    sideIcon: string;
-}
-
 export interface CharacterSkillDepot {
     id: number;
     skills: CharacterSkill[];
@@ -67,10 +53,16 @@ export interface CharacterSkillDepot {
 }
 
 export interface Character {
-    baseInfo: CharacterInfo;
+    id: number;
+    name: string;
+    quality: number;
+    element: string;
+    weaponType: string;
+    icon: string;
+    sideIcon: string;
     metadata: CharacterMetadata;
     baseStats: CharacterBaseStats;
     props: PropCurve[];
-    skillDepots: CharacterSkillDepot[];
+    skillDepotIds: number[];
     ascensions: Ascension[];
 }

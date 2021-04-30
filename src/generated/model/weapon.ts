@@ -1,5 +1,5 @@
-import { Ascension } from "./ascension"
-import { PropCurve } from "./stat_curves"
+import { PropCurve } from "./stat_curves";
+import { Ascension } from "./ascension";
 
 export enum WeaponType {
     WEAPON_SWORD_ONE_HAND = "WEAPON_SWORD_ONE_HAND",
@@ -9,7 +9,7 @@ export enum WeaponType {
     WEAPON_BOW = "WEAPON_BOW",
 }
 
-export interface WeaponInfo {
+export interface Weapon {
     id: number;
     name: string;
     weaponType: WeaponType;
@@ -17,10 +17,6 @@ export interface WeaponInfo {
     description: string;
     icon: string;
     iconAwakened: string;
-}
-
-export interface Weapon {
-    baseInfo: WeaponInfo;
     props: PropCurve[];
     ascensions: Ascension[];
     affixes: number[];

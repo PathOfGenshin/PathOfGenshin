@@ -1,4 +1,4 @@
-import { PropBonus } from "./prop"
+import { PropBonus } from "./prop";
 
 export interface Affix {
     id: number;
