@@ -21,22 +21,6 @@ import {
 } from "@/store/settings/settingsSlice"
 import { CURRENT_GAME_VERSION } from "@/version"
 
-const CalculatorLoaded: React.FC = () => {
-  return (
-    <div className="flex h-content">
-      <StatusPanel />
-      <Divider />
-      <div className="flex flex-col flex-grow">
-        <PartyPanel />
-        <Divider horizontal />
-        <TabbedPanel />
-      </div>
-      <Divider />
-      <RightPanel />
-    </div>
-  )
-}
-
 export const Calculator: React.FC = () => {
   const queryClient = useQueryClient()
   const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
@@ -69,7 +53,19 @@ export const Calculator: React.FC = () => {
     loadDatabase()
   }, [loadDatabase])
 
-  return <CalculatorLoaded />
+  return (
+    <div className="flex h-full">
+      <StatusPanel />
+      <Divider />
+      <div className="flex flex-col flex-grow">
+        <PartyPanel />
+        <Divider horizontal />
+        <TabbedPanel />
+      </div>
+      <Divider />
+      <RightPanel />
+    </div>
+  )
 }
 
 export default Calculator

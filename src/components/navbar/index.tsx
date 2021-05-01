@@ -12,12 +12,14 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid"
 import { Logo } from "./Logo"
 import { NavbarLink } from "./NavbarLink"
 
-export const NavBar: React.FC = () => {
+export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  className,
+}: React.HTMLAttributes<HTMLElement>) => {
   const [hamburgerEnabled, setHamburgerEnabled] = useState(false)
   const toggleHamburger = (): void => setHamburgerEnabled(!hamburgerEnabled)
 
   return (
-    <nav className="bg-gray-800 shadow-md dark:bg-g-dark-800">
+    <nav className={clsx("bg-gray-800 dark:bg-g-dark-800", className)}>
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

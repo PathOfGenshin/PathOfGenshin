@@ -28,7 +28,7 @@ const AvatarIcon: React.FC<AvatarIconProps> = ({
             alt={charName}
           />
         </div>
-        <div className="h-6 text-sm leading-6 rounded-b-md font-genshin bg-g-paper text-g-paper-0">
+        <div className="h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0">
           {charName}
         </div>
       </div>

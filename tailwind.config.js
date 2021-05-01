@@ -37,7 +37,6 @@ module.exports = {
       height: {
         18: "4.5rem",
         38: "9.5rem",
-        "content": "calc(100vh - 64px)"
       },
       maxWidth: {
         82: "20.5rem",
