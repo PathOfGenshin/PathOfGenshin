@@ -11,9 +11,10 @@ export const PartyPanel: React.FC = () => {
       <SideIcon
         iconName="UI_AvatarIcon_Side_Keqing"
         charName="Keqing"
-        isSelected
         rarity={5}
+        isSelected
       />
+      <SideIcon iconName="UI_AvatarIcon_Side_Klee" charName="Klee" rarity={5} />
       {partySize < MAX_PARTY_SIZE && <SideIconAdd />}
     </div>
   )

@@ -11,16 +11,19 @@ export const PartyAddCharacterTab: React.FC = () => {
   if (!allCharacters) return null
 
   return (
-    <div className="mx-auto 2xl:max-w-4xl">
-      {allCharacters.map((char: Character) => (
-        <div key={char.id} className="inline-block m-2">
-          <AvatarIcon
-            charName={char.name}
-            iconName={char.icon}
-            rarity={char.quality as Rarity}
-          />
-        </div>
-      ))}
+    <div className="max-w-4xl mx-auto space-y-2">
+      <div className="font-semibold">Select a character to add to your party.</div>
+      <div>
+        {allCharacters.map((char: Character) => (
+          <div key={char.id} className="inline-block m-2">
+            <AvatarIcon
+              charName={char.name}
+              iconName={char.icon}
+              rarity={char.quality as Rarity}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
