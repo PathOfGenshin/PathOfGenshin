@@ -6,10 +6,12 @@ export const MAX_PARTY_SIZE = 4
 
 interface PartyState {
   characterIds: number[]
+  currentCharacterId: number | null
 }
 
 const initialState: PartyState = {
   characterIds: [],
+  currentCharacterId: null,
 }
 
 export const partySlice = createSlice({
@@ -35,19 +37,29 @@ export const partySlice = createSlice({
       }
 
       const id: number = action.payload
-      const index = state.characterIds.indexOf(id)
+      const index: number = state.characterIds.indexOf(id)
       if (index > -1) {
         state.characterIds = state.characterIds.splice(index, 1)
+      }
+    },
+
+    // Set current character
+    setCurrentCharacter: (state, action: PayloadAction<number>) => {
+      const partyIndex: number = action.payload
+      if (partyIndex < state.characterIds.length) {
+        const characterIdAtIndex: number = state.characterIds[partyIndex]
+        state.currentCharacterId = characterIdAtIndex
       }
     },
   },
 })
 
-export const { addCharacter, removeCharacter } = partySlice.actions
+export const { addCharacter, removeCharacter, setCurrentCharacter } = partySlice.actions
 
-export const selectPartySize = (state: RootState): number =>
-  state.party.characterIds.length
+export const selectCharacterIds = (state: RootState): number[] =>
+  state.party.characterIds
 
-export const selectIds = (state: RootState): number[] => state.party.characterIds
+export const selectCurrentCharacter = (state: RootState): number =>
+  state.party.currentCharacterId
 
 export default partySlice.reducer

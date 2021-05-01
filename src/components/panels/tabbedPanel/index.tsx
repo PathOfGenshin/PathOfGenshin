@@ -1,5 +1,6 @@
 import React from "react"
 
+import { CurrentCharacterTab } from "@/components/tabs/CurrentCharacterTab"
 import { PartyAddCharacterTab } from "@/components/tabs/PartyAddCharacterTab"
 import { WelcomeTab } from "@/components/tabs/WelcomeTab"
 import { useAppSelector } from "@/store/hooks"
@@ -10,6 +11,7 @@ const TAB_FOCUS_MAPPING: Record<TabFocus, React.FC> = {
   [TabFocus.PARTY_ADD_CHARACTER]: PartyAddCharacterTab,
   [TabFocus.WEAPON]: WelcomeTab,
   [TabFocus.ARTIFACTS]: WelcomeTab,
+  [TabFocus.CURRENT_CHARACTER]: CurrentCharacterTab,
 }
 
 export const TabbedPanel: React.FC = () => {

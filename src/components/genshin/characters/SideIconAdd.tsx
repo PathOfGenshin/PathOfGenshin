@@ -4,6 +4,7 @@ import { PlusIcon } from "@heroicons/react/solid"
 
 const SideIconAdd: React.FC = () => {
   const dispatch = useAppDispatch()
+
   const switchToCharacterSelection = (): void => {
     dispatch(setTab(TabFocus.PARTY_ADD_CHARACTER))
   }

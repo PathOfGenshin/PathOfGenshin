@@ -8,13 +8,17 @@ const SideIcon: React.FC<AvatarIconProps> = ({
   iconName,
   charName,
   isSelected,
+  onClick,
+  "data-index": dataIndex,
 }: AvatarIconProps) => {
   return (
     <button
+      data-index={dataIndex}
       className={clsx(
         "relative flex items-center justify-center w-24 h-24 transition-transform duration-100 transform focus:outline-none hover:scale-110",
         isSelected ? "scale-110" : "scale-100",
       )}
+      onClick={onClick}
     >
       <div
         className={clsx(

@@ -80,7 +80,14 @@ export async function addWeapons(weapons: Weapon[]): Promise<void> {
 }
 
 export const queryAllCharacters = (): Promise<Character[]> =>
-  db.table("characters").toArray()
+  db.table(TableName.CHARACTERS).toArray()
+
+export const queryCharactersByIds = (ids: number[]) => async (): Promise<
+  Character[]
+> => {
+  const charIds = (await db.table(TableName.CHARACTERS).bulkGet(ids)) as Character[]
+  return charIds
+}
 
 /**
  * Connects to the IndexedDB database and returns the native database version.

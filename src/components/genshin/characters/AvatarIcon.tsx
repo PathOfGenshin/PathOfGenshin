@@ -6,9 +6,15 @@ const AvatarIcon: React.FC<AvatarIconProps> = ({
   iconName,
   charName,
   rarity,
+  onClick,
+  "data-id": dataId,
 }: AvatarIconProps) => {
   return (
-    <button className="relative block w-24 transition-all duration-75 transform rounded-md shadow-md focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-50 focus:scale-105 hover:scale-105">
+    <button
+      data-id={dataId}
+      className="relative block w-24 transition-all duration-75 transform rounded-md shadow-md focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-50 focus:scale-105 hover:scale-105"
+      onClick={onClick}
+    >
       <img
         className="absolute w-full rounded-md pointer-events-none select-none opacity-80"
         src={rarityBackground(rarity)}

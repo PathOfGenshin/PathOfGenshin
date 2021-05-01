@@ -7,6 +7,7 @@ export enum TabFocus {
   PARTY_ADD_CHARACTER,
   WEAPON,
   ARTIFACTS,
+  CURRENT_CHARACTER,
 }
 
 interface TabState {
