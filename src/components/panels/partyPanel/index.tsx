@@ -8,7 +8,12 @@ export const PartyPanel: React.FC = () => {
 
   return (
     <div className="relative flex flex-row items-center justify-center py-2">
-      <SideIcon image="/static/avatar_icon/UI_AvatarIcon_Side_Keqing.png" isSelected />
+      <SideIcon
+        iconName="UI_AvatarIcon_Side_Keqing"
+        charName="Keqing"
+        isSelected
+        rarity={5}
+      />
       {partySize < MAX_PARTY_SIZE && <SideIconAdd />}
     </div>
   )

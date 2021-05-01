@@ -1,11 +1,14 @@
 import clsx from "clsx"
 
-interface SideIconProps {
-  image: string
-  isSelected?: boolean
-}
+import { avatarIcon } from "@/assets/static"
 
-const SideIcon: React.FC<SideIconProps> = ({ image, isSelected }: SideIconProps) => {
+import { AvatarIconProps } from "./icon"
+
+const SideIcon: React.FC<AvatarIconProps> = ({
+  iconName,
+  charName,
+  isSelected,
+}: AvatarIconProps) => {
   return (
     <div>
       <button className="relative flex items-center justify-center w-24 h-24">
@@ -19,8 +22,8 @@ const SideIcon: React.FC<SideIconProps> = ({ image, isSelected }: SideIconProps)
         ></div>
         <img
           className="absolute w-24 h-24 select-none -top-4"
-          src={image}
-          alt="Avatar"
+          src={avatarIcon(iconName)}
+          alt={charName}
         />
       </button>
     </div>

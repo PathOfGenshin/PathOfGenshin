@@ -1,5 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks"
 
+import { Rarity } from "@/assets/static"
+import AvatarIcon from "@/components/genshin/characters/AvatarIcon"
 import { queryAllCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"
 
@@ -9,13 +11,13 @@ export const PartyAddCharacterTab: React.FC = () => {
   if (!allCharacters) return null
 
   return (
-    <div className="flex flex-row flex-wrap justify-evenly">
+    <div className="mx-auto 2xl:max-w-4xl">
       {allCharacters.map((char: Character) => (
-        <div key={char.id} className="block">
-          <img
-            className="w-24 h-24"
-            src={`/static/avatar_icon/${char.icon}.png`}
-            alt={char.name}
+        <div key={char.id} className="inline-block m-2">
+          <AvatarIcon
+            charName={char.name}
+            iconName={char.icon}
+            rarity={char.quality as Rarity}
           />
         </div>
       ))}
