@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { selectCurrentTab, setTab, TabFocus } from "@/store/tab/tabSlice"
 import { PlusIcon } from "@heroicons/react/solid"
 
-const SideIconAdd: React.FC = () => {
+const AddCharacterIcon: React.FC = () => {
   const currentTab: TabFocus = useAppSelector(selectCurrentTab)
   const dispatch = useAppDispatch()
 
@@ -27,4 +27,4 @@ const SideIconAdd: React.FC = () => {
   )
 }
 
-export default SideIconAdd
+export default AddCharacterIcon

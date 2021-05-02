@@ -3,8 +3,8 @@ import { useCallback } from "react"
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { Rarity } from "@/assets/static"
-import SideIcon from "@/components/genshin/characters/SideIcon"
-import SideIconAdd from "@/components/genshin/characters/SideIconAdd"
+import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
+import SideIconAdd from "@/components/genshin/characters/AddCharacterIcon"
 import { queryCharactersByIds } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
@@ -35,7 +35,7 @@ export const PartyPanel: React.FC = () => {
     <div className="flex flex-row max-w-xs py-2 m-auto overflow-x-auto md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
       {partyCharacters &&
         partyCharacters.map((char: Character, index: number) => (
-          <SideIcon
+          <AvatarSideIcon
             data-index={index}
             key={char.id}
             iconName={char.sideIcon}

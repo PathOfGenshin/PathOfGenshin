@@ -4,7 +4,7 @@ import { avatarIcon } from "@/assets/static"
 
 import { AvatarIconProps } from "./icon"
 
-const SideIcon: React.FC<AvatarIconProps> = ({
+const AvatarSideIcon: React.FC<AvatarIconProps> = ({
   iconName,
   charName,
   isSelected,
@@ -49,4 +49,4 @@ const SideIcon: React.FC<AvatarIconProps> = ({
   )
 }
 
-export default SideIcon
+export default AvatarSideIcon

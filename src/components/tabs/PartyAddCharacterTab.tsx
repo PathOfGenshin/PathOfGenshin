@@ -75,17 +75,16 @@ export const PartyAddCharacterTab: React.FC = () => {
         >
           {allCharacters &&
             allCharacters.map((char: Character) => (
-              <div key={char.id} className="w-24">
-                <AvatarIcon
-                  data-id={char.id}
-                  data-name={char.name}
-                  charName={char.name}
-                  iconName={char.icon}
-                  rarity={char.quality as Rarity}
-                  onClick={selectCharacter}
-                  isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
-                />
-              </div>
+              <AvatarIcon
+                key={char.id}
+                data-id={char.id}
+                data-name={char.name}
+                charName={char.name}
+                iconName={char.icon}
+                rarity={char.quality as Rarity}
+                onClick={selectCharacter}
+                isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+              />
             ))}
         </div>
         <ConfirmationDialog
