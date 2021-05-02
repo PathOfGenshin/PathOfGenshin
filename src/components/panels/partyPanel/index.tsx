@@ -32,7 +32,7 @@ export const PartyPanel: React.FC = () => {
   )
 
   return (
-    <div className="relative flex flex-row items-center justify-center py-2">
+    <div className="flex flex-row max-w-xs py-2 m-auto overflow-x-auto md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
       {partyCharacters &&
         partyCharacters.map((char: Character, index: number) => (
           <SideIcon

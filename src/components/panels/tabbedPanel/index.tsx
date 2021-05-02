@@ -19,7 +19,7 @@ export const TabbedPanel: React.FC = () => {
   const CurrentTab = TAB_FOCUS_MAPPING[currentTab]
 
   return (
-    <div className="flex flex-grow m-4 overflow-y-scroll">
+    <div className="flex flex-grow m-4 lg:overflow-y-scroll">
       <CurrentTab />
     </div>
   )

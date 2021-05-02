@@ -54,7 +54,7 @@ export const Calculator: React.FC = () => {
   }, [loadDatabase])
 
   return (
-    <div className="flex h-full">
+    <div className="flex flex-col h-full lg:flex-row">
       <StatusPanel />
       <Divider />
       <div className="flex flex-col flex-grow">
