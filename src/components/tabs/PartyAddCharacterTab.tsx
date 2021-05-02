@@ -50,7 +50,6 @@ export const PartyAddCharacterTab: React.FC = () => {
   useEffect(() => {
     if (!dialogOpen && wantedCharacter !== null) {
       wantedCharacter.targetElement.blur()
-      setWantedCharacter(null)
     }
   }, [dialogOpen, wantedCharacter])
 
@@ -84,7 +83,7 @@ export const PartyAddCharacterTab: React.FC = () => {
                   iconName={char.icon}
                   rarity={char.quality as Rarity}
                   onClick={selectCharacter}
-                  isFocused={wantedCharacter?.id === char.id ?? false}
+                  isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
                 />
               </div>
             ))}
