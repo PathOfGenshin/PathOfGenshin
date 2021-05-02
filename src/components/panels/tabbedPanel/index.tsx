@@ -16,7 +16,6 @@ const TAB_FOCUS_MAPPING: Record<TabFocus, React.FC> = {
 
 export const TabbedPanel: React.FC = () => {
   const currentTab: TabFocus = useAppSelector(selectCurrentTab)
-
   const CurrentTab = TAB_FOCUS_MAPPING[currentTab]
 
   return (

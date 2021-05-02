@@ -9,10 +9,14 @@ const SideIcon: React.FC<AvatarIconProps> = ({
   charName,
   isSelected,
   onClick,
+  "data-id": dataId,
+  "data-name": dataName,
   "data-index": dataIndex,
 }: AvatarIconProps) => {
   return (
     <button
+      data-id={dataId}
+      data-name={dataName}
       data-index={dataIndex}
       className={clsx(
         "relative flex items-center justify-center w-24 h-24 transition-transform duration-100 transform focus:outline-none hover:scale-110",
@@ -35,8 +39,8 @@ const SideIcon: React.FC<AvatarIconProps> = ({
       />
       <div
         className={clsx(
-          "absolute bottom-0 transition-all duration-100 h-1.5",
-          isSelected ? "w-full bg-g-char-selected" : "w-0 opacity-0",
+          "absolute bottom-0 transition duration-100 h-1.5",
+          isSelected ? "w-full bg-g-char-selected-fill" : "w-0 opacity-0",
         )}
       ></div>
     </button>
