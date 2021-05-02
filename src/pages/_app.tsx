@@ -1,3 +1,4 @@
+import { ThemeProvider } from "next-themes"
 import { AppProps } from "next/app"
 import Head from "next/head"
 
@@ -19,13 +20,15 @@ function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </Provider>
-      </QueryClientProvider>
+      <ThemeProvider attribute="class">
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Provider>
+        </QueryClientProvider>
+      </ThemeProvider>
     </>
   )
 }

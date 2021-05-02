@@ -1,19 +1,19 @@
-import { useContext } from "react"
+import { useCallback } from "react"
+
+import { useTheme } from "next-themes"
 
 import clsx from "clsx"
 
 import { MoonIcon, SunIcon } from "@heroicons/react/solid"
 
-import { ThemeContext } from "./themeContext"
-
 export const ToggleDarkMode: React.FC = () => {
-  const { theme, setTheme } = useContext(ThemeContext)
+  const { theme, setTheme } = useTheme()
 
   const isDarkTheme = theme === "dark"
 
-  const toggleTheme = (): void => {
+  const toggleTheme = useCallback((): void => {
     setTheme(isDarkTheme ? "light" : "dark")
-  }
+  }, [isDarkTheme, setTheme])
 
   return (
     <button
