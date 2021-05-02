@@ -37,12 +37,13 @@ module.exports = {
         "g-talent-lvlboost": "#00ffff",
       },
       fontFamily: {
-        genshin: ["Genshin", "sans-serif"],
+        genshin: ["Genshin", "serif"],
       },
       maxHeight: {
         38: "9.5rem",
       },
       height: {
+        7.5: "1.875rem",
         18: "4.5rem",
         38: "9.5rem",
       },
@@ -53,11 +54,12 @@ module.exports = {
         18: "4.5rem",
         82: "20.5rem",
       },
-      letterSpacing: {
-        card: "-0.0375em",
+      lineHeight: {
+        7.5: "1.875rem",
       },
       gridTemplateColumns: {
         "auto-icon-6": "repeat(auto-fit, 6rem)",
+        "auto-icon-8": "repeat(auto-fit, 8rem)",
       },
     },
   },

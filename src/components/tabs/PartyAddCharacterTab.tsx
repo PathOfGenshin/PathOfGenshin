@@ -66,10 +66,10 @@ export const PartyAddCharacterTab: React.FC = () => {
         )}
       </div>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div
           className={clsx(
-            "grid justify-center gap-4 transition-opacity duration-1000 grid-cols-auto-icon-6",
+            "grid justify-center gap-4 transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
             partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
           )}
         >

@@ -1,6 +1,7 @@
 import clsx from "clsx"
 
 import { avatarIcon } from "@/assets/static"
+import styles from "@/styles/image.module.scss"
 
 import { AvatarIconProps } from "./icon"
 
@@ -34,7 +35,10 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = ({
           )}
         ></div>
         <img
-          className="absolute w-24 h-24 pointer-events-none select-none -top-4"
+          className={clsx(
+            "absolute w-24 h-24 pointer-events-none select-none -top-4",
+            styles.imgCrisp,
+          )}
           src={avatarIcon(iconName)}
           alt={charName}
         />
