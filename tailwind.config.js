@@ -56,6 +56,9 @@ module.exports = {
       letterSpacing: {
         card: "-0.0375em",
       },
+      gridTemplateColumns: {
+        "auto-icon-6": "repeat(auto-fit, 6rem)",
+      },
     },
   },
   variants: {

@@ -69,13 +69,13 @@ export const PartyAddCharacterTab: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <div
           className={clsx(
-            "transition-opacity duration-1000",
+            "grid justify-center gap-4 transition-opacity duration-1000 grid-cols-auto-icon-6",
             partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
           )}
         >
           {allCharacters &&
             allCharacters.map((char: Character) => (
-              <div key={char.id} className="inline-block m-2">
+              <div key={char.id} className="w-24">
                 <AvatarIcon
                   data-id={char.id}
                   data-name={char.name}
