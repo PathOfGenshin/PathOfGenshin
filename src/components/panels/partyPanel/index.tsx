@@ -25,7 +25,6 @@ export const PartyPanel: React.FC = () => {
 
   const setCharacter = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      console.log(event.currentTarget.dataset)
       dispatch(setCurrentCharacter(parseInt(event.currentTarget.dataset["index"])))
     },
     [dispatch],
