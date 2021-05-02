@@ -55,8 +55,8 @@ export const PartyAddCharacterTab: React.FC = () => {
   }, [dialogOpen, wantedCharacter])
 
   return (
-    <div className="max-w-4xl mx-auto space-y-2">
-      <div className="font-semibold">
+    <div className="w-full space-y-2">
+      <div className="font-semibold text-center">
         {partyIds.length < MAX_PARTY_SIZE ? (
           <>Select a character to add to your party.</>
         ) : (
@@ -67,36 +67,38 @@ export const PartyAddCharacterTab: React.FC = () => {
         )}
       </div>
 
-      <div
-        className={clsx(
-          "transition-opacity duration-1000",
-          partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
-        )}
-      >
-        {allCharacters &&
-          allCharacters.map((char: Character) => (
-            <div key={char.id} className="inline-block m-2">
-              <AvatarIcon
-                data-id={char.id}
-                data-name={char.name}
-                charName={char.name}
-                iconName={char.icon}
-                rarity={char.quality as Rarity}
-                onClick={selectCharacter}
-                isFocused={wantedCharacter?.id === char.id ?? false}
-              />
-            </div>
-          ))}
+      <div className="max-w-4xl mx-auto">
+        <div
+          className={clsx(
+            "transition-opacity duration-1000",
+            partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
+          )}
+        >
+          {allCharacters &&
+            allCharacters.map((char: Character) => (
+              <div key={char.id} className="inline-block m-2">
+                <AvatarIcon
+                  data-id={char.id}
+                  data-name={char.name}
+                  charName={char.name}
+                  iconName={char.icon}
+                  rarity={char.quality as Rarity}
+                  onClick={selectCharacter}
+                  isFocused={wantedCharacter?.id === char.id ?? false}
+                />
+              </div>
+            ))}
+        </div>
+        <ConfirmationDialog
+          description={`Would you like to add ${wantedCharacter?.name} to your team?`}
+          confirmText="Confirm"
+          cancelText="Cancel"
+          confirmAction={addCharacterById}
+          cancelAction={noop}
+          isOpen={dialogOpen}
+          setIsOpen={setDialogOpen}
+        />
       </div>
-      <ConfirmationDialog
-        description={`Would you like to add ${wantedCharacter?.name} to your team?`}
-        confirmText="Confirm"
-        cancelText="Cancel"
-        confirmAction={addCharacterById}
-        cancelAction={noop}
-        isOpen={dialogOpen}
-        setIsOpen={setDialogOpen}
-      />
     </div>
   )
 }
