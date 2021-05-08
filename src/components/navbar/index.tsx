@@ -21,11 +21,11 @@ export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   return (
     <nav className={clsx("bg-gray-800 dark:bg-g-dark-800", className)}>
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <div className="flex relative justify-between items-center h-16">
+          <div className="flex absolute inset-y-0 left-0 items-center sm:hidden">
             {/* Mobile menu button*/}
             <button
-              className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex justify-center items-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               aria-expanded="false"
               onClick={toggleHamburger}
             >
@@ -38,8 +38,8 @@ export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
               />
             </button>
           </div>
-          <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
-            <div className="flex items-center flex-shrink-0">
+          <div className="flex flex-1 justify-center items-center sm:items-stretch sm:justify-start">
+            <div className="flex flex-shrink-0 items-center">
               <Link href="/">
                 <a>
                   <div
@@ -76,7 +76,7 @@ export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="flex absolute inset-y-0 right-0 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Toggle Dark Mode */}
             <ToggleDarkMode />
             {/* Settings dropdown */}
@@ -85,7 +85,7 @@ export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
         </div>
       </div>
       <div className={clsx(hamburgerEnabled ? "block" : "hidden", "sm:hidden")}>
-        <div className="absolute z-10 w-full px-2 pt-2 pb-3 space-y-1 bg-gray-800 shadow-lg dark:bg-g-dark-800">
+        <div className="absolute z-10 px-2 pt-2 pb-3 space-y-1 w-full bg-gray-800 shadow-lg dark:bg-g-dark-800">
           {routes.map((route) => (
             <NavbarLink
               key={route.path}

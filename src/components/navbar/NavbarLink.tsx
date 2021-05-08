@@ -20,7 +20,7 @@ export const NavbarLink: React.FC<NavbarLinkProps> = ({
     <Link href={path}>
       <a
         className={clsx(
-          "block px-3 py-2 font-medium text-white rounded-md hover:bg-gray-700 dark:hover:bg-g-dark-700",
+          "block py-2 px-3 font-medium text-white rounded-md hover:bg-gray-700 dark:hover:bg-g-dark-700",
           isSmall ? "text-sm" : "text-base",
           router.asPath === path ? "bg-gray-900 dark:bg-g-dark-900" : "",
         )}

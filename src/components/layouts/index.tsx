@@ -6,9 +6,9 @@ export interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
-    <div className="relative flex flex-col lg:h-screen">
+    <div className="flex relative flex-col lg:h-screen">
       <NavBar className="absolute w-full h-16 shadow-sm" />
-      <div className="box-border flex-grow h-full pt-16">{children}</div>
+      <div className="flex-grow pt-16 h-full box-border">{children}</div>
     </div>
   )
 }

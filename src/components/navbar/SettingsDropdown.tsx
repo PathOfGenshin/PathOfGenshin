@@ -26,7 +26,7 @@ export const SettingsDropdown: React.FC = () => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                className="absolute right-0 z-10 mt-2 w-56 bg-white rounded-md border border-gray-200 divide-y divide-gray-100 shadow-lg origin-top-right outline-none"
               >
                 <div className="py-1">
                   <Menu.Item>
