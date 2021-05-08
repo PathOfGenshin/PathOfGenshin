@@ -8,6 +8,7 @@ export enum TabFocus {
   WEAPON,
   ARTIFACTS,
   CURRENT_CHARACTER,
+  SETTINGS,
 }
 
 interface TabState {

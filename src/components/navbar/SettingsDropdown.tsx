@@ -1,6 +1,18 @@
+import { useCallback } from "react"
+
+import clsx from "clsx"
+
+import { useAppDispatch } from "@/store/hooks"
+import { setTab, TabFocus } from "@/store/tab/tabSlice"
 import { Menu, Transition } from "@headlessui/react"
 
 export const SettingsDropdown: React.FC = () => {
+  const dispatch = useAppDispatch()
+
+  const switchToSettingsTab = useCallback(() => {
+    dispatch(setTab(TabFocus.SETTINGS))
+  }, [dispatch])
+
   return (
     <div className="relative ml-3">
       <Menu>
@@ -31,14 +43,15 @@ export const SettingsDropdown: React.FC = () => {
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href=""
-                        className={`${
-                          active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                      <button
+                        className={clsx(
+                          "flex justify-between py-2 px-4 w-full text-sm leading-5 text-left",
+                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        )}
+                        onClick={switchToSettingsTab}
                       >
                         Settings
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 </div>

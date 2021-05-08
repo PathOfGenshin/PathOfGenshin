@@ -5,11 +5,11 @@ import clsx from "clsx"
 import { Dialog, Transition } from "@headlessui/react"
 
 interface ConfirmationDialogProps {
-  title?: string
-  description: string
-  confirmText: string
+  title?: React.ReactNode
+  description: React.ReactNode
+  confirmText: React.ReactNode
   confirmAction: MouseEventHandler<HTMLButtonElement>
-  cancelText?: string
+  cancelText?: React.ReactNode
   cancelAction?: MouseEventHandler<HTMLButtonElement>
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
