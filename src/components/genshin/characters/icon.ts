@@ -11,4 +11,5 @@ export interface AvatarIconProps {
   rarity: Rarity
   isSelected?: boolean
   onClick?: MouseEventHandler<HTMLButtonElement>
+  disabled?: boolean
 }

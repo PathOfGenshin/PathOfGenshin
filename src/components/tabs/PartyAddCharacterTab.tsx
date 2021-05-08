@@ -54,7 +54,7 @@ export const PartyAddCharacterTab: React.FC = () => {
   }, [dialogOpen, wantedCharacter])
 
   return (
-    <div className="w-full space-y-2">
+    <div className="space-y-2 w-full">
       <div className="font-semibold text-center">
         {partyIds.length < MAX_PARTY_SIZE ? (
           <>Select a character to add to your party.</>
@@ -66,10 +66,10 @@ export const PartyAddCharacterTab: React.FC = () => {
         )}
       </div>
 
-      <div className="max-w-5xl mx-auto">
+      <div className="mx-auto max-w-5xl">
         <div
           className={clsx(
-            "grid justify-center gap-4 transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
+            "grid gap-4 justify-center transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
             partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
           )}
         >
@@ -84,6 +84,7 @@ export const PartyAddCharacterTab: React.FC = () => {
                 rarity={char.quality as Rarity}
                 onClick={selectCharacter}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+                disabled={partyIds.includes(char.id)}
               />
             ))}
         </div>
