@@ -59,7 +59,7 @@ export const { addCharacter, removeCharacter, setCurrentCharacter } = partySlice
 export const selectCharacterIds = (state: RootState): number[] =>
   state.party.characterIds
 
-export const selectCurrentCharacter = (state: RootState): number =>
+export const selectCurrentCharacter = (state: RootState): number | null =>
   state.party.currentCharacterId
 
 export default partySlice.reducer

@@ -19,7 +19,7 @@ import { setTab, TabFocus } from "@/store/tab/tabSlice"
 export const PartyPanel: React.FC = () => {
   const dispatch = useAppDispatch()
   const partyIds: number[] = useAppSelector(selectCharacterIds)
-  const currentCharacterId: number = useAppSelector(selectCurrentCharacter)
+  const currentCharacterId: number | null = useAppSelector(selectCurrentCharacter)
   const partyCharacters: Character[] = useLiveQuery(queryCharactersByIds(partyIds), [
     partyIds,
   ])

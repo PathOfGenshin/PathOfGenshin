@@ -22,9 +22,11 @@ const AddCharacterIcon: React.FC<AddCharacterIconProps> = ({
     <button
       disabled={disabled}
       className={clsx(
-        "flex relative justify-center items-center w-24 h-24 transition duration-100 transform text-g-dark-2 hover:text-g-char-selected focus:outline-none focus:scale-110 focus:text-g-char-selected",
+        "flex relative justify-center items-center w-24 h-24 transition duration-100 transform text-g-dark-2 focus:outline-none focus:scale-110 focus:text-g-char-selected",
         currentTab === TabFocus.PARTY_ADD_CHARACTER ? "text-g-char-selected" : "",
-        disabled ? "opacity-30" : "hover:scale-110 opacity-100",
+        disabled
+          ? "opacity-30"
+          : "hover:text-g-char-selected hover:scale-110 opacity-100",
       )}
       onClick={switchToCharacterSelection}
     >

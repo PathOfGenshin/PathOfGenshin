@@ -85,8 +85,17 @@ export const queryAllCharacters = (): Promise<Character[]> =>
 export const queryCharactersByIds = (ids: number[]) => async (): Promise<
   Character[]
 > => {
-  const charIds = (await db.table(TableName.CHARACTERS).bulkGet(ids)) as Character[]
-  return charIds
+  const characters = (await db.table(TableName.CHARACTERS).bulkGet(ids)) as Character[]
+  return characters
+}
+
+export const queryCharacterById = (
+  id: number | null,
+) => async (): Promise<Character | null> => {
+  if (id === null) return null
+
+  const character = (await db.table(TableName.CHARACTERS).get(id)) as Character
+  return character
 }
 
 /**
