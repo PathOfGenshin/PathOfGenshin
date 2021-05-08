@@ -14,6 +14,7 @@ import {
   selectCurrentCharacter,
   setCurrentCharacter,
 } from "@/store/party/partySlice"
+import { setTab, TabFocus } from "@/store/tab/tabSlice"
 
 export const PartyPanel: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -26,6 +27,7 @@ export const PartyPanel: React.FC = () => {
   const setCharacter = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(setCurrentCharacter(parseInt(event.currentTarget.dataset["index"])))
+      dispatch(setTab(TabFocus.CURRENT_CHARACTER))
     },
     [dispatch],
   )
