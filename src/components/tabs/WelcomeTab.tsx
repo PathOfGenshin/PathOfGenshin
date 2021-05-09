@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react"
 
-import { useDispatch } from "react-redux"
+// import { useAppDispatch } from "react-redux"
 
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
-import { useAppSelector } from "@/store/hooks"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   selectTravelerGender,
   setTravelerGender,
@@ -11,7 +11,7 @@ import {
 } from "@/store/settings/settingsSlice"
 
 export const WelcomeTab: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const travelerGender: TravelerGender | null = useAppSelector(selectTravelerGender)
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
