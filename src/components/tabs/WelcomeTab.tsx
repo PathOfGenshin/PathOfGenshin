@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
 
-// import { useAppDispatch } from "react-redux"
-
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
