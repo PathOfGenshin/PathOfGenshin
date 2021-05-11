@@ -9,11 +9,11 @@ import { MoonIcon, SunIcon } from "@heroicons/react/solid"
 export const ToggleDarkMode: React.FC = () => {
   const { theme, setTheme } = useTheme()
 
-  const isDarkTheme = theme === "dark"
+  const isLightTheme = theme === "light"
 
-  const toggleTheme = useCallback((): void => {
-    setTheme(isDarkTheme ? "light" : "dark")
-  }, [isDarkTheme, setTheme])
+  const toggleTheme = useCallback(() => {
+    setTheme(isLightTheme ? "dark" : "light")
+  }, [isLightTheme, setTheme])
 
   return (
     <button
@@ -21,8 +21,8 @@ export const ToggleDarkMode: React.FC = () => {
       onClick={toggleTheme}
     >
       <span className="sr-only">Toggle Dark Mode</span>
-      <SunIcon className={clsx(isDarkTheme ? "block" : "hidden", "h-8 w-8")} />
-      <MoonIcon className={clsx(isDarkTheme ? "hidden" : "block", "h-8 w-8")} />
+      <SunIcon className={clsx(isLightTheme ? "hidden" : "block", "h-8 w-8")} />
+      <MoonIcon className={clsx(isLightTheme ? "block" : "hidden", "h-8 w-8")} />
     </button>
   )
 }
