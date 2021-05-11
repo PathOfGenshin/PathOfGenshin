@@ -28,9 +28,7 @@ export const SettingsDropdown: React.FC = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items
-                className="absolute right-0 z-10 mt-2 w-56 bg-white rounded-md border border-gray-200 divide-y divide-gray-100 shadow-lg origin-top-right outline-none"
-              >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 bg-white rounded-md border border-gray-200 divide-y divide-gray-100 shadow-lg origin-top-right outline-none">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (

@@ -72,11 +72,8 @@ export const partySlice = createSlice({
   },
 })
 
-export const {
-  addCharacter,
-  removeCharacterById,
-  setCurrentCharacter,
-} = partySlice.actions
+export const { addCharacter, removeCharacterById, setCurrentCharacter } =
+  partySlice.actions
 
 export const selectCharacterIds = (state: RootState): number[] =>
   state.party.characterIds

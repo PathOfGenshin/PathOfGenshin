@@ -82,21 +82,21 @@ export async function addWeapons(weapons: Weapon[]): Promise<void> {
 export const queryAllCharacters = (): Promise<Character[]> =>
   db.table(TableName.CHARACTERS).toArray()
 
-export const queryCharactersByIds = (ids: number[]) => async (): Promise<
-  Character[]
-> => {
-  const characters = (await db.table(TableName.CHARACTERS).bulkGet(ids)) as Character[]
-  return characters
-}
+export const queryCharactersByIds =
+  (ids: number[]) => async (): Promise<Character[]> => {
+    const characters = (await db
+      .table(TableName.CHARACTERS)
+      .bulkGet(ids)) as Character[]
+    return characters
+  }
 
-export const queryCharacterById = (
-  id: number | null,
-) => async (): Promise<Character | null> => {
-  if (id === null) return null
+export const queryCharacterById =
+  (id: number | null) => async (): Promise<Character | null> => {
+    if (id === null) return null
 
-  const character = (await db.table(TableName.CHARACTERS).get(id)) as Character
-  return character
-}
+    const character = (await db.table(TableName.CHARACTERS).get(id)) as Character
+    return character
+  }
 
 /**
  * Connects to the IndexedDB database and returns the native database version.
