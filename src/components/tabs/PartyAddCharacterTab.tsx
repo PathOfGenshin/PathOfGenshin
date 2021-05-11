@@ -43,7 +43,7 @@ export const PartyAddCharacterTab: React.FC = () => {
   }
 
   const addCharacterById = useCallback(() => {
-    dispatch(addCharacter(wantedCharacter.id))
+    dispatch(addCharacter({ id: wantedCharacter.id, name: wantedCharacter.name }))
   }, [dispatch, wantedCharacter])
 
   // Clear and unfocus the wanted character

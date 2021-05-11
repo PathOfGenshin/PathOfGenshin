@@ -11,12 +11,12 @@ import { useAppSelector } from "@/store/hooks"
 import {
   MAX_PARTY_SIZE,
   selectCharacterIds,
-  selectCurrentCharacter,
+  selectCurrentCharacterId,
 } from "@/store/party/partySlice"
 
 export const PartyPanel: React.FC = () => {
   const partyIds: number[] = useAppSelector(selectCharacterIds)
-  const currentCharacterId: number | null = useAppSelector(selectCurrentCharacter)
+  const currentCharacterId: number | null = useAppSelector(selectCurrentCharacterId)
   const partyCharacters: Character[] = useLiveQuery(queryCharactersByIds(partyIds), [
     partyIds,
   ])
@@ -25,7 +25,7 @@ export const PartyPanel: React.FC = () => {
     <div className="flex overflow-x-auto flex-row py-2 m-auto max-w-xs md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
       {partyCharacters &&
         partyCharacters.map((char: Character) => (
-          <Link key={char.id} href={`/calculator/current/${char.id}`} passHref>
+          <Link key={char.id} href={`/calculator/current/${char.name}`} passHref>
             <AvatarSideIcon
               iconName={char.sideIcon}
               charName={char.name}
