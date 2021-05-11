@@ -17,9 +17,6 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
       charName,
       isSelected,
       onClick,
-      "data-id": dataId,
-      "data-name": dataName,
-      "data-index": dataIndex,
       href,
     }: AvatarIconProps & HTMLProps<HTMLAnchorElement>,
     ref,
@@ -27,9 +24,6 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
     return (
       <div className="block w-24 h-24 transition-all">
         <a
-          data-id={dataId}
-          data-name={dataName}
-          data-index={dataIndex}
           href={href}
           onClick={onClick}
           ref={ref}

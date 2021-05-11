@@ -45,10 +45,12 @@ export const partySlice = createSlice({
 
     // Set current character
     setCurrentCharacter: (state, action: PayloadAction<number>) => {
-      const partyIndex: number = action.payload
-      if (partyIndex < state.characterIds.length) {
-        const characterIdAtIndex: number = state.characterIds[partyIndex]
-        state.currentCharacterId = characterIdAtIndex
+      const characterId: number = action.payload
+      if (
+        state.currentCharacterId !== characterId &&
+        state.characterIds.includes(characterId)
+      ) {
+        state.currentCharacterId = characterId
       }
     },
   },

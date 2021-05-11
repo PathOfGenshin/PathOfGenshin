@@ -38,7 +38,6 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
   onClick,
   "data-id": dataId,
   "data-name": dataName,
-  "data-index": dataIndex,
   isFocused,
   disabled,
 }: AvatarIconProps & FocusedProps) => {
@@ -47,7 +46,6 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
       <button
         data-id={dataId}
         data-name={dataName}
-        data-index={dataIndex}
         className={clsx(
           "block relative w-24 rounded-md shadow-md transition duration-75 transform 2xl:w-32 focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-50 focus:scale-105",
           isFocused ? "ring ring-blue-400 dark:ring-blue-50 scale-105" : "",
