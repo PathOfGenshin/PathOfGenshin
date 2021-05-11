@@ -1,7 +1,5 @@
 # Path of Genshin PWA
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c70accc8-0ef9-4afd-bada-4d192b2fa098/deploy-status)](https://app.netlify.com/sites/pathofgenshin/deploys)
-
 The Path of Genshin calculator and progressive web app.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
