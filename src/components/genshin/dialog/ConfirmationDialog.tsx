@@ -1,4 +1,4 @@
-import React, { Fragment, MouseEventHandler, useCallback, useRef } from "react"
+import { Fragment, MouseEventHandler, useCallback, useRef } from "react"
 
 import clsx from "clsx"
 

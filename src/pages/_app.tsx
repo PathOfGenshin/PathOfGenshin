@@ -1,3 +1,5 @@
+import { Fragment } from "react"
+
 import { ThemeProvider } from "next-themes"
 import { AppProps } from "next/app"
 import Head from "next/head"
@@ -7,11 +9,14 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
 import { queryClient } from "@/api/client"
-import Layout from "@/components/layouts"
+import MainLayout from "@/components/layouts/main"
+import { ComponentWithLayout } from "@/components/layouts/types"
 import { persistor, store } from "@/store"
 import "@/styles/globals.scss"
 
 function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
+  const NestedLayout: React.FC = (Component as ComponentWithLayout).Layout ?? Fragment
+
   return (
     <>
       <Head>
@@ -25,9 +30,11 @@ function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <MainLayout>
+                <NestedLayout>
+                  <Component {...pageProps} />
+                </NestedLayout>
+              </MainLayout>
             </PersistGate>
           </Provider>
         </QueryClientProvider>

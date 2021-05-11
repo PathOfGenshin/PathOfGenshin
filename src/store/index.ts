@@ -8,12 +8,12 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist"
-import storage from "redux-persist/lib/storage"
 
 import partyReducer from "@/store/party/partySlice"
 import settingsReducer from "@/store/settings/settingsSlice"
-import tabReducer from "@/store/tab/tabSlice"
 import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
+
+import { storage } from "./storage"
 
 const persistConfig = {
   key: "root",
@@ -31,7 +31,6 @@ const settingsPersistConfig = {
 
 const rootReducer = combineReducers({
   party: partyReducer,
-  tab: tabReducer,
   settings: persistReducer(settingsPersistConfig, settingsReducer),
 })
 

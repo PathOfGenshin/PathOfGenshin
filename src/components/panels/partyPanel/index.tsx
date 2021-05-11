@@ -1,5 +1,7 @@
 import { useCallback } from "react"
 
+import Link from "next/link"
+
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { Rarity } from "@/assets/static"
@@ -14,7 +16,6 @@ import {
   selectCurrentCharacter,
   setCurrentCharacter,
 } from "@/store/party/partySlice"
-import { setTab, TabFocus } from "@/store/tab/tabSlice"
 
 export const PartyPanel: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +28,6 @@ export const PartyPanel: React.FC = () => {
   const setCharacter = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(setCurrentCharacter(parseInt(event.currentTarget.dataset["index"])))
-      dispatch(setTab(TabFocus.CURRENT_CHARACTER))
     },
     [dispatch],
   )
@@ -36,17 +36,20 @@ export const PartyPanel: React.FC = () => {
     <div className="flex overflow-x-auto flex-row py-2 m-auto max-w-xs md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
       {partyCharacters &&
         partyCharacters.map((char: Character, index: number) => (
-          <AvatarSideIcon
-            data-index={index}
-            key={char.id}
-            iconName={char.sideIcon}
-            charName={char.name}
-            rarity={char.quality as Rarity}
-            isSelected={currentCharacterId === char.id}
-            onClick={setCharacter}
-          />
+          <Link key={char.id} href={`/calculator/current#${index}`} passHref>
+            <AvatarSideIcon
+              data-index={index}
+              iconName={char.sideIcon}
+              charName={char.name}
+              rarity={char.quality as Rarity}
+              isSelected={currentCharacterId === char.id}
+              onClick={setCharacter}
+            />
+          </Link>
         ))}
-      <AddCharacterIcon disabled={partyIds.length >= MAX_PARTY_SIZE} />
+      <Link href="/calculator/party" passHref>
+        <AddCharacterIcon disabled={partyIds.length >= MAX_PARTY_SIZE} />
+      </Link>
     </div>
   )
 }

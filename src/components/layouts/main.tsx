@@ -1,16 +1,15 @@
 import NavBar from "@/components/navbar"
 
-export interface LayoutProps {
-  children: React.ReactNode
-}
+import { LayoutProps } from "./types"
 
-export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+export const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div className="flex relative flex-col lg:h-screen">
       <NavBar className="absolute w-full h-16 shadow-sm" />
       <div className="flex-grow pt-16 h-full box-border">{children}</div>
+      {/* TODO: Footer */}
     </div>
   )
 }
 
-export default Layout
+export default MainLayout
