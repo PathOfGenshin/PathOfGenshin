@@ -25,7 +25,7 @@ export const PartyPanel: React.FC = () => {
     <div className="flex overflow-x-auto flex-row py-2 m-auto max-w-xs md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
       {partyCharacters &&
         partyCharacters.map((char: Character) => (
-          <Link key={char.id} href={`/calculator/current/${char.name}`} passHref>
+          <Link key={char.id} href={`/calculator/current#${char.name}`} passHref>
             <AvatarSideIcon
               iconName={char.sideIcon}
               charName={char.name}
