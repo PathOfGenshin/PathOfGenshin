@@ -1,3 +1,4 @@
+import Footer from "@/components/footer"
 import NavBar from "@/components/navbar"
 
 import { LayoutProps } from "./types"
@@ -6,8 +7,8 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => 
   return (
     <div className="flex relative flex-col lg:h-screen">
       <NavBar className="absolute w-full h-16 shadow-sm" />
-      <div className="flex-grow pt-16 h-full box-border">{children}</div>
-      {/* TODO: Footer */}
+      <div className="flex-1 pt-16 pb-12 h-full box-border">{children}</div>
+      <Footer className="absolute bottom-0 w-full h-12" />
     </div>
   )
 }
