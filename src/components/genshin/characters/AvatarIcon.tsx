@@ -2,7 +2,7 @@ import { SVGProps } from "react"
 
 import clsx from "clsx"
 
-import { avatarIcon, rarityBackground } from "@/assets/static"
+import { avatarIcon, elementalIcon, rarityBackground } from "@/assets/static"
 import styles from "@/styles/image.module.scss"
 
 import { AvatarIconProps } from "./icon"
@@ -35,6 +35,7 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
   iconName,
   charName,
   rarity,
+  element,
   onClick,
   "data-id": dataId,
   "data-name": dataName,
@@ -78,6 +79,14 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
             {charName}
           </div>
         </div>
+        <img
+          className={clsx(
+            "absolute w-8 h-8 top-0.5 left-0.5 pointer-events-none select-none",
+            styles.crisp,
+          )}
+          src={elementalIcon(element)}
+          alt={element}
+        />
       </button>
     </div>
   )

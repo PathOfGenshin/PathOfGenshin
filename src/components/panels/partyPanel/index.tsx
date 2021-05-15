@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { Rarity } from "@/assets/static"
+import { GenshinElement, Rarity } from "@/assets/static"
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
 import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
 import { queryCharactersByIds } from "@/db"
@@ -30,6 +30,7 @@ export const PartyPanel: React.FC = () => {
               iconName={char.sideIcon}
               charName={char.name}
               rarity={char.quality as Rarity}
+              element={char.element as GenshinElement}
               isSelected={currentCharacterId === char.id}
             />
           </Link>

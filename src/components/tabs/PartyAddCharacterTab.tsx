@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 import { noop } from "lodash"
 
-import { Rarity } from "@/assets/static"
+import { GenshinElement, Rarity } from "@/assets/static"
 import AvatarIcon from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import { queryAllCharacters } from "@/db"
@@ -82,6 +82,7 @@ export const PartyAddCharacterTab: React.FC = () => {
                 charName={char.name}
                 iconName={char.icon}
                 rarity={char.quality as Rarity}
+                element={char.element as GenshinElement}
                 onClick={selectCharacter}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
                 disabled={partyIds.includes(char.id)}
