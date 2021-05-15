@@ -22,7 +22,7 @@ export const PartyPanel: React.FC = () => {
   ])
 
   return (
-    <div className="flex overflow-x-auto flex-row py-2 m-auto max-w-xs md:overflow-x-visible md:max-w-full md:items-center md:justify-center">
+    <div className="flex flex-row justify-center items-center py-2 max-w-full">
       {partyCharacters &&
         partyCharacters.map((char: Character) => (
           <Link key={char.id} href={`/calculator/current#${char.name}`} passHref>

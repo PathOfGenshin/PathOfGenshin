@@ -39,11 +39,15 @@ module.exports = {
       fontFamily: {
         genshin: ["Genshin", "serif"],
       },
+      borderWidth: {
+        3: "3px",
+      },
       maxHeight: {
         38: "9.5rem",
       },
       height: {
         7.5: "1.875rem",
+        13.5: "3.375rem",
         18: "4.5rem",
         38: "9.5rem",
       },
@@ -51,11 +55,15 @@ module.exports = {
         82: "20.5rem",
       },
       width: {
+        13.5: "3.375rem",
         18: "4.5rem",
         82: "20.5rem",
       },
       lineHeight: {
         7.5: "1.875rem",
+      },
+      inset: {
+        "-8/3r": "-0.66667rem",
       },
       gridTemplateColumns: {
         "auto-icon-6": "repeat(auto-fit, 6rem)",

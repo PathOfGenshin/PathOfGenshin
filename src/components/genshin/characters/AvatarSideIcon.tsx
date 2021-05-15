@@ -22,19 +22,16 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
     ref,
   ) => {
     return (
-      <div className="block w-24 h-24 transition-all">
+      <div className="block w-16 h-16 md:w-18 md:h-18 lg:w-24 lg:h-24">
         <a
           href={href}
           onClick={onClick}
           ref={ref}
-          className={clsx(
-            "flex relative justify-center items-center w-24 h-24 transition-transform duration-100 transform focus:outline-none hover:scale-110",
-            isSelected ? "scale-110" : "scale-100",
-          )}
+          className="flex relative justify-center items-center w-16 h-16 transition-transform duration-100 transform md:w-18 md:h-18 lg:w-24 lg:h-24 focus:outline-none"
         >
           <div
             className={clsx(
-              "rounded-full border-4 transition-colors duration-100 w-18 h-18",
+              "w-12 h-12 rounded-full border-2 transition-colors duration-100 md:border-3 md:w-13.5 md:h-13.5 lg:w-18 lg:h-18 lg:border-4",
               isSelected
                 ? "border-g-char-selected bg-g-char-selected-fill"
                 : "border-g-char",
@@ -42,7 +39,7 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
           ></div>
           <img
             className={clsx(
-              "absolute -top-4 w-24 h-24 pointer-events-none select-none",
+              "absolute w-16 h-16 pointer-events-none select-none -top-8/3r md:-top-3 lg:-top-4 md:w-18 md:h-18 lg:w-24 lg:h-24",
               styles.imgCrisp,
             )}
             src={avatarIcon(iconName)}
@@ -50,7 +47,7 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
           />
           <div
             className={clsx(
-              "absolute bottom-0 transition duration-100 h-1.5",
+              "absolute bottom-0 transition duration-100 h-0.5 md:h-1",
               isSelected ? "w-full bg-g-char-selected-fill" : "w-0 opacity-0",
             )}
           ></div>
