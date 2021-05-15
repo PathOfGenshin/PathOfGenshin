@@ -37,12 +37,7 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
 
   return (
     <div className="flex justify-center w-full max-w-5xl">
-      {isValidCharacter && <CurrentCharacterTab />}
-      {!isValidCharacter && (
-        <div>
-          The character &quot;{extractName(asPath)}&quot; does not exist in your party.
-        </div>
-      )}
+      <CurrentCharacterTab isValidCharacter={isValidCharacter} />
     </div>
   )
 }
