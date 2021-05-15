@@ -6,7 +6,7 @@ const Footer: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   return (
     <footer
       className={clsx(
-        "flex justify-between items-center px-8 bg-gray-300 dark:bg-g-dark-800",
+        "flex flex-col items-center p-2 bg-gray-300 lg:px-8 lg:py-0 dark:bg-g-dark-800 lg:flex-row lg:justify-between",
         className,
       )}
     >
