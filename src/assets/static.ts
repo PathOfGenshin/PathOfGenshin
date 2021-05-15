@@ -1,13 +1,13 @@
 export type Rarity = 1 | 2 | 3 | 4 | 5
 
 export type GenshinElement =
-  | "Anemo"
-  | "Cryo"
-  | "Hydro"
-  | "Dendro"
-  | "Pyro"
-  | "Electro"
-  | "Geo"
+  | "ANEMO"
+  | "CRYO"
+  | "HYDRO"
+  | "DENDRO"
+  | "PYRO"
+  | "ELECTRO"
+  | "GEO"
   | "NONE"
 
 export const avatarIcon = (icon: string): string => `/static/avatar_icon/${icon}.png`
