@@ -83,7 +83,7 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
         </div>
         <img
           className={clsx(
-            "absolute w-8 h-8 top-0.5 left-0.5 pointer-events-none select-none",
+            "absolute w-6 h-6 top-0.5 left-0.5 pointer-events-none select-none 2xl:w-8 2xl:h-8",
             styles.crisp,
           )}
           src={elementalIcon(element)}
