@@ -48,9 +48,11 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
         data-id={dataId}
         data-name={dataName}
         className={clsx(
-          "block relative w-24 rounded-md shadow-md transition duration-75 transform 2xl:w-32 focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-50 focus:scale-105",
+          "block relative w-24 rounded-md shadow-md transition duration-75 transform 2xl:w-32 hover:outline-none focus:outline-none",
           isFocused ? "ring ring-blue-400 dark:ring-blue-50 scale-105" : "",
-          !disabled ? "hover:scale-105" : "",
+          !disabled
+            ? "hover:ring hover:ring-blue-400 dark:hover:ring-blue-50 hover:scale-105 focus:ring focus:ring-blue-400 dark:focus:ring-blue-50 focus:scale-105"
+            : "cursor-not-allowed",
         )}
         onClick={onClick}
         disabled={disabled}
