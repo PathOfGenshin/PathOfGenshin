@@ -1,5 +1,7 @@
 import { SVGProps } from "react"
 
+import Image from "next/image"
+
 import clsx from "clsx"
 
 import { avatarIcon, elementalIcon, rarityBackground } from "@/assets/static"
@@ -57,23 +59,34 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
         onClick={onClick}
         disabled={disabled}
       >
-        <img
-          className={clsx(
-            "absolute w-full rounded-md opacity-80 pointer-events-none select-none",
-            styles.crisp,
-          )}
-          src={rarityBackground(rarity)}
-          alt={`${rarity} Star`}
-        />
+        <div className="absolute w-full">
+          <Image
+            className={clsx(
+              "rounded-md opacity-80 pointer-events-none select-none",
+              styles.crisp,
+            )}
+            src={rarityBackground(rarity)}
+            alt={`${rarity} Star`}
+            quality={100}
+            priority
+            layout="responsive"
+            width={78}
+            height={96}
+          />
+        </div>
         <div className="flex relative flex-col">
           <div className="relative w-24 h-24 2xl:w-32 2xl:h-32">
-            <img
+            <Image
               className={clsx(
-                "absolute w-24 rounded-md pointer-events-none select-none 2xl:w-32",
+                "w-24 rounded-md pointer-events-none select-none 2xl:w-32",
                 styles.crisp,
               )}
               src={avatarIcon(iconName)}
               alt={charName}
+              quality={100}
+              layout="responsive"
+              width={128}
+              height={128}
             />
             <SVGRoundBorder className="absolute -bottom-px text-g-paper" />
           </div>
@@ -81,14 +94,18 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
             {charName}
           </div>
         </div>
-        <img
-          className={clsx(
-            "absolute w-6 h-6 top-0.5 left-0.5 pointer-events-none select-none 2xl:w-8 2xl:h-8",
-            styles.crisp,
-          )}
-          src={elementalIcon(element)}
-          alt={element}
-        />
+        <div className="absolute w-6 h-6 top-0.5 left-0.5 2xl:w-8 2xl:h-8">
+          <Image
+            className={clsx("pointer-events-none select-none", styles.crisp)}
+            src={elementalIcon(element)}
+            alt={element}
+            quality={100}
+            priority
+            layout="responsive"
+            width={32}
+            height={32}
+          />
+        </div>
       </button>
     </div>
   )
