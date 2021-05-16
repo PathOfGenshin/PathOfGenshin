@@ -69,9 +69,8 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
             alt={`${rarity} Star`}
             quality={100}
             priority
-            layout="responsive"
-            width={78}
-            height={96}
+            width={130}
+            height={160}
           />
         </div>
         <div className="flex relative flex-col">
@@ -84,7 +83,6 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
               src={avatarIcon(iconName)}
               alt={charName}
               quality={100}
-              layout="responsive"
               width={128}
               height={128}
             />
@@ -101,7 +99,6 @@ const AvatarIcon: React.FC<AvatarIconProps & FocusedProps> = ({
             alt={element}
             quality={100}
             priority
-            layout="responsive"
             width={32}
             height={32}
           />
