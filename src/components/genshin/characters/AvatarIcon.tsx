@@ -15,7 +15,7 @@ interface FocusedProps {
 
 // The curvature at the bottom-right of the avatar icon, which overlays on top of the
 // existing character image.
-const SVGRoundBorder = ({
+export const SVGRoundBorder = ({
   className,
 }: SVGProps<SVGSVGElement>): React.ReactElement<SVGSVGElement> => {
   return (
