@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
+import { noop } from "lodash"
 import { useQueryClient } from "react-query"
 
 import {
@@ -103,6 +104,7 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
         cancelAction={setFemale}
         isOpen={dialogOpen}
         setIsOpen={setDialogOpen}
+        onClose={noop}
       />
     </div>
   )

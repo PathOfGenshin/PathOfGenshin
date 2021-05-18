@@ -13,6 +13,7 @@ interface ConfirmationDialogProps {
   cancelAction?: MouseEventHandler<HTMLButtonElement>
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
+  onClose?: () => void
 }
 
 export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
@@ -24,6 +25,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   cancelAction,
   isOpen,
   setIsOpen,
+  onClose,
 }: ConfirmationDialogProps) => {
   const closeDialog = useCallback(() => {
     setIsOpen(false)
@@ -48,6 +50,8 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
 
   const confirmRef = useRef<HTMLButtonElement | null>(null)
 
+  const onCloseHandler = onClose ? onClose : closeDialog
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
@@ -55,7 +59,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
         static
         className="overflow-y-auto fixed inset-0 z-10"
         open={isOpen}
-        onClose={closeDialog}
+        onClose={onCloseHandler}
         initialFocus={confirmRef}
       >
         <div className="flex justify-center items-center min-h-screen">
