@@ -5,7 +5,7 @@ import { useLiveQuery } from "dexie-react-hooks"
 import { noop } from "lodash"
 
 import { GenshinElement, Rarity } from "@/assets/static"
-import AvatarIcon from "@/components/genshin/characters/AvatarIcon"
+import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
@@ -77,7 +77,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         >
           {allCharacters &&
             allCharacters.map((char: Character) => (
-              <AvatarIcon
+              <AvatarIconButton
                 key={char.id}
                 data-id={char.id}
                 data-name={char.name}

@@ -6,12 +6,11 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { GenshinElement, Rarity } from "@/assets/static"
+import { AvatarIcon } from "@/components/genshin/characters/AvatarIcon"
 import { queryCharacterById } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { selectCurrentCharacterId } from "@/store/party/partySlice"
-
-import { StaticAvatarIcon } from "./StaticAvatarIcon"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
@@ -53,13 +52,12 @@ export const StatusPanel: React.FC = () => {
         {character && (
           <div className="flex flex-col w-full">
             <div className="flex flex-row space-x-2">
-              <StaticAvatarIcon
+              <AvatarIcon
                 iconName={character.icon}
                 charName={character.name}
                 rarity={character.quality as Rarity}
                 element={character.element as GenshinElement}
-                level={80} // TODO: level for current character
-                maxLevel={90} // TODO: max level for current character
+                label={"80 / 90"} // TODO: level for current char
               />
               <div className="flex flex-col text-sm">
                 <h2 className="text-lg tracking-tight leading-6 font-genshin">
