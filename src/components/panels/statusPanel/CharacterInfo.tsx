@@ -12,6 +12,8 @@ interface CharacterInfoProps {
   affiliation: string
   vision: string
   constellationName: string
+  level: number
+  maxLevel: number
 }
 
 const CharacterInfo: React.FC<CharacterInfoProps> = ({
@@ -25,6 +27,8 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({
   affiliation,
   vision,
   constellationName,
+  level,
+  maxLevel,
 }: CharacterInfoProps) => {
   return (
     <div className="flex flex-col w-full">
@@ -34,7 +38,7 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({
           charName={charName}
           rarity={rarity}
           element={element}
-          label={"80 / 90"} // TODO: level for current char
+          label={`Lv. ${level} / ${maxLevel}`}
         />
         <div className="flex flex-col text-sm">
           <h2 className="text-lg tracking-tight leading-6 font-genshin">{charName}</h2>

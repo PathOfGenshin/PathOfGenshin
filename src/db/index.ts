@@ -114,6 +114,14 @@ export const querySingleCharacter =
     return character
   }
 
+export const querySingleWeapon =
+  (weaponId: number | null) => async (): Promise<Weapon | null> => {
+    if (weaponId === null) return null
+
+    const weapon = (await db.table(TableName.WEAPONS).get(weaponId)) as Weapon
+    return weapon
+  }
+
 /**
  * Connects to the IndexedDB database and returns the native database version.
  * This database version represents the schema version and not the version of the game

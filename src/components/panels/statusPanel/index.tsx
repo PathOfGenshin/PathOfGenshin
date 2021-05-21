@@ -6,19 +6,30 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { GenshinElement, Rarity } from "@/assets/static"
-import { querySingleCharacter } from "@/db"
+import { querySingleCharacter, querySingleWeapon } from "@/db"
 import { Character } from "@/generated/model/characters"
+import { Weapon } from "@/generated/model/weapon"
 import { useAppSelector } from "@/store/hooks"
-import { CharacterData, selectCurrentCharacter } from "@/store/party/partySlice"
+import { CharacterConfig } from "@/store/party/characterConfig"
+import {
+  CharacterData,
+  selectCharacterConfig,
+  selectCurrentCharacter,
+} from "@/store/party/partySlice"
 
 import CharacterInfo from "./CharacterInfo"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
+  const config: CharacterConfig | null = useAppSelector(selectCharacterConfig)
   const character: Character | null = useLiveQuery(
     querySingleCharacter(currentCharacter),
     [currentCharacter],
+  )
+  const weapon: Weapon | null = useLiveQuery(
+    querySingleWeapon(config?.weaponId ?? null),
+    [config],
   )
 
   const getBirthday: () => string | null = useCallback(() => {
@@ -50,7 +61,7 @@ export const StatusPanel: React.FC = () => {
         <h1 className="my-2 text-xl tracking-tight leading-6 font-genshin">
           Character
         </h1>
-        {character && (
+        {character && config && (
           <CharacterInfo
             iconName={character.icon}
             charName={character.name}
@@ -62,6 +73,8 @@ export const StatusPanel: React.FC = () => {
             affiliation={character.metadata.affiliation}
             vision={character.metadata.vision}
             constellationName={character.metadata.constellation}
+            level={config.level}
+            maxLevel={config.maxLevel}
           />
         )}
       </div>
@@ -69,19 +82,25 @@ export const StatusPanel: React.FC = () => {
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
           Constellations
         </h1>
-        <div>TODO</div>
+        {config && <div>{config.constellationLevel}</div>}
       </div>
       <div>
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
           Talents
         </h1>
-        <div>TODO</div>
+        {config && (
+          <>
+            <div>{config.levelTalentAttack}</div>
+            <div>{config.levelTalentSkill}</div>
+            <div>{config.levelTalentBurst}</div>
+          </>
+        )}
       </div>
       <div>
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
           Weapons
         </h1>
-        <div>Currently none equipped.</div>
+        {weapon && <div>{weapon.name}</div>}
       </div>
       <div>
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
@@ -91,7 +110,7 @@ export const StatusPanel: React.FC = () => {
       </div>
       <div>
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Status
+          Stats
         </h1>
       </div>
     </div>

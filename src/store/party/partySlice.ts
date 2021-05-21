@@ -1,57 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
+import { CharacterConfig, createDefaultCharacterConfig } from "./characterConfig"
 
 export const MAX_PARTY_SIZE = 4
 
 export interface CharacterData {
   id: number
   name: string
-}
-
-export interface InventoryReference {
-  type: string
-  itemBaseId: number
-  inventoryId: number
-}
-
-export interface CharacterConfig {
-  // How many constellations the character has unlocked
-  constellationLevel: 0 | 1 | 2 | 3 | 4 | 5 | 6
-  // Level range from 1 to 90
-  level: number
-  maxLevel: number
-  // Talent levels
-  levelTalentAttack: number
-  levelTalentSkill: number
-  levelTalentBurst: number
-  // Equipped weapon
-  weaponId: number
-  weaponLevel: number
-  // Artifacts
-  flower: InventoryReference | null
-  plume: InventoryReference | null
-  sands: InventoryReference | null
-  goblet: InventoryReference | null
-  circlet: InventoryReference | null
-}
-
-function createDefaultCharacterConfig(weaponId: number): CharacterConfig {
-  return {
-    constellationLevel: 0,
-    level: 1,
-    maxLevel: 20,
-    levelTalentAttack: 1,
-    levelTalentSkill: 1,
-    levelTalentBurst: 1,
-    weaponId,
-    weaponLevel: 1,
-    flower: null,
-    plume: null,
-    sands: null,
-    goblet: null,
-    circlet: null,
-  }
 }
 
 interface PartyState {
@@ -144,5 +100,10 @@ export const selectCharacters = (state: RootState): CharacterData[] =>
 
 export const selectCurrentCharacter = (state: RootState): CharacterData | null =>
   state.party.currentCharacter ?? null
+
+export const selectCharacterConfig = (state: RootState): CharacterConfig | null =>
+  state.party.currentCharacter
+    ? state.party.characterConfig[state.party.currentCharacter.id]
+    : null
 
 export default partySlice.reducer
