@@ -15,7 +15,7 @@ interface PartyState {
   charactersInParty: CharacterData[]
 
   // The currently selected character
-  currentCharacter: CharacterData
+  currentCharacter: CharacterData | null
 
   // Character specific configuration, keyed by character id
   characterConfig: Record<number, CharacterConfig>

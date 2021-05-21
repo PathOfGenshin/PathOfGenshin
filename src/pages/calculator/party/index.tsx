@@ -28,8 +28,9 @@ interface SelectedCharacter {
 }
 
 export const PartyAdd: React.FC & ComponentWithLayout = () => {
-  const allCharacters: Character[] = useLiveQuery(queryAllCharacters)
-  const defaultWeapons: Record<WeaponType, Weapon> = useLiveQuery(queryDefaultWeapons)
+  const allCharacters: Character[] | undefined = useLiveQuery(queryAllCharacters)
+  const defaultWeapons: Record<WeaponType, Weapon> | undefined =
+    useLiveQuery(queryDefaultWeapons)
   const dispatch = useAppDispatch()
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -38,26 +39,31 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   const party: CharacterData[] = useAppSelector(selectCharacters)
 
   const selectCharacter = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    const charId: number = parseInt(event.currentTarget.dataset["id"])
-    const charName: string = event.currentTarget.dataset["name"]
-    const defaultWeaponId: number = parseInt(event.currentTarget.dataset["weaponId"])
-    setDialogOpen(true)
-    setWantedCharacter({
-      id: charId,
-      name: charName,
-      defaultWeaponId: defaultWeaponId,
-      targetElement: event.currentTarget,
-    })
+    const dataset = event.currentTarget.dataset
+    const charId = dataset["id"]
+    const charName = dataset["name"]
+    const defaultWeaponId = dataset["weaponId"]
+    if (charId && charName && defaultWeaponId) {
+      setDialogOpen(true)
+      setWantedCharacter({
+        id: parseInt(charId),
+        name: charName,
+        defaultWeaponId: parseInt(defaultWeaponId),
+        targetElement: event.currentTarget,
+      })
+    }
   }
 
   const addCharacterById = useCallback(() => {
-    dispatch(
-      addCharacter({
-        id: wantedCharacter.id,
-        name: wantedCharacter.name,
-        defaultWeaponId: wantedCharacter.defaultWeaponId,
-      }),
-    )
+    if (wantedCharacter) {
+      dispatch(
+        addCharacter({
+          id: wantedCharacter.id,
+          name: wantedCharacter.name,
+          defaultWeaponId: wantedCharacter.defaultWeaponId,
+        }),
+      )
+    }
   }, [dispatch, wantedCharacter])
 
   // Clear and unfocus the wanted character

@@ -40,7 +40,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
   rarity,
   element,
   label,
-}: AvatarIconProps & FocusedProps) => {
+}: AvatarIconProps) => {
   return (
     <div className="block relative w-24 text-center rounded-md shadow-md 2xl:w-32">
       <div className="absolute w-full">

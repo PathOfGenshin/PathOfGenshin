@@ -18,7 +18,10 @@ import {
 export const PartyPanel: React.FC = () => {
   const party: CharacterData[] = useAppSelector(selectCharacters)
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const partyCharacters: Character[] = useLiveQuery(queryCharacters(party), [party])
+  const partyCharacters: Character[] | undefined = useLiveQuery(
+    queryCharacters(party),
+    [party],
+  )
 
   return (
     <div className="flex flex-row justify-center items-center py-2 max-w-full">

@@ -10,12 +10,13 @@ import { PersistGate } from "redux-persist/integration/react"
 
 import { queryClient } from "@/api/client"
 import MainLayout from "@/components/layouts/main"
-import { ComponentWithLayout } from "@/components/layouts/types"
+import { ComponentWithLayout, LayoutProps } from "@/components/layouts/types"
 import { persistor, store } from "@/store"
 import "@/styles/globals.scss"
 
 function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
-  const NestedLayout: React.FC = (Component as ComponentWithLayout).Layout ?? Fragment
+  const NestedLayout: React.FC<LayoutProps> =
+    (Component as ComponentWithLayout).Layout ?? Fragment
 
   return (
     <>

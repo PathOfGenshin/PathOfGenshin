@@ -23,16 +23,16 @@ export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config: CharacterConfig | null = useAppSelector(selectCharacterConfig)
-  const character: Character | null = useLiveQuery(
+  const character: Character | null | undefined = useLiveQuery(
     querySingleCharacter(currentCharacter),
     [currentCharacter],
   )
-  const weapon: Weapon | null = useLiveQuery(
+  const weapon: Weapon | null | undefined = useLiveQuery(
     querySingleWeapon(config?.weaponId ?? null),
     [config],
   )
 
-  const getBirthday: () => string | null = useCallback(() => {
+  const getBirthday: () => string = useCallback(() => {
     if (
       character &&
       character.metadata.birthMonth > 0 &&

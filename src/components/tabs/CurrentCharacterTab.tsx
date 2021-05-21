@@ -15,7 +15,7 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
   isValidCharacter,
 }: CurrentCharacterTabProps) => {
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const character: Character | null = useLiveQuery(
+  const character: Character | null | undefined = useLiveQuery(
     querySingleCharacter(currentCharacter),
     [currentCharacter],
     undefined,
