@@ -6,11 +6,12 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { GenshinElement, Rarity } from "@/assets/static"
-import { AvatarIcon } from "@/components/genshin/characters/AvatarIcon"
 import { queryCharacterById } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { selectCurrentCharacterId } from "@/store/party/partySlice"
+
+import CharacterInfo from "./CharacterInfo"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
@@ -50,32 +51,18 @@ export const StatusPanel: React.FC = () => {
           Character
         </h1>
         {character && (
-          <div className="flex flex-col w-full">
-            <div className="flex flex-row space-x-2">
-              <AvatarIcon
-                iconName={character.icon}
-                charName={character.name}
-                rarity={character.quality as Rarity}
-                element={character.element as GenshinElement}
-                label={"80 / 90"} // TODO: level for current char
-              />
-              <div className="flex flex-col text-sm">
-                <h2 className="text-lg tracking-tight leading-6 font-genshin">
-                  {character.name}
-                </h2>
-                <p className="text-xs tracking-tight leading-6 font-genshin">
-                  {getTitle()}
-                </p>
-                <p className="my-0.5">Birthday: {getBirthday()}</p>
-                <p className="my-0.5">Affiliation: {character.metadata.affiliation}</p>
-                <p className="my-0.5">Vision: {character.metadata.vision}</p>
-                <p className="my-0.5">
-                  Constellation: {character.metadata.constellation}
-                </p>
-              </div>
-            </div>
-            <p className="mt-2 text-sm italic">{character.metadata.description}</p>
-          </div>
+          <CharacterInfo
+            iconName={character.icon}
+            charName={character.name}
+            rarity={character.quality as Rarity}
+            element={character.element as GenshinElement}
+            title={getTitle()}
+            description={character.metadata.description}
+            birthday={getBirthday()}
+            affiliation={character.metadata.affiliation}
+            vision={character.metadata.vision}
+            constellationName={character.metadata.constellation}
+          />
         )}
       </div>
       <div>
