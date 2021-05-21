@@ -1,9 +1,8 @@
 import Dexie from "dexie"
-import { Dictionary, keyBy } from "lodash"
 
 import { Artifact } from "@/generated/model/artifacts"
 import { Character, CharacterSkillDepot } from "@/generated/model/characters"
-import { Weapon } from "@/generated/model/weapon"
+import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { CharacterData } from "@/store/party/partySlice"
 import { DATABASE_SCHEMA_VERSION } from "@/version"
 
@@ -87,13 +86,15 @@ export const queryAllCharacters = (): Promise<Character[]> =>
 export const queryAllWeapons = (): Promise<Weapon[]> =>
   db.table(TableName.WEAPONS).toArray()
 
-export const queryDefaultWeapons = async (): Promise<Dictionary<Weapon>> => {
+export const queryDefaultWeapons = async (): Promise<Record<WeaponType, Weapon>> => {
   const weapons: Weapon[] = await db
     .table(TableName.WEAPONS)
     .where("quality")
     .equals(1)
     .toArray()
-  return keyBy(weapons, "weaponType")
+  return Object.fromEntries(
+    weapons.map((weapon) => [weapon.weaponType, weapon]),
+  ) as Record<WeaponType, Weapon>
 }
 
 export const queryCharacters =
