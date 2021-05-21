@@ -1,4 +1,5 @@
 import { CharacterSkill, CharacterConstellation, CharacterPassive } from "./character_skills";
+import { WeaponType } from "./weapon";
 import { PropCurve } from "./stat_curves";
 import { Ascension } from "./ascension";
 
@@ -57,7 +58,7 @@ export interface Character {
     name: string;
     quality: number;
     element: string;
-    weaponType: string;
+    weaponType: WeaponType;
     icon: string;
     sideIcon: string;
     metadata: CharacterMetadata;

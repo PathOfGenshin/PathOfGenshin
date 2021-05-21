@@ -5,7 +5,7 @@ import { useLiveQuery } from "dexie-react-hooks"
 import { GenshinElement, Rarity } from "@/assets/static"
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
 import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
-import { queryCharactersByIds } from "@/db"
+import { queryCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import {
@@ -18,10 +18,7 @@ import {
 export const PartyPanel: React.FC = () => {
   const party: CharacterData[] = useAppSelector(selectCharacters)
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const partyCharacters: Character[] = useLiveQuery(
-    queryCharactersByIds(party.map((char) => char.id)),
-    [party],
-  )
+  const partyCharacters: Character[] = useLiveQuery(queryCharacters(party), [party])
 
   return (
     <div className="flex flex-row justify-center items-center py-2 max-w-full">
@@ -33,7 +30,7 @@ export const PartyPanel: React.FC = () => {
               charName={char.name}
               rarity={char.quality as Rarity}
               element={char.element as GenshinElement}
-              isSelected={currentCharacter.id === char.id}
+              isSelected={currentCharacter?.id === char.id}
             />
           </Link>
         ))}

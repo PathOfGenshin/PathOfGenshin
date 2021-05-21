@@ -1,8 +1,10 @@
 import Dexie from "dexie"
+import { Dictionary, keyBy } from "lodash"
 
 import { Artifact } from "@/generated/model/artifacts"
 import { Character, CharacterSkillDepot } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
+import { CharacterData } from "@/store/party/partySlice"
 import { DATABASE_SCHEMA_VERSION } from "@/version"
 
 const db = new Dexie("genshindata")
@@ -24,9 +26,9 @@ interface MetadataObject {
 }
 
 db.version(DATABASE_SCHEMA_VERSION).stores({
-  [TableName.CHARACTERS]: "id,name",
+  [TableName.CHARACTERS]: "id,name,quality",
   [TableName.ARTIFACTS]: "id",
-  [TableName.WEAPONS]: "id",
+  [TableName.WEAPONS]: "id,name,quality",
   [TableName.SKILL_DEPOTS]: "id",
   [TableName.METADATA]: `${GAME_VERSION_KEY}`,
 })
@@ -82,19 +84,33 @@ export async function addWeapons(weapons: Weapon[]): Promise<void> {
 export const queryAllCharacters = (): Promise<Character[]> =>
   db.table(TableName.CHARACTERS).toArray()
 
-export const queryCharactersByIds =
-  (ids: number[]) => async (): Promise<Character[]> => {
+export const queryAllWeapons = (): Promise<Weapon[]> =>
+  db.table(TableName.WEAPONS).toArray()
+
+export const queryDefaultWeapons = async (): Promise<Dictionary<Weapon>> => {
+  const weapons: Weapon[] = await db
+    .table(TableName.WEAPONS)
+    .where("quality")
+    .equals(1)
+    .toArray()
+  return keyBy(weapons, "weaponType")
+}
+
+export const queryCharacters =
+  (characterDatas: CharacterData[]) => async (): Promise<Character[]> => {
     const characters = (await db
       .table(TableName.CHARACTERS)
-      .bulkGet(ids)) as Character[]
+      .bulkGet(characterDatas.map((char) => char.id))) as Character[]
     return characters
   }
 
-export const queryCharacterById =
-  (id: number | null) => async (): Promise<Character | null> => {
-    if (id === null) return null
+export const querySingleCharacter =
+  (characterData: CharacterData | null) => async (): Promise<Character | null> => {
+    if (characterData === null) return null
 
-    const character = (await db.table(TableName.CHARACTERS).get(id)) as Character
+    const character = (await db
+      .table(TableName.CHARACTERS)
+      .get(characterData.id)) as Character
     return character
   }
 

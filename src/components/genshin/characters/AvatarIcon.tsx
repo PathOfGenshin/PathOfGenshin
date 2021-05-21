@@ -101,6 +101,7 @@ export const AvatarIconButton: React.FC<
   onClick,
   "data-id": dataId,
   "data-name": dataName,
+  "data-weapon-id": dataWeaponId,
   isFocused,
   disabled,
 }: AvatarIconButtonProps & FocusedProps & HTMLProps<HTMLButtonElement>) => {
@@ -109,6 +110,7 @@ export const AvatarIconButton: React.FC<
       <button
         data-id={dataId}
         data-name={dataName}
+        data-weapon-id={dataWeaponId}
         className={clsx(
           "block relative w-24 rounded-md shadow-md transition duration-75 transform 2xl:w-32 hover:outline-none focus:outline-none",
           isFocused ? "ring ring-blue-400 dark:ring-blue-50 scale-105" : "",

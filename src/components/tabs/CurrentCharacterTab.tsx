@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { queryCharacterById } from "@/db"
+import { querySingleCharacter } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterData, selectCurrentCharacter } from "@/store/party/partySlice"
@@ -16,8 +16,8 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
 }: CurrentCharacterTabProps) => {
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const character: Character | null = useLiveQuery(
-    queryCharacterById(currentCharacter.id),
-    [currentCharacter.id],
+    querySingleCharacter(currentCharacter),
+    [currentCharacter],
     undefined,
   )
   const [isLoaded, setIsLoaded] = useState<boolean>(false)

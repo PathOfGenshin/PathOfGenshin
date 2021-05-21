@@ -2,15 +2,16 @@ import React, { useCallback, useEffect, useState } from "react"
 
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
-import { noop } from "lodash"
+import { Dictionary, noop } from "lodash"
 
 import { GenshinElement, Rarity } from "@/assets/static"
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
-import { queryAllCharacters } from "@/db"
+import { queryAllCharacters, queryDefaultWeapons } from "@/db"
 import { Character } from "@/generated/model/characters"
+import { Weapon } from "@/generated/model/weapon"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   addCharacter,
@@ -22,11 +23,13 @@ import {
 interface SelectedCharacter {
   id: number
   name: string
+  defaultWeaponId: number
   targetElement: HTMLButtonElement
 }
 
 export const PartyAdd: React.FC & ComponentWithLayout = () => {
-  const allCharacters = useLiveQuery(queryAllCharacters)
+  const allCharacters: Character[] = useLiveQuery(queryAllCharacters)
+  const defaultWeapons: Dictionary<Weapon> = useLiveQuery(queryDefaultWeapons)
   const dispatch = useAppDispatch()
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -37,16 +40,24 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   const selectCharacter = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const charId: number = parseInt(event.currentTarget.dataset["id"])
     const charName: string = event.currentTarget.dataset["name"]
+    const defaultWeaponId: number = parseInt(event.currentTarget.dataset["weaponId"])
     setDialogOpen(true)
     setWantedCharacter({
       id: charId,
       name: charName,
+      defaultWeaponId: defaultWeaponId,
       targetElement: event.currentTarget,
     })
   }
 
   const addCharacterById = useCallback(() => {
-    dispatch(addCharacter({ id: wantedCharacter.id, name: wantedCharacter.name }))
+    dispatch(
+      addCharacter({
+        id: wantedCharacter.id,
+        name: wantedCharacter.name,
+        defaultWeaponId: wantedCharacter.defaultWeaponId,
+      }),
+    )
   }, [dispatch, wantedCharacter])
 
   // Clear and unfocus the wanted character
@@ -77,11 +88,13 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           )}
         >
           {allCharacters &&
+            defaultWeapons &&
             allCharacters.map((char: Character) => (
               <AvatarIconButton
                 key={char.id}
                 data-id={char.id}
                 data-name={char.name}
+                data-weapon-id={defaultWeapons[char.weaponType].id}
                 charName={char.name}
                 iconName={char.icon}
                 rarity={char.quality as Rarity}

@@ -12,8 +12,9 @@ export interface AvatarIconProps {
 }
 
 export interface AvatarIconButtonProps extends AvatarIconProps {
-  "data-id"?: number
-  "data-name"?: string
+  "data-id": number
+  "data-name": string
+  "data-weapon-id": number
   onClick?: MouseEventHandler<HTMLButtonElement>
   disabled?: boolean
 }
