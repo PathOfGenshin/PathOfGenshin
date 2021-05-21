@@ -8,7 +8,11 @@ import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { CurrentCharacterTab } from "@/components/tabs/CurrentCharacterTab"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { selectCharacterNames, setCurrentCharacter } from "@/store/party/partySlice"
+import {
+  CharacterData,
+  selectCharacters,
+  setCurrentCharacter,
+} from "@/store/party/partySlice"
 
 const extractName = memoize((asPath: string): string => {
   const hashIndex = asPath.lastIndexOf("#")
@@ -20,20 +24,20 @@ const extractName = memoize((asPath: string): string => {
 
 export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
   const dispatch = useAppDispatch()
-  const characterNames: string[] = useAppSelector(selectCharacterNames)
+  const party: CharacterData[] = useAppSelector(selectCharacters)
   const { asPath } = useRouter()
 
   const [isValidCharacter, setIsValidCharacter] = useState<boolean>(false)
 
   useEffect(() => {
     const charName = extractName(asPath)
-    if (characterNames.includes(charName)) {
+    if (party.some((char) => char.name === charName)) {
       dispatch(setCurrentCharacter(charName))
       setIsValidCharacter(true)
     } else {
       setIsValidCharacter(false)
     }
-  }, [dispatch, asPath, characterNames])
+  }, [dispatch, asPath, party])
 
   return (
     <div className="flex justify-center w-full max-w-5xl">

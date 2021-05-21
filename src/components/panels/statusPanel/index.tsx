@@ -9,16 +9,16 @@ import { GenshinElement, Rarity } from "@/assets/static"
 import { queryCharacterById } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
-import { selectCurrentCharacterId } from "@/store/party/partySlice"
+import { CharacterData, selectCurrentCharacter } from "@/store/party/partySlice"
 
 import CharacterInfo from "./CharacterInfo"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
-  const currentCharacterId: number | null = useAppSelector(selectCurrentCharacterId)
+  const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const character: Character | null = useLiveQuery(
-    queryCharacterById(currentCharacterId),
-    [currentCharacterId],
+    queryCharacterById(currentCharacter.id),
+    [currentCharacter.id],
   )
 
   const getBirthday: () => string | null = useCallback(() => {

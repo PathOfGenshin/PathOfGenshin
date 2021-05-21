@@ -14,8 +14,9 @@ import { Character } from "@/generated/model/characters"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   addCharacter,
+  CharacterData,
   MAX_PARTY_SIZE,
-  selectCharacterIds,
+  selectCharacters,
 } from "@/store/party/partySlice"
 
 interface SelectedCharacter {
@@ -31,7 +32,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [wantedCharacter, setWantedCharacter] = useState<SelectedCharacter | null>(null)
 
-  const partyIds: number[] = useAppSelector(selectCharacterIds)
+  const party: CharacterData[] = useAppSelector(selectCharacters)
 
   const selectCharacter = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const charId: number = parseInt(event.currentTarget.dataset["id"])
@@ -58,7 +59,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   return (
     <div className="space-y-2 w-full">
       <div className="font-semibold text-center">
-        {partyIds.length < MAX_PARTY_SIZE ? (
+        {party.length < MAX_PARTY_SIZE ? (
           <>Select a character to add to your party.</>
         ) : (
           <>
@@ -72,7 +73,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         <div
           className={clsx(
             "grid gap-4 justify-center transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
-            partyIds.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
+            party.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
           )}
         >
           {allCharacters &&
@@ -87,7 +88,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
                 element={char.element as GenshinElement}
                 onClick={selectCharacter}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
-                disabled={partyIds.includes(char.id)}
+                disabled={party.some((partyChar) => partyChar.id === char.id)}
               />
             ))}
         </div>

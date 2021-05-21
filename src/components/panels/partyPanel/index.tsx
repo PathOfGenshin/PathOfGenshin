@@ -10,16 +10,18 @@ import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import {
   MAX_PARTY_SIZE,
-  selectCharacterIds,
-  selectCurrentCharacterId,
+  selectCharacters,
+  selectCurrentCharacter,
+  CharacterData,
 } from "@/store/party/partySlice"
 
 export const PartyPanel: React.FC = () => {
-  const partyIds: number[] = useAppSelector(selectCharacterIds)
-  const currentCharacterId: number | null = useAppSelector(selectCurrentCharacterId)
-  const partyCharacters: Character[] = useLiveQuery(queryCharactersByIds(partyIds), [
-    partyIds,
-  ])
+  const party: CharacterData[] = useAppSelector(selectCharacters)
+  const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
+  const partyCharacters: Character[] = useLiveQuery(
+    queryCharactersByIds(party.map((char) => char.id)),
+    [party],
+  )
 
   return (
     <div className="flex flex-row justify-center items-center py-2 max-w-full">
@@ -31,12 +33,12 @@ export const PartyPanel: React.FC = () => {
               charName={char.name}
               rarity={char.quality as Rarity}
               element={char.element as GenshinElement}
-              isSelected={currentCharacterId === char.id}
+              isSelected={currentCharacter.id === char.id}
             />
           </Link>
         ))}
       <Link href="/calculator/party" passHref>
-        <AddCharacterIcon disabled={partyIds.length >= MAX_PARTY_SIZE} />
+        <AddCharacterIcon disabled={party.length >= MAX_PARTY_SIZE} />
       </Link>
     </div>
   )
