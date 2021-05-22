@@ -18,6 +18,7 @@ import {
 } from "@/store/party/partySlice"
 
 import CharacterInfo from "./CharacterInfo"
+import WeaponInfo from "./WeaponInfo"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
@@ -100,7 +101,17 @@ export const StatusPanel: React.FC = () => {
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
           Weapons
         </h1>
-        {weapon && <div>{weapon.name}</div>}
+        {weapon && (
+          <WeaponInfo
+            iconName={weapon.icon}
+            awakenIconName={weapon.iconAwakened}
+            rarity={weapon.quality as Rarity}
+            weaponName={weapon.name}
+            description={weapon.description}
+            level={1}
+            maxLevel={20}
+          />
+        )}
       </div>
       <div>
         <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">

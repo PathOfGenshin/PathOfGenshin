@@ -11,6 +11,7 @@ export type GenshinElement =
   | "NONE"
 
 export const avatarIcon = (icon: string): string => `/static/avatar_icon/${icon}.png`
+export const weaponIcon = (icon: string): string => `/static/equip_icon/${icon}.png`
 export const rarityStars = (rarity: Rarity): string =>
   `/static/rarity/star${rarity}.png`
 export const rarityBackground = (rarity: Rarity): string =>
