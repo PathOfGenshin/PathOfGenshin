@@ -5,7 +5,7 @@ import Image from "next/image"
 import clsx from "clsx"
 
 import { avatarIcon, elementalIcon, rarityBackground } from "@/assets/static"
-import styles from "@/styles/image.module.scss"
+import image from "@/styles/image.module.scss"
 
 import SVGRoundBorder from "../icons/SVGRoundBorder"
 import { AvatarIconButtonProps, AvatarIconProps } from "./icon"
@@ -27,7 +27,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
         <Image
           className={clsx(
             "rounded-md opacity-80 pointer-events-none select-none",
-            styles.crisp,
+            image.crisp,
           )}
           src={rarityBackground(rarity)}
           alt={`${rarity} Star`}
@@ -42,7 +42,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
           <Image
             className={clsx(
               "w-24 rounded-md pointer-events-none select-none 2xl:w-32",
-              styles.crisp,
+              image.crisp,
             )}
             src={avatarIcon(iconName)}
             alt={charName}
@@ -58,7 +58,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
       </div>
       <div className="absolute w-6 h-6 top-0.5 left-0.5 2xl:w-8 2xl:h-8">
         <Image
-          className={clsx("pointer-events-none select-none", styles.crisp)}
+          className={clsx("pointer-events-none select-none", image.crisp)}
           src={elementalIcon(element)}
           alt={element}
           quality={100}

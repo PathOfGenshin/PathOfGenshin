@@ -1,0 +1,8 @@
+a.border {
+  &:hover,
+  &:focus {
+    & > div {
+      @apply border-g-char-selected;
+    }
+  }
+}

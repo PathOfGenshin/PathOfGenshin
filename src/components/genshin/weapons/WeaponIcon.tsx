@@ -3,7 +3,7 @@ import Image from "next/image"
 import clsx from "clsx"
 
 import { weaponIcon, Rarity, rarityBackground } from "@/assets/static"
-import styles from "@/styles/image.module.scss"
+import image from "@/styles/image.module.scss"
 
 import SVGRoundBorder from "../icons/SVGRoundBorder"
 
@@ -26,7 +26,7 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
         <Image
           className={clsx(
             "rounded-md opacity-80 pointer-events-none select-none",
-            styles.crisp,
+            image.crisp,
           )}
           src={rarityBackground(rarity)}
           alt={`${rarity} Star`}
@@ -41,7 +41,7 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
           <Image
             className={clsx(
               "w-24 rounded-md pointer-events-none select-none 2xl:w-32",
-              styles.crisp,
+              image.crisp,
             )}
             src={weaponIcon(iconName)}
             alt={weaponName}

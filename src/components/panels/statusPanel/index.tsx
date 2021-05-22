@@ -16,9 +16,46 @@ import {
   selectCharacterConfig,
   selectCurrentCharacter,
 } from "@/store/party/partySlice"
+import { Disclosure, Transition } from "@headlessui/react"
+import { ChevronUpIcon } from "@heroicons/react/solid"
 
 import CharacterInfo from "./CharacterInfo"
 import WeaponInfo from "./WeaponInfo"
+
+interface AccordionSectionProps {
+  title: string
+  children: React.ReactNode
+}
+
+const AccordionSection: React.FC<AccordionSectionProps> = ({
+  title,
+  children,
+}: AccordionSectionProps) => {
+  return (
+    <Disclosure defaultOpen>
+      {({ open }) => (
+        <>
+          <Disclosure.Button className="flex justify-between py-1 my-1 text-xl tracking-tight leading-6 text-left font-genshin">
+            <span>{title}</span>
+            <ChevronUpIcon
+              className={clsx("w-5 h-5", open ? "transform rotate-180" : "")}
+            />
+          </Disclosure.Button>
+          <Transition
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Disclosure.Panel>{children}</Disclosure.Panel>
+          </Transition>
+        </>
+      )}
+    </Disclosure>
+  )
+}
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
@@ -58,10 +95,7 @@ export const StatusPanel: React.FC = () => {
         asPath.startsWith("/calculator/current") ? "" : "opacity-30",
       )}
     >
-      <div>
-        <h1 className="my-2 text-xl tracking-tight leading-6 font-genshin">
-          Character
-        </h1>
+      <AccordionSection title="Character">
         {character && config && (
           <CharacterInfo
             iconName={character.icon}
@@ -78,17 +112,11 @@ export const StatusPanel: React.FC = () => {
             maxLevel={config.maxLevel}
           />
         )}
-      </div>
-      <div>
-        <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Constellations
-        </h1>
+      </AccordionSection>
+      <AccordionSection title="Constellations">
         {config && <div>{config.constellationLevel}</div>}
-      </div>
-      <div>
-        <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Talents
-        </h1>
+      </AccordionSection>
+      <AccordionSection title="Talents">
         {config && (
           <>
             <div>{config.levelTalentAttack}</div>
@@ -96,11 +124,8 @@ export const StatusPanel: React.FC = () => {
             <div>{config.levelTalentBurst}</div>
           </>
         )}
-      </div>
-      <div>
-        <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Weapons
-        </h1>
+      </AccordionSection>
+      <AccordionSection title="Weapon">
         {weapon && (
           <WeaponInfo
             iconName={weapon.icon}
@@ -112,18 +137,9 @@ export const StatusPanel: React.FC = () => {
             maxLevel={20}
           />
         )}
-      </div>
-      <div>
-        <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Artifacts
-        </h1>
-        <div>Currently none equipped.</div>
-      </div>
-      <div>
-        <h1 className="mt-4 mb-2 text-xl tracking-tight leading-6 font-genshin">
-          Stats
-        </h1>
-      </div>
+      </AccordionSection>
+      <AccordionSection title="Artifacts">Currently none equipped</AccordionSection>
+      <AccordionSection title="Stats">TODO</AccordionSection>
     </div>
   )
 }

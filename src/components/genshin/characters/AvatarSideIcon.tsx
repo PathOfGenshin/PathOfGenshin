@@ -5,7 +5,8 @@ import Image from "next/image"
 import clsx from "clsx"
 
 import { avatarIcon } from "@/assets/static"
-import styles from "@/styles/image.module.scss"
+import image from "@/styles/image.module.scss"
+import partyIcon from "@/styles/partyIcon.module.scss"
 
 import { AvatarIconProps } from "./icon"
 
@@ -29,11 +30,14 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
           href={href}
           onClick={onClick}
           ref={ref}
-          className="flex relative justify-center items-center w-16 h-16 transition-transform duration-100 transform md:w-18 md:h-18 lg:w-24 lg:h-24 focus:outline-none"
+          className={clsx(
+            "flex relative justify-center items-center w-16 h-16 transition duration-100 transform md:w-18 md:h-18 lg:w-24 lg:h-24",
+            partyIcon.border,
+          )}
         >
           <div
             className={clsx(
-              "w-12 h-12 rounded-full border-2 transition-colors duration-100 md:border-3 md:w-13.5 md:h-13.5 lg:w-18 lg:h-18 lg:border-4",
+              "w-12 h-12 rounded-full border-2 transition duration-100 md:border-3 md:w-13.5 md:h-13.5 lg:w-18 lg:h-18 lg:border-4",
               isSelected
                 ? "border-g-char-selected bg-g-char-selected-fill"
                 : "border-g-char",
@@ -41,7 +45,7 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
           ></div>
           <div className="absolute w-16 h-16 -top-8/3r md:-top-3 lg:-top-4 md:w-18 md:h-18 lg:w-24 lg:h-24">
             <Image
-              className={clsx("pointer-events-none select-none", styles.imgCrisp)}
+              className={clsx("pointer-events-none select-none", image.imgCrisp)}
               src={avatarIcon(iconName)}
               alt={charName}
               quality={100}

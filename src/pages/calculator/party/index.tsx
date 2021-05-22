@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
