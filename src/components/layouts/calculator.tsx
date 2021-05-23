@@ -5,8 +5,11 @@ import { useQueryClient } from "react-query"
 
 import {
   cacheArtifacts,
+  cacheCharacterExpLevels,
   cacheCharacters,
+  cachePartyResonance,
   cacheSkillDepots,
+  cacheWeaponExpLevels,
   cacheWeapons,
 } from "@/api/queries"
 import { Divider } from "@/components/Divider"
@@ -14,7 +17,7 @@ import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"
 import { StatusPanel } from "@/components/panels/statusPanel"
-import { connectToDatabase, getGameVersion, setGameVersion } from "@/db"
+import { connectToDatabase, setGameVersion } from "@/db"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   selectIsDatabaseLoaded,
@@ -53,14 +56,18 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
 
   const loadDatabase = useCallback(async (): Promise<void> => {
     if (!isDatabaseLoaded) {
-      await connectToDatabase()
-      const gameVersion = await getGameVersion()
+      const databaseCheck = await connectToDatabase()
 
       // Create database if it does not exist, or the game version is outdated
-      if (gameVersion === undefined || gameVersion < CURRENT_GAME_VERSION) {
+      if (!databaseCheck.valid) {
+        console.log(databaseCheck.upgradeReason)
+        console.log("Downloading latest game data for saving into database...")
         await Promise.all([
           queryClient.prefetchQuery("cacheCharacters", cacheCharacters),
+          queryClient.prefetchQuery("cacheCharacterExpLevels", cacheCharacterExpLevels),
+          queryClient.prefetchQuery("cachePartyResonance", cachePartyResonance),
           queryClient.prefetchQuery("cacheWeapons", cacheWeapons),
+          queryClient.prefetchQuery("cacheWeaponExpLevels", cacheWeaponExpLevels),
           queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts),
           queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots),
           // TODO: add the rest of the game data .json files
