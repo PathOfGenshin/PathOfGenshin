@@ -97,7 +97,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         >
           {allCharacters &&
             defaultWeapons &&
-            travelerGender &&
+            travelerGender && // only start filtering out the wrong traveller once all characters and gender both loaded
             allCharacters
               .filter((char: Character) =>
                 travelerGender === "male" ? char.id !== 10000007 : char.id !== 10000005,
