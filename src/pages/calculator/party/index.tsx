@@ -19,6 +19,7 @@ import {
   MAX_PARTY_SIZE,
   selectCharacters,
 } from "@/store/party/partySlice"
+import { selectTravelerGender, TravelerGender } from "@/store/settings/settingsSlice"
 
 interface SelectedCharacter {
   id: number
@@ -28,6 +29,7 @@ interface SelectedCharacter {
 }
 
 export const PartyAdd: React.FC & ComponentWithLayout = () => {
+  const travelerGender: TravelerGender = useAppSelector(selectTravelerGender)
   const allCharacters: Character[] | undefined = useLiveQuery(queryAllCharacters)
   const defaultWeapons: Record<WeaponType, Weapon> | undefined =
     useLiveQuery(queryDefaultWeapons)
@@ -74,7 +76,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   }, [dialogOpen, wantedCharacter])
 
   return (
-    <div className="space-y-2 w-full">
+    <div className="w-full space-y-2">
       <div className="font-semibold text-center">
         {party.length < MAX_PARTY_SIZE ? (
           <>Select a character to add to your party.</>
@@ -86,7 +88,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         )}
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="max-w-5xl mx-auto">
         <div
           className={clsx(
             "grid gap-4 justify-center transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
@@ -95,21 +97,26 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         >
           {allCharacters &&
             defaultWeapons &&
-            allCharacters.map((char: Character) => (
-              <AvatarIconButton
-                key={char.id}
-                data-id={char.id}
-                data-name={char.name}
-                data-weapon-id={defaultWeapons[char.weaponType].id}
-                charName={char.name}
-                iconName={char.icon}
-                rarity={char.quality as Rarity}
-                element={char.element as GenshinElement}
-                onClick={selectCharacter}
-                isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
-                disabled={party.some((partyChar) => partyChar.id === char.id)}
-              />
-            ))}
+            travelerGender &&
+            allCharacters
+              .filter((char: Character) =>
+                travelerGender === "male" ? char.id !== 10000007 : char.id !== 10000005,
+              )
+              .map((char: Character) => (
+                <AvatarIconButton
+                  key={char.id}
+                  data-id={char.id}
+                  data-name={char.name}
+                  data-weapon-id={defaultWeapons[char.weaponType].id}
+                  charName={char.name}
+                  iconName={char.icon}
+                  rarity={char.quality as Rarity}
+                  element={char.element as GenshinElement}
+                  onClick={selectCharacter}
+                  isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+                  disabled={party.some((partyChar) => partyChar.id === char.id)}
+                />
+              ))}
         </div>
         <ConfirmationDialog
           description={`Would you like to add ${wantedCharacter?.name} to your team?`}

@@ -32,7 +32,7 @@ export const { setDatabaseIsLoaded, setTravelerGender } = settingsSlice.actions
 export const selectIsDatabaseLoaded = (state: RootState): boolean =>
   state.settings.databaseLoaded
 
-export const selectTravelerGender = (state: RootState): TravelerGender | null =>
-  state.settings.travelerGender
+export const selectTravelerGender = (state: RootState): TravelerGender =>
+  state.settings.travelerGender || "male"
 
 export default settingsSlice.reducer
