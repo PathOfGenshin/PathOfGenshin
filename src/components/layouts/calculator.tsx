@@ -94,7 +94,7 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
       <div className="flex flex-col flex-grow">
         <PartyPanel />
         <Divider horizontal />
-        <div className="flex flex-grow m-4 lg:overflow-y-scroll">{children}</div>
+        <div className="flex flex-grow m-4 lg:overflow-y-auto">{children}</div>
       </div>
       <Divider />
       <RightPanel />

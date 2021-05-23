@@ -89,7 +89,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
       <div className="mx-auto max-w-5xl">
         <div
           className={clsx(
-            "grid gap-4 justify-center transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
+            "grid gap-4 justify-center p-4 transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
             party.length >= MAX_PARTY_SIZE ? "opacity-50 pointer-events-none" : "",
           )}
         >
