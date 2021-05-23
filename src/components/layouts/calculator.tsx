@@ -9,6 +9,7 @@ import {
   cacheCharacters,
   cachePartyResonance,
   cacheSkillDepots,
+  cacheStatCurves,
   cacheWeaponExpLevels,
   cacheWeapons,
 } from "@/api/queries"
@@ -70,7 +71,8 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
           queryClient.prefetchQuery("cacheWeaponExpLevels", cacheWeaponExpLevels),
           queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts),
           queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots),
-          // TODO: add the rest of the game data .json files
+          queryClient.prefetchQuery("cacheStatCurves", cacheStatCurves),
+          // TODO: add affixes data
         ])
         await setGameVersion(CURRENT_GAME_VERSION)
         console.log("Updating database data.")

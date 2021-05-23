@@ -4,6 +4,7 @@ import { Artifact } from "@/generated/model/artifacts"
 import { CharacterExpLevel } from "@/generated/model/character_exp_levels"
 import { Character, CharacterSkillDepot } from "@/generated/model/characters"
 import { PartyResonance } from "@/generated/model/party_resonance"
+import { StatCurve } from "@/generated/model/stat_curves"
 import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { WeaponExpLevel } from "@/generated/model/weapon_exp_levels"
 import { CharacterData } from "@/store/party/partySlice"
@@ -22,6 +23,7 @@ enum TableName {
   weapons = "weapons",
   weaponExpLevels = "weaponExpLevels",
   skillDepots = "skillDepots",
+  statCurves = "statCurves",
   metadata = "metadata",
 }
 
@@ -40,6 +42,7 @@ const tableIndexSchema: Record<TableName, string> = {
   [TableName.weapons]: "id,name,quality",
   [TableName.weaponExpLevels]: "[quality+level]",
   [TableName.skillDepots]: "id",
+  [TableName.statCurves]: "[curveId+level]",
   [TableName.metadata]: `${GAME_VERSION_KEY}`,
 }
 
@@ -51,6 +54,7 @@ class GenshinDatabase extends Dexie {
   public readonly [TableName.weapons]: Dexie.Table<Weapon, number>
   public readonly [TableName.weaponExpLevels]: Dexie.Table<Weapon, [number, number]>
   public readonly [TableName.skillDepots]: Dexie.Table<CharacterSkillDepot, number>
+  public readonly [TableName.statCurves]: Dexie.Table<StatCurve, [string, number]>
   public readonly [TableName.metadata]: Dexie.Table<MetadataObject, string>
 
   constructor() {
@@ -64,6 +68,7 @@ class GenshinDatabase extends Dexie {
     this[TableName.weapons] = this.table(TableName.weapons)
     this[TableName.weaponExpLevels] = this.table(TableName.weaponExpLevels)
     this[TableName.skillDepots] = this.table(TableName.skillDepots)
+    this[TableName.statCurves] = this.table(TableName.statCurves)
     this[TableName.metadata] = this.table(TableName.metadata)
   }
 }
@@ -138,6 +143,10 @@ export async function addWeaponExpLevels(
   weaponExpLevels: WeaponExpLevel[],
 ): Promise<void> {
   return await saveBulk(TableName.weaponExpLevels, weaponExpLevels)
+}
+
+export async function addStatCurves(statCurves: StatCurve[]): Promise<void> {
+  return await saveBulk(TableName.statCurves, statCurves)
 }
 
 // ******************************************************************

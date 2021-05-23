@@ -1,12 +1,8 @@
 export interface StatCurve {
+    curveId: string;
     level: number;
     value: number;
     arith: string;
-}
-
-export interface StatCurves {
-    character: Record<string, StatCurve[]>;
-    weapon: Record<string, StatCurve[]>;
 }
 
 export interface PropCurve {
