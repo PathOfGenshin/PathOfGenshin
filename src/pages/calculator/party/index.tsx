@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 import { noop } from "lodash"
 
-import { GenshinElement, Rarity } from "@/assets/static"
+import { GenshinElement } from "@/assets/static"
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
@@ -103,7 +103,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
                 data-weapon-id={defaultWeapons[char.weaponType].id}
                 charName={char.name}
                 iconName={char.icon}
-                rarity={char.quality as Rarity}
+                quality={char.quality}
                 element={char.element as GenshinElement}
                 onClick={selectCharacter}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}

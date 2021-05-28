@@ -4,7 +4,7 @@ import Image from "next/image"
 
 import clsx from "clsx"
 
-import { avatarIcon, elementalIcon, rarityBackground } from "@/assets/static"
+import { avatarIcon, elementalIcon, qualityBackground } from "@/assets/static"
 import image from "@/styles/image.module.scss"
 
 import SVGRoundBorder from "../icons/SVGRoundBorder"
@@ -17,7 +17,7 @@ interface FocusedProps {
 export const AvatarIcon: React.FC<AvatarIconProps> = ({
   iconName,
   charName,
-  rarity,
+  quality,
   element,
   label,
 }: AvatarIconProps) => {
@@ -29,8 +29,8 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
             "rounded-md opacity-80 pointer-events-none select-none",
             image.crisp,
           )}
-          src={rarityBackground(rarity)}
-          alt={`${rarity} Star`}
+          src={qualityBackground(quality)}
+          alt={`${quality} Star`}
           quality={100}
           priority
           width={130}
@@ -76,7 +76,7 @@ export const AvatarIconButton: React.FC<
 > = ({
   iconName,
   charName,
-  rarity,
+  quality,
   element,
   onClick,
   "data-id": dataId,
@@ -104,7 +104,7 @@ export const AvatarIconButton: React.FC<
         <AvatarIcon
           iconName={iconName}
           charName={charName}
-          rarity={rarity}
+          quality={quality}
           element={element}
         />
       </button>

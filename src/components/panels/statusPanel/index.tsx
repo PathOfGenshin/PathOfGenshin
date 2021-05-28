@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { GenshinElement, Rarity } from "@/assets/static"
+import { GenshinElement } from "@/assets/static"
 import { querySingleCharacter, querySingleWeapon } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
@@ -100,7 +100,7 @@ export const StatusPanel: React.FC = () => {
           <CharacterInfo
             iconName={character.icon}
             charName={character.name}
-            rarity={character.quality as Rarity}
+            quality={character.quality}
             element={character.element as GenshinElement}
             title={getTitle()}
             description={character.metadata.description}
@@ -130,7 +130,7 @@ export const StatusPanel: React.FC = () => {
           <WeaponInfo
             iconName={weapon.icon}
             awakenIconName={weapon.iconAwakened}
-            rarity={weapon.quality as Rarity}
+            quality={weapon.quality}
             weaponName={weapon.name}
             description={weapon.description}
             level={1}

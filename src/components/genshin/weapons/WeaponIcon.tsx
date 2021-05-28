@@ -2,7 +2,8 @@ import Image from "next/image"
 
 import clsx from "clsx"
 
-import { weaponIcon, Rarity, rarityBackground } from "@/assets/static"
+import { weaponIcon, qualityBackground } from "@/assets/static"
+import { StarQuality } from "@/generated/model/type_aliases"
 import image from "@/styles/image.module.scss"
 
 import SVGRoundBorder from "../icons/SVGRoundBorder"
@@ -10,14 +11,14 @@ import SVGRoundBorder from "../icons/SVGRoundBorder"
 export interface WeaponIconProps {
   iconName: string
   weaponName: string
-  rarity: Rarity
+  quality: StarQuality
   label?: string
 }
 
 export const WeaponIcon: React.FC<WeaponIconProps> = ({
   iconName,
   weaponName,
-  rarity,
+  quality,
   label,
 }: WeaponIconProps) => {
   return (
@@ -28,8 +29,8 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
             "rounded-md opacity-80 pointer-events-none select-none",
             image.crisp,
           )}
-          src={rarityBackground(rarity)}
-          alt={`${rarity} Star`}
+          src={qualityBackground(quality)}
+          alt={`${quality} Star`}
           quality={100}
           priority
           width={130}

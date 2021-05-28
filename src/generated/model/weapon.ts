@@ -1,3 +1,4 @@
+import { StarQuality } from "./type_aliases";
 import { PropCurve } from "./stat_curves";
 import { Ascension } from "./ascension";
 
@@ -13,7 +14,7 @@ export interface Weapon {
     id: number;
     name: string;
     weaponType: WeaponType;
-    quality: number;
+    quality: StarQuality;
     description: string;
     icon: string;
     iconAwakened: string;

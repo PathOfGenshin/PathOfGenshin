@@ -1,10 +1,10 @@
-import { Rarity } from "@/assets/static"
 import { WeaponIcon } from "@/components/genshin/weapons/WeaponIcon"
+import { StarQuality } from "@/generated/model/type_aliases"
 
 interface WeaponInfoProps {
   iconName: string
   awakenIconName: string
-  rarity: Rarity
+  quality: StarQuality
   weaponName: string
   description: string
   level: number
@@ -14,7 +14,7 @@ interface WeaponInfoProps {
 const WeaponInfo: React.FC<WeaponInfoProps> = ({
   iconName,
   awakenIconName,
-  rarity,
+  quality,
   weaponName,
   description,
   level,
@@ -26,7 +26,7 @@ const WeaponInfo: React.FC<WeaponInfoProps> = ({
         <WeaponIcon
           iconName={maxLevel >= 50 ? awakenIconName : iconName}
           weaponName={weaponName}
-          rarity={rarity}
+          quality={quality}
           label={`Lv. ${level} / ${maxLevel}`}
         />
         <div className="flex flex-col text-sm">

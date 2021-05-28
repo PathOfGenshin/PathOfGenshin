@@ -1,10 +1,11 @@
-import { GenshinElement, Rarity } from "@/assets/static"
+import { GenshinElement } from "@/assets/static"
 import { AvatarIcon } from "@/components/genshin/characters/AvatarIcon"
+import { StarQuality } from "@/generated/model/type_aliases"
 
 interface CharacterInfoProps {
   iconName: string
   charName: string
-  rarity: Rarity
+  quality: StarQuality
   element: GenshinElement
   title: string
   description: string
@@ -19,7 +20,7 @@ interface CharacterInfoProps {
 const CharacterInfo: React.FC<CharacterInfoProps> = ({
   iconName,
   charName,
-  rarity,
+  quality,
   element,
   title,
   description,
@@ -36,7 +37,7 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({
         <AvatarIcon
           iconName={iconName}
           charName={charName}
-          rarity={rarity}
+          quality={quality}
           element={element}
           label={`Lv. ${level} / ${maxLevel}`}
         />

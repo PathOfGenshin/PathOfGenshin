@@ -1,4 +1,5 @@
-import { CharacterSkill, CharacterConstellation, CharacterPassive } from "./character_skills";
+import { CharacterConstellation, CharacterPassive, CharacterSkill } from "./character_skills";
+import { StarQuality } from "./type_aliases";
 import { WeaponType } from "./weapon";
 import { PropCurve } from "./stat_curves";
 import { Ascension } from "./ascension";
@@ -56,7 +57,7 @@ export interface CharacterSkillDepot {
 export interface Character {
     id: number;
     name: string;
-    quality: number;
+    quality: StarQuality;
     element: string;
     weaponType: WeaponType;
     icon: string;
