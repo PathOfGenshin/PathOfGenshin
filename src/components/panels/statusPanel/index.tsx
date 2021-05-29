@@ -3,8 +3,14 @@ import { useRouter } from "next/router"
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { querySingleCharacter, querySingleWeapon } from "@/db"
-import { Character, VisionType } from "@/generated/model/characters"
+import { ConstellationIcon } from "@/components/genshin/characters/ConstellationIcon"
+import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "@/db"
+import { CharacterConstellation } from "@/generated/model/character_skills"
+import {
+  Character,
+  CharacterSkillDepot,
+  VisionType,
+} from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
@@ -66,6 +72,10 @@ export const StatusPanel: React.FC = () => {
     querySingleWeapon(config?.weaponId ?? null),
     [config],
   )
+  const skillDepot: CharacterSkillDepot | null | undefined = useLiveQuery(
+    querySingleSkillDepot(config?.skillDepot?.id ?? null),
+    [config],
+  )
 
   return (
     <div
@@ -103,7 +113,21 @@ export const StatusPanel: React.FC = () => {
         )}
       </AccordionSection>
       <AccordionSection title="Constellations">
-        {config && <div>{config.constellationLevel}</div>}
+        {config && skillDepot && (
+          <div className="flex justify-between">
+            {skillDepot.constellations.map(
+              (constellation: CharacterConstellation, index: number) => (
+                <ConstellationIcon
+                  key={constellation.id}
+                  constellationName={constellation.name}
+                  iconName={constellation.icon}
+                  disabled={index + 1 > config.constellationLevel}
+                  element={skillDepot.element}
+                />
+              ),
+            )}
+          </div>
+        )}
       </AccordionSection>
       <AccordionSection title="Talents">
         {config && (

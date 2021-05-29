@@ -189,6 +189,14 @@ export const querySingleWeapon =
     return weapon
   }
 
+export const querySingleSkillDepot =
+  (skillDepotId: number | null) => async (): Promise<CharacterSkillDepot | null> => {
+    if (skillDepotId === null) return null
+
+    const skillDepot = (await db.skillDepots.get(skillDepotId)) as CharacterSkillDepot
+    return skillDepot
+  }
+
 interface DatabaseVersion {
   valid: boolean
   upgradeReason: string
