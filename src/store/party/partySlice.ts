@@ -1,3 +1,4 @@
+import { VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
@@ -31,6 +32,8 @@ interface AddCharacterPayload {
   id: number
   name: string
   defaultWeaponId: number
+  defaultSkillDepotId: number | null
+  vision: VisionType
 }
 
 export const partySlice = createSlice({
@@ -54,6 +57,8 @@ export const partySlice = createSlice({
         if (!(id in state.characterConfig)) {
           state.characterConfig[id] = createDefaultCharacterConfig(
             action.payload.defaultWeaponId,
+            action.payload.defaultSkillDepotId,
+            action.payload.vision,
           )
         }
       }

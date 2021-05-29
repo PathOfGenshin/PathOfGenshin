@@ -1,8 +1,15 @@
+import { VisionType } from "@/generated/model/characters"
+
 // TODO: put this interface in the inventory slice instead
 export interface InventoryReference {
   type: string
   itemBaseId: number
   inventoryId: number
+}
+
+export interface CharacterSkillDepotConfig {
+  id: number
+  element: VisionType
 }
 
 export interface CharacterConfig {
@@ -24,9 +31,15 @@ export interface CharacterConfig {
   sands: InventoryReference | null
   goblet: InventoryReference | null
   circlet: InventoryReference | null
+  // Skill depot id & element type
+  skillDepot: CharacterSkillDepotConfig | null
 }
 
-export function createDefaultCharacterConfig(weaponId: number): CharacterConfig {
+export function createDefaultCharacterConfig(
+  weaponId: number,
+  skillDepotId: number | null,
+  vision: VisionType,
+): CharacterConfig {
   return {
     constellationLevel: 0,
     level: 1,
@@ -41,5 +54,6 @@ export function createDefaultCharacterConfig(weaponId: number): CharacterConfig 
     sands: null,
     goblet: null,
     circlet: null,
+    skillDepot: skillDepotId ? { element: vision, id: skillDepotId } : null,
   }
 }

@@ -1,12 +1,10 @@
-import { useCallback } from "react"
-
 import { useRouter } from "next/router"
 
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
 import { querySingleCharacter, querySingleWeapon } from "@/db"
-import { Character } from "@/generated/model/characters"
+import { Character, VisionType } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
@@ -69,24 +67,6 @@ export const StatusPanel: React.FC = () => {
     [config],
   )
 
-  const getBirthday: () => string = useCallback(() => {
-    if (
-      character &&
-      character.metadata.birthMonth > 0 &&
-      character.metadata.birthDay > 0
-    ) {
-      return `${character.metadata.birthDay}/${character.metadata.birthMonth}`
-    }
-    return "N/A"
-  }, [character])
-
-  const getTitle: () => string = useCallback(() => {
-    if (character && character.metadata.title) {
-      return character.metadata.title
-    }
-    return "\u00A0"
-  }, [character])
-
   return (
     <div
       className={clsx(
@@ -100,10 +80,20 @@ export const StatusPanel: React.FC = () => {
             iconName={character.icon}
             charName={character.name}
             quality={character.quality}
-            element={character.metadata.vision}
-            title={getTitle()}
+            element={config.skillDepot?.element ?? VisionType.None}
+            title={
+              character && character.metadata.title
+                ? character.metadata.title
+                : "\u00A0"
+            }
             description={character.metadata.description}
-            birthday={getBirthday()}
+            birthday={
+              character &&
+              character.metadata.birthMonth > 0 &&
+              character.metadata.birthDay > 0
+                ? `${character.metadata.birthDay}/${character.metadata.birthMonth}`
+                : "N/A"
+            }
             affiliation={character.metadata.affiliation}
             vision={character.metadata.vision}
             constellationName={character.metadata.constellation}

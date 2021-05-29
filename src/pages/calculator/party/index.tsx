@@ -9,7 +9,7 @@ import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryAllCharacters, queryDefaultWeapons } from "@/db"
-import { Character } from "@/generated/model/characters"
+import { Character, VisionType } from "@/generated/model/characters"
 import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
@@ -24,6 +24,8 @@ interface SelectedCharacter {
   name: string
   defaultWeaponId: number
   targetElement: HTMLButtonElement
+  defaultSkillDepotId: number | null
+  vision: VisionType
 }
 
 export const PartyAdd: React.FC & ComponentWithLayout = () => {
@@ -42,12 +44,16 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
     const charId = dataset["id"]
     const charName = dataset["name"]
     const defaultWeaponId = dataset["weaponId"]
+    const skillDepotId = dataset["skillDepotId"]
+    const vision = (dataset["vision"] as VisionType | undefined) ?? VisionType.None
     if (charId && charName && defaultWeaponId) {
       setDialogOpen(true)
       setWantedCharacter({
         id: parseInt(charId),
         name: charName,
         defaultWeaponId: parseInt(defaultWeaponId),
+        defaultSkillDepotId: skillDepotId ? parseInt(skillDepotId) : null,
+        vision,
         targetElement: event.currentTarget,
       })
     }
@@ -60,6 +66,8 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           id: wantedCharacter.id,
           name: wantedCharacter.name,
           defaultWeaponId: wantedCharacter.defaultWeaponId,
+          defaultSkillDepotId: wantedCharacter.defaultSkillDepotId,
+          vision: wantedCharacter.vision,
         }),
       )
     }
@@ -100,6 +108,10 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
                 data-id={char.id}
                 data-name={char.name}
                 data-weapon-id={defaultWeapons[char.weaponType].id}
+                data-skill-depot-id={
+                  char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null
+                }
+                data-vision={char.metadata.vision}
                 charName={char.name}
                 iconName={char.icon}
                 quality={char.quality}
