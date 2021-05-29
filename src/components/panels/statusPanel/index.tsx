@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react"
+
 import { useRouter } from "next/router"
 
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { ConstellationIcon } from "@/components/genshin/characters/ConstellationIcon"
 import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "@/db"
-import { CharacterConstellation } from "@/generated/model/character_skills"
 import {
   Character,
   CharacterSkillDepot,
@@ -23,7 +23,10 @@ import { Disclosure, Transition } from "@headlessui/react"
 import { ChevronUpIcon } from "@heroicons/react/solid"
 
 import CharacterInfo from "./CharacterInfo"
+import ConstellationInfo from "./ConstellationInfo"
+import TalentInfo from "./TalentInfo"
 import WeaponInfo from "./WeaponInfo"
+import { SkillLevels } from "./skills"
 
 interface AccordionSectionProps {
   title: string
@@ -77,6 +80,23 @@ export const StatusPanel: React.FC = () => {
     [config],
   )
 
+  const [skillLevels, setSkillLevels] = useState<SkillLevels>({
+    Normal: 1,
+    Skill: 1,
+    Burst: 1,
+    AlternateSprint: 1,
+  })
+  useEffect(() => {
+    if (config) {
+      setSkillLevels({
+        Normal: config.levelTalentAttack,
+        Skill: config.levelTalentSkill,
+        Burst: config.levelTalentBurst,
+        AlternateSprint: 1,
+      })
+    }
+  }, [config])
+
   return (
     <div
       className={clsx(
@@ -101,7 +121,7 @@ export const StatusPanel: React.FC = () => {
               character &&
               character.metadata.birthMonth > 0 &&
               character.metadata.birthDay > 0
-                ? `${character.metadata.birthDay}/${character.metadata.birthMonth}`
+                ? `${character.metadata.birthMonth}/${character.metadata.birthDay}`
                 : "N/A"
             }
             affiliation={character.metadata.affiliation}
@@ -114,28 +134,16 @@ export const StatusPanel: React.FC = () => {
       </AccordionSection>
       <AccordionSection title="Constellations">
         {config && skillDepot && (
-          <div className="flex justify-between">
-            {skillDepot.constellations.map(
-              (constellation: CharacterConstellation, index: number) => (
-                <ConstellationIcon
-                  key={constellation.id}
-                  constellationName={constellation.name}
-                  iconName={constellation.icon}
-                  disabled={index + 1 > config.constellationLevel}
-                  element={skillDepot.element}
-                />
-              ),
-            )}
-          </div>
+          <ConstellationInfo
+            constellations={skillDepot.constellations}
+            constellationLevel={config.constellationLevel}
+            element={skillDepot.element}
+          />
         )}
       </AccordionSection>
       <AccordionSection title="Talents">
-        {config && (
-          <>
-            <div>{config.levelTalentAttack}</div>
-            <div>{config.levelTalentSkill}</div>
-            <div>{config.levelTalentBurst}</div>
-          </>
+        {config && skillDepot && (
+          <TalentInfo skills={skillDepot.skills} levels={skillLevels} />
         )}
       </AccordionSection>
       <AccordionSection title="Weapon">
