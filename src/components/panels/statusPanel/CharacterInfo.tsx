@@ -1,12 +1,12 @@
-import { GenshinElement } from "@/assets/static"
 import { AvatarIcon } from "@/components/genshin/characters/AvatarIcon"
+import { VisionType } from "@/generated/model/characters"
 import { StarQuality } from "@/generated/model/type_aliases"
 
 interface CharacterInfoProps {
   iconName: string
   charName: string
   quality: StarQuality
-  element: GenshinElement
+  element: VisionType
   title: string
   description: string
   birthday: string

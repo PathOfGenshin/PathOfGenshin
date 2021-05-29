@@ -4,7 +4,6 @@ import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 import { noop } from "lodash"
 
-import { GenshinElement } from "@/assets/static"
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
@@ -104,7 +103,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
                 charName={char.name}
                 iconName={char.icon}
                 quality={char.quality}
-                element={char.element as GenshinElement}
+                element={char.metadata.vision}
                 onClick={selectCharacter}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
                 disabled={party.some((partyChar) => partyChar.id === char.id)}

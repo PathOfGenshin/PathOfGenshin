@@ -5,7 +5,6 @@ import { useRouter } from "next/router"
 import clsx from "clsx"
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { GenshinElement } from "@/assets/static"
 import { querySingleCharacter, querySingleWeapon } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { Weapon } from "@/generated/model/weapon"
@@ -101,7 +100,7 @@ export const StatusPanel: React.FC = () => {
             iconName={character.icon}
             charName={character.name}
             quality={character.quality}
-            element={character.element as GenshinElement}
+            element={character.metadata.vision}
             title={getTitle()}
             description={character.metadata.description}
             birthday={getBirthday()}

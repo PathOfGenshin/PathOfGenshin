@@ -1,13 +1,13 @@
 import { MouseEventHandler } from "react"
 
-import { GenshinElement } from "@/assets/static"
+import { VisionType } from "@/generated/model/characters"
 import { StarQuality } from "@/generated/model/type_aliases"
 
 export interface AvatarIconProps {
   iconName: string
   charName: string
   quality: StarQuality
-  element: GenshinElement
+  element: VisionType
   isSelected?: boolean
   label?: string
 }

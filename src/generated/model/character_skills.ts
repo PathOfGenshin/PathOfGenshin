@@ -1,3 +1,10 @@
+export enum SkillType {
+    Normal = "Normal",
+    Skill = "Skill",
+    Burst = "Burst",
+    AlternateSprint = "AlternateSprint",
+}
+
 export interface SkillParam {
     name: string;
     format: string;
@@ -13,8 +20,9 @@ export interface CharacterSkill {
     id: number;
     name: string;
     description: string;
-    type: string;
+    type: SkillType;
     icon: string;
+    energyCost: number | null;
     levels: SkillLevel[];
 }
 

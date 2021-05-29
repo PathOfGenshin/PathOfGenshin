@@ -50,6 +50,7 @@ export interface CharacterAssets {
 export interface CharacterSkillDepot {
     id: number;
     skills: CharacterSkill[];
+    element: VisionType;
     constellations: CharacterConstellation[];
     passives: CharacterPassive[];
 }
@@ -58,7 +59,6 @@ export interface Character {
     id: number;
     name: string;
     quality: StarQuality;
-    element: string;
     weaponType: WeaponType;
     icon: string;
     sideIcon: string;

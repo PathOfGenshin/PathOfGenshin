@@ -2,7 +2,6 @@ import Link from "next/link"
 
 import { useLiveQuery } from "dexie-react-hooks"
 
-import { GenshinElement } from "@/assets/static"
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
 import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
 import { queryCharacters } from "@/db"
@@ -32,7 +31,7 @@ export const PartyPanel: React.FC = () => {
               iconName={char.sideIcon}
               charName={char.name}
               quality={char.quality}
-              element={char.element as GenshinElement}
+              element={char.metadata.vision}
               isSelected={currentCharacter?.id === char.id}
             />
           </Link>
