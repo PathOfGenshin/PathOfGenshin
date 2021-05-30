@@ -100,7 +100,7 @@ export const StatusPanel: React.FC = () => {
   return (
     <div
       className={clsx(
-        "flex flex-col flex-shrink-0 p-4 w-96 max-w-full opacity-100 transition-opacity duration-200",
+        "flex overflow-y-auto flex-col flex-shrink-0 p-4 w-96 max-w-full opacity-100 transition-opacity duration-200",
         asPath.startsWith("/calculator/current") ? "" : "opacity-30",
       )}
     >
