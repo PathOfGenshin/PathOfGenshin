@@ -197,7 +197,7 @@ export const querySingleSkillDepot =
     return skillDepot
   }
 
-interface DatabaseVersion {
+export interface DatabaseVersion {
   valid: boolean
   upgradeReason: string
 }

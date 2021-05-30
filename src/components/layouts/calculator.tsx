@@ -1,24 +1,24 @@
 import { useCallback, useEffect, useState } from "react"
 
 import { noop } from "lodash"
-import { useQueryClient } from "react-query"
+import { useQueries } from "react-query"
 
 import {
-  cacheArtifacts,
-  cacheCharacterExpLevels,
-  cacheCharacters,
-  cachePartyResonance,
-  cacheSkillDepots,
-  cacheStatCurves,
-  cacheWeaponExpLevels,
-  cacheWeapons,
+  fetchArtifacts,
+  fetchCharacterExpLevels,
+  fetchCharacters,
+  fetchPartyResonance,
+  fetchSkillDepots,
+  fetchStatCurves,
+  fetchWeaponExpLevels,
+  fetchWeapons,
 } from "@/api/queries"
 import { Divider } from "@/components/Divider"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"
 import { StatusPanel } from "@/components/panels/statusPanel"
-import { connectToDatabase, setGameVersion } from "@/db"
+import { connectToDatabase, DatabaseVersion, setGameVersion } from "@/db"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   selectIsDatabaseLoaded,
@@ -34,14 +34,41 @@ import { CURRENT_GAME_VERSION } from "@/version"
 import { LayoutProps } from "./types"
 
 export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+  const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
   const dispatch = useAppDispatch()
+  const [needGameData, setNeedGameData] = useState<boolean>(false)
   const travelerGender: TravelerGender | null = useAppSelector(selectTravelerGender)
 
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+  const gameDataQueries = useQueries([
+    { queryKey: "fetchCharacters", queryFn: fetchCharacters, enabled: needGameData },
+    {
+      queryKey: "fetchCharacterExpLevels",
+      queryFn: fetchCharacterExpLevels,
+      enabled: needGameData,
+    },
+    {
+      queryKey: "fetchPartyResonance",
+      queryFn: fetchPartyResonance,
+      enabled: needGameData,
+    },
+    { queryKey: "fetchWeapons", queryFn: fetchWeapons, enabled: needGameData },
+    {
+      queryKey: "fetchWeaponExpLevels",
+      queryFn: fetchWeaponExpLevels,
+      enabled: needGameData,
+    },
+    { queryKey: "fetchArtifacts", queryFn: fetchArtifacts, enabled: needGameData },
+    { queryKey: "fetchSkillDepots", queryFn: fetchSkillDepots, enabled: needGameData },
+    { queryKey: "fetchStatCurves", queryFn: fetchStatCurves, enabled: needGameData },
+  ])
+  const isDoneQuerying: boolean = gameDataQueries.every((r) => r.isSuccess)
+  const doneQueriesCount: number = gameDataQueries.filter((r) => r.isSuccess).length
+
+  const [firstTimeDialogOpen, setFirstTimeDialogOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    if (travelerGender === null) {
-      setDialogOpen(true)
+    if (!travelerGender) {
+      setFirstTimeDialogOpen(true)
     }
   }, [travelerGender])
 
@@ -52,40 +79,52 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
   const setFemale = useCallback(() => {
     dispatch(setTravelerGender("female"))
   }, [dispatch])
-  const queryClient = useQueryClient()
-  const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
 
   const loadDatabase = useCallback(async (): Promise<void> => {
-    if (!isDatabaseLoaded) {
-      const databaseCheck = await connectToDatabase()
+    const databaseCheck: DatabaseVersion = await connectToDatabase()
 
-      // Create database if it does not exist, or the game version is outdated
-      if (!databaseCheck.valid) {
-        console.log(databaseCheck.upgradeReason)
-        console.log("Downloading latest game data for saving into database...")
-        await Promise.all([
-          queryClient.prefetchQuery("cacheCharacters", cacheCharacters),
-          queryClient.prefetchQuery("cacheCharacterExpLevels", cacheCharacterExpLevels),
-          queryClient.prefetchQuery("cachePartyResonance", cachePartyResonance),
-          queryClient.prefetchQuery("cacheWeapons", cacheWeapons),
-          queryClient.prefetchQuery("cacheWeaponExpLevels", cacheWeaponExpLevels),
-          queryClient.prefetchQuery("cacheArtifacts", cacheArtifacts),
-          queryClient.prefetchQuery("cacheSkillDepots", cacheSkillDepots),
-          queryClient.prefetchQuery("cacheStatCurves", cacheStatCurves),
-          // TODO: add affixes data
-        ])
-        await setGameVersion(CURRENT_GAME_VERSION)
-        console.log("Updating database data.")
-      }
-
+    // Create database if it does not exist, or the game version is outdated
+    if (!databaseCheck.valid) {
+      console.log(databaseCheck.upgradeReason)
+      console.log("Downloading latest game data for saving into database...")
+      setNeedGameData(true)
+    } else {
       dispatch(setDatabaseIsLoaded(true))
       console.log("Database loaded.")
     }
-  }, [dispatch, queryClient, isDatabaseLoaded])
+  }, [dispatch])
+
+  const updateGameVersion = useCallback(async (): Promise<void> => {
+    await setGameVersion(CURRENT_GAME_VERSION)
+    console.log("Updating database version.")
+    dispatch(setDatabaseIsLoaded(true))
+    console.log("Database loaded.")
+  }, [dispatch])
 
   useEffect(() => {
-    loadDatabase()
-  }, [loadDatabase])
+    if (!isDatabaseLoaded) {
+      loadDatabase()
+    }
+  }, [isDatabaseLoaded, loadDatabase])
+
+  useEffect(() => {
+    if (isDoneQuerying) {
+      updateGameVersion()
+    }
+  }, [isDoneQuerying, updateGameVersion])
+
+  if (!isDatabaseLoaded) {
+    return (
+      <div className="flex flex-col h-full lg:flex-row">
+        <div className="flex flex-col justify-center items-center w-full h-full text-2xl">
+          <p>Downloading game data...</p>
+          <p>
+            {doneQueriesCount} / {gameDataQueries.length} game data files downloaded.
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col h-full lg:flex-row">
@@ -111,8 +150,8 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
         cancelText="Lumine"
         confirmAction={setMale}
         cancelAction={setFemale}
-        isOpen={dialogOpen}
-        setIsOpen={setDialogOpen}
+        isOpen={firstTimeDialogOpen}
+        setIsOpen={setFirstTimeDialogOpen}
         onClose={noop}
       />
     </div>
