@@ -1,5 +1,5 @@
 const withPWA = require("next-pwa")
-
+const util = require("util")
 const defaultRuntimeCache = require("next-pwa/cache")
 
 // Remove next-image max entries
@@ -10,10 +10,9 @@ for (const entry of defaultRuntimeCache) {
 }
 
 if (process.env.NODE_ENV === "production") {
-  console.log("Using pwa runtimeCaching rules:")
-  for (const entry of defaultRuntimeCache) {
-    console.log(entry)
-  }
+  console.log(
+    `Using pwa runtimeCaching rules:\n${util.inspect(defaultRuntimeCache, false, 5)}`,
+  )
 }
 
 module.exports = withPWA({
