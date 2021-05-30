@@ -24,7 +24,6 @@ module.exports = {
         "g-dark-2": "#d3bc8e",
         "g-dark-1": "#ece5d8",
         "g-dark-0": "#fffdfa",
-        "g-cons-electro": "#44295b",
       },
       textColor: {
         "g-dark-2": "#d3bc8e",
