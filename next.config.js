@@ -7,6 +7,7 @@ module.exports = withPWA({
   pwa: {
     disable: process.env.NODE_ENV === "development",
     dest: "public",
+    publicExcludes: ["!static/**/*"],
   },
   images: {
     deviceSizes: [400, 640, 768, 1024, 1280, 1536],
