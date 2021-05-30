@@ -5,6 +5,7 @@ import { AppProps } from "next/app"
 import Head from "next/head"
 
 import { QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
@@ -38,6 +39,8 @@ function PathOfGenshinApp({ Component, pageProps }: AppProps): React.ReactNode {
               </MainLayout>
             </PersistGate>
           </Provider>
+          {/* The react-query devtools is automatically exlcuded in production */}
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </>

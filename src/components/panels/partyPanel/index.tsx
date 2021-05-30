@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { useLiveQuery } from "dexie-react-hooks"
+import { useQuery } from "react-query"
 
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
 import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
@@ -17,9 +17,9 @@ import {
 export const PartyPanel: React.FC = () => {
   const party: CharacterData[] = useAppSelector(selectCharacters)
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const partyCharacters: Character[] | undefined = useLiveQuery(
+  const { data: partyCharacters } = useQuery(
+    ["partyCharacters", party],
     queryCharacters(party),
-    [party],
   )
 
   return (

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 
 import clsx from "clsx"
-import { useLiveQuery } from "dexie-react-hooks"
 import { noop } from "lodash"
+import { useQuery } from "react-query"
 
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
@@ -10,7 +10,6 @@ import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryAllCharacters, queryDefaultWeapons } from "@/db"
 import { Character, VisionType } from "@/generated/model/characters"
-import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   addCharacter,
@@ -29,9 +28,8 @@ interface SelectedCharacter {
 }
 
 export const PartyAdd: React.FC & ComponentWithLayout = () => {
-  const allCharacters: Character[] | undefined = useLiveQuery(queryAllCharacters)
-  const defaultWeapons: Record<WeaponType, Weapon> | undefined =
-    useLiveQuery(queryDefaultWeapons)
+  const { data: allCharacters } = useQuery("allCharacters", queryAllCharacters)
+  const { data: defaultWeapons } = useQuery("defaultWeapons", queryDefaultWeapons)
   const dispatch = useAppDispatch()
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)

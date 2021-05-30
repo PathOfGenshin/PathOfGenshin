@@ -3,15 +3,10 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 import clsx from "clsx"
-import { useLiveQuery } from "dexie-react-hooks"
+import { useQuery } from "react-query"
 
 import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "@/db"
-import {
-  Character,
-  CharacterSkillDepot,
-  VisionType,
-} from "@/generated/model/characters"
-import { Weapon } from "@/generated/model/weapon"
+import { VisionType } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
 import {
@@ -67,17 +62,17 @@ export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config: CharacterConfig | null = useAppSelector(selectCharacterConfig)
-  const character: Character | null | undefined = useLiveQuery(
+  const { data: character } = useQuery(
+    ["character", currentCharacter],
     querySingleCharacter(currentCharacter),
-    [currentCharacter],
   )
-  const weapon: Weapon | null | undefined = useLiveQuery(
+  const { data: weapon } = useQuery(
+    ["weapon", config?.weaponId ?? null],
     querySingleWeapon(config?.weaponId ?? null),
-    [config],
   )
-  const skillDepot: CharacterSkillDepot | null | undefined = useLiveQuery(
+  const { data: skillDepot } = useQuery(
+    ["skillDepot", config?.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
-    [config],
   )
 
   const [skillLevels, setSkillLevels] = useState<SkillLevels>({
