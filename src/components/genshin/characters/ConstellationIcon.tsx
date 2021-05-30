@@ -27,12 +27,12 @@ export const ConstellationIcon: React.FC<ConstellationIconProps> = ({
         disabled ? "opacity-30" : "opacity-100",
         elements[element],
       )}
+      title={constellationName}
     >
       <Image
-        className={clsx("select-none", image.crisp)}
+        className={clsx("pointer-events-none select-none", image.crisp)}
         src={constellationIcon(iconName)}
         alt={constellationName}
-        title={constellationName}
         quality={100}
         width={128}
         height={128}

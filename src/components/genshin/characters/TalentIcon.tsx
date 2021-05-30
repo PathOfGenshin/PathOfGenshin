@@ -15,12 +15,11 @@ export const TalentIcon: React.FC<TalentIconProps> = ({
   iconName,
 }: TalentIconProps) => {
   return (
-    <div className={clsx("box-content w-14 h-14 rounded-full")}>
+    <div className={clsx("box-content w-14 h-14 rounded-full")} title={skillName}>
       <Image
-        className={clsx("select-none", image.crisp)}
+        className={clsx("pointer-events-none select-none", image.crisp)}
         src={skillIcon(iconName)}
         alt={skillName}
-        title={skillName}
         quality={100}
         width={128}
         height={128}
