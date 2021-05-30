@@ -8,7 +8,7 @@ import image from "@/styles/image.module.scss"
 
 import SVGRoundBorder from "../icons/SVGRoundBorder"
 
-export interface WeaponIconProps {
+interface WeaponIconProps {
   iconName: string
   weaponName: string
   quality: StarQuality
