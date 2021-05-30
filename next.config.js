@@ -1,5 +1,21 @@
 const withPWA = require("next-pwa")
 
+const defaultRuntimeCache = require("next-pwa/cache")
+
+// Remove next-image max entries
+for (const entry of defaultRuntimeCache) {
+  if (entry.options.cacheName === "next-image") {
+    delete entry.options.expiration.maxEntries
+  }
+}
+
+if (process.env.NODE_ENV === "production") {
+  console.log("Using pwa runtimeCaching rules:")
+  for (const entry of defaultRuntimeCache) {
+    console.log(entry)
+  }
+}
+
 module.exports = withPWA({
   future: {
     webpack5: true,
@@ -8,6 +24,7 @@ module.exports = withPWA({
     disable: process.env.NODE_ENV === "development",
     dest: "public",
     publicExcludes: ["!static/**/*"],
+    runtimeCaching: defaultRuntimeCache,
   },
   images: {
     deviceSizes: [400, 640, 768, 1024, 1280, 1536],
