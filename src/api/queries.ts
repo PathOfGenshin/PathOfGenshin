@@ -1,8 +1,11 @@
+import { AxiosResponse } from "axios"
+
 import { client } from "@/api/client"
 import {
   DATA_ARTIFACTS,
   DATA_CHARACTERS,
   DATA_CHARACTER_EXP_LEVELS,
+  DATA_MANUAL_TEXT_MAPPINGS,
   DATA_PARTY_RESONANCE,
   DATA_SKILL_DEPOTS,
   DATA_STAT_CURVES,
@@ -13,6 +16,7 @@ import {
   addArtifacts,
   addCharacterExpLevels,
   addCharacters,
+  addManualTextMappings,
   addPartyResonance,
   addSkillDepots,
   addStatCurves,
@@ -22,55 +26,57 @@ import {
 import type { Artifact } from "@/generated/model/artifacts"
 import { CharacterExpLevel } from "@/generated/model/character_exp_levels"
 import type { Character, CharacterSkillDepot } from "@/generated/model/characters"
+import { ManualTextMapping } from "@/generated/model/manual_text_mapping"
 import { PartyResonance } from "@/generated/model/party_resonance"
 import { StatCurve } from "@/generated/model/stat_curves"
 import type { Weapon } from "@/generated/model/weapon"
 import { WeaponExpLevel } from "@/generated/model/weapon_exp_levels"
 
 export const fetchCharacters = async (): Promise<void> => {
-  const resp = await client.get(DATA_CHARACTERS)
-  const characters: Character[] = resp.data as Character[]
-  return await addCharacters(characters)
+  const resp: AxiosResponse<Character[]> = await client.get(DATA_CHARACTERS)
+  return await addCharacters(resp.data)
 }
 
 export const fetchCharacterExpLevels = async (): Promise<void> => {
-  const resp = await client.get(DATA_CHARACTER_EXP_LEVELS)
-  const characterExpLevels: CharacterExpLevel[] = resp.data as CharacterExpLevel[]
-  return await addCharacterExpLevels(characterExpLevels)
+  const resp: AxiosResponse<CharacterExpLevel[]> = await client.get(
+    DATA_CHARACTER_EXP_LEVELS,
+  )
+  return await addCharacterExpLevels(resp.data)
 }
 
 export const fetchPartyResonance = async (): Promise<void> => {
-  const resp = await client.get(DATA_PARTY_RESONANCE)
-  const partyResonance: PartyResonance[] = resp.data as PartyResonance[]
-  return await addPartyResonance(partyResonance)
+  const resp: AxiosResponse<PartyResonance[]> = await client.get(DATA_PARTY_RESONANCE)
+  return await addPartyResonance(resp.data)
 }
 
 export const fetchSkillDepots = async (): Promise<void> => {
-  const resp = await client.get(DATA_SKILL_DEPOTS)
-  const skillDepots: CharacterSkillDepot[] = resp.data as CharacterSkillDepot[]
-  return await addSkillDepots(skillDepots)
+  const resp: AxiosResponse<CharacterSkillDepot[]> = await client.get(DATA_SKILL_DEPOTS)
+  return await addSkillDepots(resp.data)
 }
 
 export const fetchArtifacts = async (): Promise<void> => {
-  const resp = await client.get(DATA_ARTIFACTS)
-  const artifacts: Artifact[] = resp.data as Artifact[]
-  return await addArtifacts(artifacts)
+  const resp: AxiosResponse<Artifact[]> = await client.get(DATA_ARTIFACTS)
+  return await addArtifacts(resp.data)
 }
 
 export const fetchWeapons = async (): Promise<void> => {
-  const resp = await client.get(DATA_WEAPONS)
-  const weapons: Weapon[] = resp.data as Weapon[]
-  return await addWeapons(weapons)
+  const resp: AxiosResponse<Weapon[]> = await client.get(DATA_WEAPONS)
+  return await addWeapons(resp.data)
 }
 
 export const fetchWeaponExpLevels = async (): Promise<void> => {
-  const resp = await client.get(DATA_WEAPON_EXP_LEVELS)
-  const weaponExpLevels: WeaponExpLevel[] = resp.data as WeaponExpLevel[]
-  return await addWeaponExpLevels(weaponExpLevels)
+  const resp: AxiosResponse<WeaponExpLevel[]> = await client.get(DATA_WEAPON_EXP_LEVELS)
+  return await addWeaponExpLevels(resp.data)
 }
 
 export const fetchStatCurves = async (): Promise<void> => {
-  const resp = await client.get(DATA_STAT_CURVES)
-  const statCurves: StatCurve[] = resp.data as StatCurve[]
-  return await addStatCurves(statCurves)
+  const resp: AxiosResponse<StatCurve[]> = await client.get(DATA_STAT_CURVES)
+  return await addStatCurves(resp.data)
+}
+
+export const fetchManualTextMappings = async (): Promise<void> => {
+  const resp: AxiosResponse<ManualTextMapping[]> = await client.get(
+    DATA_MANUAL_TEXT_MAPPINGS,
+  )
+  return await addManualTextMappings(resp.data)
 }

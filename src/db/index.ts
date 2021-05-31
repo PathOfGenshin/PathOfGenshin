@@ -9,6 +9,7 @@ import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { WeaponExpLevel } from "@/generated/model/weapon_exp_levels"
 import { CharacterData } from "@/store/party/partySlice"
 import { CURRENT_GAME_VERSION, DATABASE_SCHEMA_VERSION } from "@/version"
+import { ManualTextMapping, TextMappingType } from "@/generated/model/manual_text_mapping"
 
 const DATABASE_NAME = "genshindata"
 
@@ -24,6 +25,7 @@ enum TableName {
   weaponExpLevels = "weaponExpLevels",
   skillDepots = "skillDepots",
   statCurves = "statCurves",
+  manualTextMappings = "manualTextMappings",
   metadata = "metadata",
 }
 
@@ -43,6 +45,7 @@ const tableIndexSchema: Record<TableName, string> = {
   [TableName.weaponExpLevels]: "[quality+level]",
   [TableName.skillDepots]: "id",
   [TableName.statCurves]: "[curveId+level]",
+  [TableName.manualTextMappings]: "[key+type]",
   [TableName.metadata]: `${GAME_VERSION_KEY}`,
 }
 
@@ -55,6 +58,7 @@ class GenshinDatabase extends Dexie {
   public readonly [TableName.weaponExpLevels]: Dexie.Table<Weapon, [number, number]>
   public readonly [TableName.skillDepots]: Dexie.Table<CharacterSkillDepot, number>
   public readonly [TableName.statCurves]: Dexie.Table<StatCurve, [string, number]>
+  public readonly [TableName.manualTextMappings]: Dexie.Table<ManualTextMapping, [string, TextMappingType]>
   public readonly [TableName.metadata]: Dexie.Table<MetadataObject, string>
 
   constructor() {
@@ -69,6 +73,7 @@ class GenshinDatabase extends Dexie {
     this[TableName.weaponExpLevels] = this.table(TableName.weaponExpLevels)
     this[TableName.skillDepots] = this.table(TableName.skillDepots)
     this[TableName.statCurves] = this.table(TableName.statCurves)
+    this[TableName.manualTextMappings] = this.table(TableName.manualTextMappings)
     this[TableName.metadata] = this.table(TableName.metadata)
   }
 }
@@ -147,6 +152,10 @@ export async function addWeaponExpLevels(
 
 export async function addStatCurves(statCurves: StatCurve[]): Promise<void> {
   return await saveBulk(TableName.statCurves, statCurves)
+}
+
+export async function addManualTextMappings(manualTextMappings: ManualTextMapping[]): Promise<void> {
+  return await saveBulk(TableName.manualTextMappings, manualTextMappings)
 }
 
 // ******************************************************************

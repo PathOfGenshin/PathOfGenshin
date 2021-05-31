@@ -7,6 +7,7 @@ import {
   fetchArtifacts,
   fetchCharacterExpLevels,
   fetchCharacters,
+  fetchManualTextMappings,
   fetchPartyResonance,
   fetchSkillDepots,
   fetchStatCurves,
@@ -60,6 +61,11 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
     { queryKey: "fetchArtifacts", queryFn: fetchArtifacts, enabled: needGameData },
     { queryKey: "fetchSkillDepots", queryFn: fetchSkillDepots, enabled: needGameData },
     { queryKey: "fetchStatCurves", queryFn: fetchStatCurves, enabled: needGameData },
+    {
+      queryKey: "fetchManualTextMappings",
+      queryFn: fetchManualTextMappings,
+      enabled: needGameData,
+    },
   ])
   const isDoneQuerying: boolean = gameDataQueries.every((r) => r.isSuccess)
   const doneQueriesCount: number = gameDataQueries.filter((r) => r.isSuccess).length

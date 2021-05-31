@@ -8,3 +8,4 @@ export const DATA_WEAPONS = `${BASE_DATA_ENGLISH}/weapon/weapons.json`
 export const DATA_WEAPON_EXP_LEVELS = `${BASE_DATA_ENGLISH}/weapon/exp_levels.json`
 export const DATA_SKILL_DEPOTS = `${BASE_DATA_ENGLISH}/character/skill_depots.json`
 export const DATA_STAT_CURVES = `${BASE_DATA_ENGLISH}/shared/stat_curves.json`
+export const DATA_MANUAL_TEXT_MAPPINGS = `${BASE_DATA_ENGLISH}/shared/manual_text_mapping.json`
