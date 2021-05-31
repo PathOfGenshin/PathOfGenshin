@@ -42,8 +42,8 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
                 ? "border-g-char-selected bg-g-char-selected-fill"
                 : "border-g-char",
             )}
-          ></div>
-          <div className="absolute w-16 h-16 -top-8/3r md:-top-3 lg:-top-4 md:w-18 md:h-18 lg:w-24 lg:h-24">
+          />
+          <div className="absolute w-16 h-16 pointer-events-none select-none -top-8/3r md:-top-3 lg:-top-4 md:w-18 md:h-18 lg:w-24 lg:h-24">
             <Image
               className={clsx("pointer-events-none select-none", image.imgCrisp)}
               src={avatarIcon(iconName)}
@@ -58,7 +58,7 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
               "absolute bottom-0 transition duration-100 h-0.5 md:h-1",
               isSelected ? "w-full bg-g-char-selected-fill" : "w-0 opacity-0",
             )}
-          ></div>
+          />
         </a>
       </div>
     )

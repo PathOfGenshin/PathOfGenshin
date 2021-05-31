@@ -21,22 +21,24 @@ export const ConstellationIcon: React.FC<ConstellationIconProps> = ({
   element,
 }: ConstellationIconProps) => {
   return (
-    <div
-      className={clsx(
-        "box-content w-12 h-12 rounded-full border-2",
-        disabled ? "opacity-30" : "opacity-100",
-        elements[element],
-      )}
-      title={constellationName}
-    >
-      <Image
-        className={clsx("pointer-events-none select-none", image.crisp)}
-        src={constellationIcon(iconName)}
-        alt={constellationName}
-        quality={100}
-        width={128}
-        height={128}
-      />
+    <div title={constellationName}>
+      <span className="sr-only">{constellationName} Icon</span>
+      <div
+        className={clsx(
+          "box-content w-12 h-12 rounded-full border-2 pointer-events-none select-none",
+          disabled ? "opacity-30" : "opacity-100",
+          elements[element],
+        )}
+      >
+        <Image
+          className={clsx("pointer-events-none select-none", image.crisp)}
+          src={constellationIcon(iconName)}
+          alt={constellationName}
+          quality={100}
+          width={128}
+          height={128}
+        />
+      </div>
     </div>
   )
 }

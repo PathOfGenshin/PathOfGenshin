@@ -13,7 +13,7 @@ export const SettingsDropdown: React.FC = () => {
           <>
             <Menu.Button className="p-1 text-gray-400 bg-gray-800 rounded-full dark:bg-g-dark-800 dark:hover:bg-g-dark-700 hover:text-white dark:text-g-dark-2 dark:hover:text-g-dark-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span className="sr-only">Open user menu</span>
-              <div className="w-8 h-8">
+              <div className="w-8 h-8 pointer-events-none select-none">
                 <Image
                   className="rounded-full"
                   src="/static/elements/Hydro_White.png"

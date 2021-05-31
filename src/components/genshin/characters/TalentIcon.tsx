@@ -15,15 +15,22 @@ export const TalentIcon: React.FC<TalentIconProps> = ({
   iconName,
 }: TalentIconProps) => {
   return (
-    <div className={clsx("box-content w-14 h-14 rounded-full")} title={skillName}>
-      <Image
-        className={clsx("pointer-events-none select-none", image.crisp)}
-        src={skillIcon(iconName)}
-        alt={skillName}
-        quality={100}
-        width={128}
-        height={128}
-      />
+    <div title={skillName}>
+      <span className="sr-only">{skillName} Icon</span>
+      <div
+        className={clsx(
+          "box-content w-14 h-14 rounded-full pointer-events-none select-none",
+        )}
+      >
+        <Image
+          className={clsx("pointer-events-none select-none", image.crisp)}
+          src={skillIcon(iconName)}
+          alt={skillName}
+          quality={100}
+          width={128}
+          height={128}
+        />
+      </div>
     </div>
   )
 }

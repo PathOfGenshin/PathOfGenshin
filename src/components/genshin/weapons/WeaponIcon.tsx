@@ -23,7 +23,7 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
 }: WeaponIconProps) => {
   return (
     <div className="block relative w-24 text-center rounded-md shadow-md 2xl:w-32">
-      <div className="absolute w-full">
+      <div className="absolute w-full pointer-events-none select-none">
         <Image
           className={clsx(
             "rounded-md opacity-80 pointer-events-none select-none",
@@ -38,7 +38,7 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
         />
       </div>
       <div className="flex relative flex-col">
-        <div className="relative w-24 h-24 2xl:w-32 2xl:h-32">
+        <div className="relative w-24 h-24 pointer-events-none select-none 2xl:w-32 2xl:h-32">
           <Image
             className={clsx(
               "w-24 rounded-md pointer-events-none select-none 2xl:w-32",
@@ -50,7 +50,7 @@ export const WeaponIcon: React.FC<WeaponIconProps> = ({
             width={256}
             height={256}
           />
-          <SVGRoundBorder className="absolute -bottom-px text-g-paper" />
+          <SVGRoundBorder className="absolute -bottom-px pointer-events-none select-none text-g-paper" />
         </div>
         <div className="relative h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0 2xl:h-7.5 2xl:text-lg 2xl:leading-7.5">
           {label ?? weaponName}
