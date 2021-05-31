@@ -3,13 +3,13 @@ import Dexie from "dexie"
 import { Artifact } from "@/generated/model/artifacts"
 import { CharacterExpLevel } from "@/generated/model/character_exp_levels"
 import { Character, CharacterSkillDepot } from "@/generated/model/characters"
+import { ManualTextMapping } from "@/generated/model/manual_text_mapping"
 import { PartyResonance } from "@/generated/model/party_resonance"
 import { StatCurve } from "@/generated/model/stat_curves"
 import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { WeaponExpLevel } from "@/generated/model/weapon_exp_levels"
 import { CharacterData } from "@/store/party/partySlice"
 import { CURRENT_GAME_VERSION, DATABASE_SCHEMA_VERSION } from "@/version"
-import { ManualTextMapping, TextMappingType } from "@/generated/model/manual_text_mapping"
 
 const DATABASE_NAME = "genshindata"
 
@@ -45,7 +45,7 @@ const tableIndexSchema: Record<TableName, string> = {
   [TableName.weaponExpLevels]: "[quality+level]",
   [TableName.skillDepots]: "id",
   [TableName.statCurves]: "[curveId+level]",
-  [TableName.manualTextMappings]: "[key+type]",
+  [TableName.manualTextMappings]: "key,type",
   [TableName.metadata]: `${GAME_VERSION_KEY}`,
 }
 
@@ -58,7 +58,7 @@ class GenshinDatabase extends Dexie {
   public readonly [TableName.weaponExpLevels]: Dexie.Table<Weapon, [number, number]>
   public readonly [TableName.skillDepots]: Dexie.Table<CharacterSkillDepot, number>
   public readonly [TableName.statCurves]: Dexie.Table<StatCurve, [string, number]>
-  public readonly [TableName.manualTextMappings]: Dexie.Table<ManualTextMapping, [string, TextMappingType]>
+  public readonly [TableName.manualTextMappings]: Dexie.Table<ManualTextMapping, string>
   public readonly [TableName.metadata]: Dexie.Table<MetadataObject, string>
 
   constructor() {
@@ -114,6 +114,10 @@ export async function setGameVersion(gameVersion: number): Promise<void> {
 // Add to database from fetched game data json
 // ********************************************
 
+function notUndefined<T>(x: T | undefined): x is T {
+  return x !== undefined
+}
+
 export async function addCharacters(characters: Character[]): Promise<void> {
   return await saveBulk(TableName.characters, characters)
 }
@@ -154,7 +158,9 @@ export async function addStatCurves(statCurves: StatCurve[]): Promise<void> {
   return await saveBulk(TableName.statCurves, statCurves)
 }
 
-export async function addManualTextMappings(manualTextMappings: ManualTextMapping[]): Promise<void> {
+export async function addManualTextMappings(
+  manualTextMappings: ManualTextMapping[],
+): Promise<void> {
   return await saveBulk(TableName.manualTextMappings, manualTextMappings)
 }
 
@@ -177,33 +183,40 @@ export const queryCharacters =
   (characterDatas: CharacterData[]) => async (): Promise<Character[]> => {
     const characters = (
       await db.characters.bulkGet(characterDatas.map((char) => char.id))
-    ).filter((char) => Boolean(char))
-
-    return characters as Character[]
+    ).filter(notUndefined)
+    return characters
   }
 
 export const querySingleCharacter =
   (characterData: CharacterData | null) => async (): Promise<Character | null> => {
     if (characterData === null) return null
 
-    const character = (await db.characters.get(characterData.id)) as Character
-    return character
+    const character = await db.characters.get(characterData.id)
+    return character ?? null
   }
 
 export const querySingleWeapon =
   (weaponId: number | null) => async (): Promise<Weapon | null> => {
     if (weaponId === null) return null
 
-    const weapon = (await db.weapons.get(weaponId)) as Weapon
-    return weapon
+    const weapon = await db.weapons.get(weaponId)
+    return weapon ?? null
   }
 
 export const querySingleSkillDepot =
   (skillDepotId: number | null) => async (): Promise<CharacterSkillDepot | null> => {
     if (skillDepotId === null) return null
 
-    const skillDepot = (await db.skillDepots.get(skillDepotId)) as CharacterSkillDepot
-    return skillDepot
+    const skillDepot = await db.skillDepots.get(skillDepotId)
+    return skillDepot ?? null
+  }
+
+export const queryTextMappings =
+  (keys: string[]) => async (): Promise<Record<string, string>> => {
+    const textMappings = (await db.manualTextMappings.bulkGet(keys)).filter(
+      notUndefined,
+    )
+    return Object.fromEntries(textMappings.map((entry) => [entry.key, entry.value]))
   }
 
 export interface DatabaseVersion {

@@ -19,6 +19,7 @@ import { ChevronUpIcon } from "@heroicons/react/solid"
 
 import CharacterInfo from "./CharacterInfo"
 import ConstellationInfo from "./ConstellationInfo"
+import StatsInfo from "./StatsInfo"
 import TalentInfo from "./TalentInfo"
 import WeaponInfo from "./WeaponInfo"
 import { SkillLevels } from "./skills"
@@ -142,20 +143,22 @@ export const StatusPanel: React.FC = () => {
         )}
       </AccordionSection>
       <AccordionSection title="Weapon">
-        {weapon && (
+        {config && weapon && (
           <WeaponInfo
             iconName={weapon.icon}
             awakenIconName={weapon.iconAwakened}
             quality={weapon.quality}
             weaponName={weapon.name}
             description={weapon.description}
-            level={1}
-            maxLevel={20}
+            level={config.weaponLevel}
+            maxLevel={config.weaponMaxLevel}
           />
         )}
       </AccordionSection>
       <AccordionSection title="Artifacts">Currently none equipped</AccordionSection>
-      <AccordionSection title="Stats">TODO</AccordionSection>
+      <AccordionSection title="Stats">
+        {config && <StatsInfo config={config} />}
+      </AccordionSection>
     </div>
   )
 }

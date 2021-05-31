@@ -25,6 +25,8 @@ export interface CharacterConfig {
   // Equipped weapon
   weaponId: number
   weaponLevel: number
+  weaponMaxLevel: number
+  weaponRefinement: number
   // Artifacts
   flower: InventoryReference | null
   plume: InventoryReference | null
@@ -49,6 +51,8 @@ export function createDefaultCharacterConfig(
     levelTalentBurst: 1,
     weaponId,
     weaponLevel: 1,
+    weaponMaxLevel: 20,
+    weaponRefinement: 1,
     flower: null,
     plume: null,
     sands: null,
