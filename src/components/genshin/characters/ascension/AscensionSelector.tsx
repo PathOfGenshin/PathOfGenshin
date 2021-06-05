@@ -37,7 +37,7 @@ const AscensionSelector: React.FC<AscensionSelectorProps> = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="overflow-auto absolute p-1 mt-1 w-full max-h-48 text-base rounded-xl ring-1 ring-black ring-opacity-5 shadow-lg bg-g-dark-600 focus:outline-none sm:text-sm">
+              <Listbox.Options className="overflow-auto absolute p-1 mt-1 w-full text-base rounded-xl ring-1 ring-black ring-opacity-5 shadow-lg max-h-47 bg-g-dark-600 focus:outline-none sm:text-sm">
                 {ascensions.map((ascension: Ascension, ascensionIdx: number) => (
                   <Listbox.Option
                     key={ascensionIdx}
