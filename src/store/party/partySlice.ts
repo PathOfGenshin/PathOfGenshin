@@ -1,8 +1,11 @@
+import { clamp } from "lodash"
+
 import { VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
 import { CharacterConfig, createDefaultCharacterConfig } from "./characterConfig"
+import { AscensionLevel } from "./partyModels"
 
 export const MAX_PARTY_SIZE = 4
 
@@ -94,10 +97,27 @@ export const partySlice = createSlice({
         }
       }
     },
+
+    // Set max level for current character
+    setAscension: (state, action: PayloadAction<AscensionLevel>) => {
+      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
+        const config = state.characterConfig[state.currentCharacter.id]
+        // Update max level
+        state.characterConfig[state.currentCharacter.id].maxLevel =
+          action.payload.maxLevel
+
+        // Clamp level to the current ascension
+        state.characterConfig[state.currentCharacter.id].level = clamp(
+          config.level,
+          action.payload.lowerMaxLevel,
+          action.payload.maxLevel,
+        )
+      }
+    },
   },
 })
 
-export const { addCharacter, removeCharacterById, setCurrentCharacter } =
+export const { addCharacter, removeCharacterById, setCurrentCharacter, setAscension } =
   partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

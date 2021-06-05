@@ -40,7 +40,7 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
   }, [dispatch, asPath, party])
 
   return (
-    <div className="flex justify-center w-full max-w-5xl">
+    <div className="w-full">
       <CurrentCharacterTab isValidCharacter={isValidCharacter} />
     </div>
   )
