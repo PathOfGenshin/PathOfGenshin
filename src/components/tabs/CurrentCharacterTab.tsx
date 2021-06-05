@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { useSelector } from "react-redux"
 
-import AscensionSelector from "@/components/genshin/characters/ascension/AscensionSelector"
+import DropdownSelector from "@/components/genshin/dropdown"
 import { querySingleCharacter } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
 import { Character } from "@/generated/model/characters"
@@ -48,6 +48,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
     },
     [character.ascensions, dispatch],
   )
+  const ascensionLevelValue = useCallback((a: Ascension): number => a.maxLevel, [])
 
   return (
     <div>
@@ -57,10 +58,12 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
       <h3 className="text-lg italic font-semibold">Level and Ascensions</h3>
       <div className="flex flex-row items-center">
         <span className="w-24">Max Level</span>
-        <AscensionSelector
+        <DropdownSelector<Ascension>
           selected={selectedAscension}
-          ascensions={character.ascensions}
+          options={character.ascensions}
           onSelected={onSelectedAscension}
+          buttonValue={ascensionLevelValue}
+          optionValue={ascensionLevelValue}
         />
       </div>
       <p>Level</p>
