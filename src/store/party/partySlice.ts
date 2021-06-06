@@ -76,7 +76,7 @@ export const partySlice = createSlice({
       const id: number = action.payload
       const index: number = state.charactersInParty.findIndex((char) => char.id === id)
       if (index > -1) {
-        state.charactersInParty = state.charactersInParty.splice(index, 1)
+        state.charactersInParty.splice(index, 1)
       }
 
       if (state.charactersInParty.length === 0) {

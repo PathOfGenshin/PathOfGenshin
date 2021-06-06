@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
+import { useRouter } from "next/router"
+
 import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 import { useSelector } from "react-redux"
@@ -12,11 +14,13 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
 import {
   CharacterData,
+  removeCharacterById,
   selectCharacterConfig,
   selectCurrentCharacter,
   setAscension,
   setLevel,
 } from "@/store/party/partySlice"
+import { ArchiveIcon } from "@heroicons/react/solid"
 
 interface CurrentCharacterTabProps {
   isValidCharacter: boolean
@@ -31,6 +35,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   character,
   config,
 }: CharacterSettingsProps) => {
+  const router = useRouter()
   const dispatch = useAppDispatch()
 
   const onSelectedAscension = useCallback(
@@ -55,9 +60,22 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
 
   const ascensionLevelValue = useCallback((a: Ascension): number => a.maxLevel, [])
 
+  const removeFromParty = useCallback(() => {
+    dispatch(removeCharacterById(character.id))
+    router.back()
+  }, [dispatch, character.id, router])
+
   return (
-    <div>
-      <h2 className="mb-2 text-2xl tracking-tight leading-6 font-genshin">
+    <div className="relative w-full">
+      <button
+        className="py-2 px-4 mb-4 h-10 text-sm rounded-full ring-inset transition duration-100 xl:top-0 xl:right-0 xl:absolute font-genshin text-g-paper bg-g-dark-600 hover:ring hover:ring-g-button-hover focus:outline-none focus:ring focus:ring-g-button-focus-ring focus:bg-g-button-focus focus:text-g-button-focus"
+        onClick={removeFromParty}
+      >
+        <span>
+          <ArchiveIcon className="inline-block pr-1 w-5 h-5" /> Remove from party
+        </span>
+      </button>
+      <h2 className="mb-4 text-2xl tracking-tight leading-6 font-genshin">
         Character Settings
       </h2>
       <div className="flex flex-row items-center">
@@ -103,7 +121,7 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
   }, [character, config])
 
   return (
-    <div className="flex mx-auto w-full max-w-5xl">
+    <div className="flex relative mx-auto w-full max-w-5xl">
       {!isValidCharacter && isLoaded && (
         <div>
           The specified character is either invalid or does not exist in your party.
