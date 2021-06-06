@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
+import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 import { useSelector } from "react-redux"
 
@@ -14,6 +15,7 @@ import {
   selectCharacterConfig,
   selectCurrentCharacter,
   setAscension,
+  setLevel,
 } from "@/store/party/partySlice"
 
 interface CurrentCharacterTabProps {
@@ -31,13 +33,8 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
 }: CharacterSettingsProps) => {
   const dispatch = useAppDispatch()
 
-  const [selectedAscension, setSelectedAscension] = useState<Ascension>(
-    character.ascensions.find((a) => a.maxLevel === config.maxLevel) ??
-      character.ascensions[0],
-  )
   const onSelectedAscension = useCallback(
     (ascension: Ascension): void => {
-      setSelectedAscension(ascension)
       const prevIndex: number = ascension.ascensionLevel - 1
       dispatch(
         setAscension({
@@ -48,6 +45,14 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
     },
     [character.ascensions, dispatch],
   )
+
+  const onSelectedLevel = useCallback(
+    (level: number): void => {
+      dispatch(setLevel(level))
+    },
+    [dispatch],
+  )
+
   const ascensionLevelValue = useCallback((a: Ascension): number => a.maxLevel, [])
 
   return (
@@ -55,21 +60,27 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
       <h2 className="mb-2 text-2xl tracking-tight leading-6 font-genshin">
         Character Settings
       </h2>
-      <h3 className="text-lg italic font-semibold">Level and Ascensions</h3>
       <div className="flex flex-row items-center">
-        <span className="w-24">Max Level</span>
+        <span className="pr-4">Level</span>
+        <DropdownSelector<number>
+          selected={config.level}
+          options={range(config.lowerMaxLevel, config.maxLevel + 1)}
+          onSelected={onSelectedLevel}
+          buttonValue={identity}
+          optionValue={identity}
+        />
+        <span className="pr-4 pl-8">Max Level</span>
         <DropdownSelector<Ascension>
-          selected={selectedAscension}
+          selected={
+            character.ascensions.find((a) => a.maxLevel === config.maxLevel) ??
+            character.ascensions[0]
+          }
           options={character.ascensions}
           onSelected={onSelectedAscension}
           buttonValue={ascensionLevelValue}
           optionValue={ascensionLevelValue}
         />
       </div>
-      <p>Level</p>
-      <p className="tracking-tight leading-6 font-genshin">
-        Level: {config.level} / {config.maxLevel}
-      </p>
     </div>
   )
 }

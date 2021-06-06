@@ -17,6 +17,7 @@ export interface CharacterConfig {
   constellationLevel: 0 | 1 | 2 | 3 | 4 | 5 | 6
   // Level range from 1 to 90
   level: number
+  lowerMaxLevel: number
   maxLevel: number
   // Talent levels
   levelTalentAttack: number
@@ -45,6 +46,7 @@ export function createDefaultCharacterConfig(
   return {
     constellationLevel: 0,
     level: 1,
+    lowerMaxLevel: 1,
     maxLevel: 20,
     levelTalentAttack: 1,
     levelTalentSkill: 1,

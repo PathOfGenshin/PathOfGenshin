@@ -22,7 +22,7 @@ const Selector = <T,>({
 }: SelectorProps<T>): React.ReactElement | null => {
   return (
     <div className="h-10 leading-6 font-genshin">
-      <div className="fixed w-24 h-10 text-g-paper-0">
+      <div className="w-24 h-10 text-g-paper-0">
         <Listbox value={selected} onChange={onSelected}>
           <div className="relative mt-1">
             <Listbox.Button className="relative py-2 pr-8 pl-3 w-full text-left rounded-full shadow-md cursor-default bg-g-dark-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
@@ -40,7 +40,7 @@ const Selector = <T,>({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="overflow-auto absolute p-1 mt-1 w-full text-base rounded-xl ring-1 ring-black ring-opacity-5 shadow-lg max-h-47 bg-g-dark-600 focus:outline-none sm:text-sm">
+              <Listbox.Options className="overflow-auto absolute z-10 p-1 mt-1 w-full text-base rounded-xl ring-1 ring-black ring-opacity-5 shadow-lg max-h-47 bg-g-dark-600 focus:outline-none sm:text-sm">
                 {options.map((option: T, index: number) => (
                   <Listbox.Option
                     key={index}

@@ -105,6 +105,8 @@ export const partySlice = createSlice({
         // Update max level
         state.characterConfig[state.currentCharacter.id].maxLevel =
           action.payload.maxLevel
+        state.characterConfig[state.currentCharacter.id].lowerMaxLevel =
+          action.payload.lowerMaxLevel
 
         // Clamp level to the current ascension
         state.characterConfig[state.currentCharacter.id].level = clamp(
@@ -114,11 +116,24 @@ export const partySlice = createSlice({
         )
       }
     },
+
+    // Set current level for current character
+    setLevel: (state, action: PayloadAction<number>) => {
+      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
+        const config = state.characterConfig[state.currentCharacter.id]
+        config.level = action.payload
+      }
+    },
   },
 })
 
-export const { addCharacter, removeCharacterById, setCurrentCharacter, setAscension } =
-  partySlice.actions
+export const {
+  addCharacter,
+  removeCharacterById,
+  setCurrentCharacter,
+  setAscension,
+  setLevel,
+} = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>
   state.party.charactersInParty
