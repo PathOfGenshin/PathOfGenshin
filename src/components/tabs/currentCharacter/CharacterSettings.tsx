@@ -17,11 +17,36 @@ interface CharacterSettingsProps {
   config: CharacterConfig
 }
 
+interface RemoveFromPartyButtonProps {
+  characterId: number
+}
+
+const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
+  characterId,
+}: RemoveFromPartyButtonProps) => {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const removeFromParty = useCallback(() => {
+    dispatch(removeCharacterById(characterId))
+    router.back()
+  }, [dispatch, characterId, router])
+
+  return (
+    <button
+      className="py-2 px-4 my-2 h-10 text-sm rounded-full ring-inset transition duration-100 font-genshin text-g-paper bg-g-dark-600 hover:ring hover:ring-g-button-hover focus:outline-none focus:ring focus:ring-g-button-focus-ring focus:bg-g-button-focus focus:text-g-button-focus"
+      onClick={removeFromParty}
+    >
+      <span>
+        <ArchiveIcon className="inline-block pr-1 w-5 h-5" /> Remove from party
+      </span>
+    </button>
+  )
+}
+
 export const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   character,
   config,
 }: CharacterSettingsProps) => {
-  const router = useRouter()
   const dispatch = useAppDispatch()
 
   const onSelectedAscension = useCallback(
@@ -46,22 +71,14 @@ export const CharacterSettings: React.FC<CharacterSettingsProps> = ({
 
   const ascensionLevelValue = useCallback((a: Ascension): number => a.maxLevel, [])
 
-  const removeFromParty = useCallback(() => {
-    dispatch(removeCharacterById(character.id))
-    router.back()
-  }, [dispatch, character.id, router])
-
   return (
     <div className="relative w-full">
-      <button
-        className="py-2 px-4 mb-4 h-10 text-sm rounded-full ring-inset transition duration-100 xl:top-0 xl:right-0 xl:absolute font-genshin text-g-paper bg-g-dark-600 hover:ring hover:ring-g-button-hover focus:outline-none focus:ring focus:ring-g-button-focus-ring focus:bg-g-button-focus focus:text-g-button-focus"
-        onClick={removeFromParty}
-      >
-        <span>
-          <ArchiveIcon className="inline-block pr-1 w-5 h-5" /> Remove from party
-        </span>
-      </button>
-      <h2 className="py-2 text-2xl tracking-tight font-genshin">Character Settings</h2>
+      <div className="flex flex-wrap justify-between items-center w-full">
+        <h2 className="my-2 text-2xl tracking-tight font-genshin">
+          Character Settings
+        </h2>
+        <RemoveFromPartyButton characterId={character.id} />
+      </div>
       <div className="flex flex-row items-center py-2">
         <span className="pr-4">Level</span>
         <DropdownSelector<number>
