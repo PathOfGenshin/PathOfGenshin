@@ -12,9 +12,11 @@ export interface CharacterSkillDepotConfig {
   element: VisionType
 }
 
+export type ConstellationLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
 export interface CharacterConfig {
   // How many constellations the character has unlocked
-  constellationLevel: 0 | 1 | 2 | 3 | 4 | 5 | 6
+  constellationLevel: ConstellationLevel
   // Level range from 1 to 90
   level: number
   lowerMaxLevel: number

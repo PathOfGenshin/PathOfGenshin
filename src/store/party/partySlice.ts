@@ -4,7 +4,7 @@ import { VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
-import { CharacterConfig, createDefaultCharacterConfig } from "./characterConfig"
+import { CharacterConfig, ConstellationLevel, createDefaultCharacterConfig } from "./characterConfig"
 import { AscensionLevel } from "./partyModels"
 
 export const MAX_PARTY_SIZE = 4
@@ -124,6 +124,14 @@ export const partySlice = createSlice({
         config.level = action.payload
       }
     },
+
+    // Set constellation level for current character
+    setConstellationLevel: (state, action: PayloadAction<ConstellationLevel>) => {
+      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
+        const config = state.characterConfig[state.currentCharacter.id]
+        config.constellationLevel = action.payload
+      }
+    }
   },
 })
 
@@ -133,6 +141,7 @@ export const {
   setCurrentCharacter,
   setAscension,
   setLevel,
+  setConstellationLevel,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

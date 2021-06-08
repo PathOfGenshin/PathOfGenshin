@@ -7,7 +7,7 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid"
 
 interface SelectorProps<T> {
   selected: T
-  options: T[]
+  options: T[] | Readonly<T[]>
   buttonValue: (t: T) => string | number
   optionValue: (t: T) => string | number
   onSelected: (ascension: T) => void

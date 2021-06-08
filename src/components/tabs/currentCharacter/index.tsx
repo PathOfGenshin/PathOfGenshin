@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 import { useQuery } from "react-query"
 import { useSelector } from "react-redux"
 
@@ -26,23 +24,19 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
     ["character", currentCharacter],
     querySingleCharacter(currentCharacter),
   )
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (character && config) {
-      setIsLoaded(true)
-    }
-  }, [character, config])
 
   return (
     <div className="flex relative mx-auto w-full max-w-5xl">
-      {!isValidCharacter && isLoaded && (
+      {!isValidCharacter && config && character && (
         <div>
           The specified character is either invalid or does not exist in your party.
         </div>
       )}
-      {isValidCharacter && isLoaded && character && config && (
-        <CharacterSettings character={character} config={config} />
+      {isValidCharacter && config && character && (
+        <CharacterSettings
+          character={character}
+          config={config}
+        />
       )}
     </div>
   )
