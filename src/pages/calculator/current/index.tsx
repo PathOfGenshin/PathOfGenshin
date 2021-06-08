@@ -6,7 +6,7 @@ import { memoize } from "lodash"
 
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
-import { CurrentCharacterTab } from "@/components/tabs/CurrentCharacterTab"
+import { CurrentCharacterTab } from "@/components/tabs/currentCharacter"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   CharacterData,

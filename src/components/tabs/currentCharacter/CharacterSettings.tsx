@@ -1,37 +1,23 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback } from "react"
 
 import { useRouter } from "next/router"
 
 import { identity, range } from "lodash"
-import { useQuery } from "react-query"
-import { useSelector } from "react-redux"
 
 import DropdownSelector from "@/components/genshin/dropdown"
-import { querySingleCharacter } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
 import { Character } from "@/generated/model/characters"
-import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { useAppDispatch } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
-import {
-  CharacterData,
-  removeCharacterById,
-  selectCharacterConfig,
-  selectCurrentCharacter,
-  setAscension,
-  setLevel,
-} from "@/store/party/partySlice"
+import { removeCharacterById, setAscension, setLevel } from "@/store/party/partySlice"
 import { ArchiveIcon } from "@heroicons/react/solid"
-
-interface CurrentCharacterTabProps {
-  isValidCharacter: boolean
-}
 
 interface CharacterSettingsProps {
   character: Character
   config: CharacterConfig
 }
 
-const CharacterSettings: React.FC<CharacterSettingsProps> = ({
+export const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   character,
   config,
 }: CharacterSettingsProps) => {
@@ -75,9 +61,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           <ArchiveIcon className="inline-block pr-1 w-5 h-5" /> Remove from party
         </span>
       </button>
-      <h2 className="py-2 text-2xl tracking-tight font-genshin">
-        Character Settings
-      </h2>
+      <h2 className="py-2 text-2xl tracking-tight font-genshin">Character Settings</h2>
       <div className="flex flex-row items-center py-2">
         <span className="pr-4">Level</span>
         <DropdownSelector<number>
@@ -100,37 +84,6 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
         />
       </div>
       <div>Constellations</div>
-    </div>
-  )
-}
-
-export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
-  isValidCharacter,
-}: CurrentCharacterTabProps) => {
-  const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const config = useSelector(selectCharacterConfig)
-  const { data: character } = useQuery(
-    ["character", currentCharacter],
-    querySingleCharacter(currentCharacter),
-  )
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (character && config) {
-      setIsLoaded(true)
-    }
-  }, [character, config])
-
-  return (
-    <div className="flex relative mx-auto w-full max-w-5xl">
-      {!isValidCharacter && isLoaded && (
-        <div>
-          The specified character is either invalid or does not exist in your party.
-        </div>
-      )}
-      {isValidCharacter && isLoaded && character && config && (
-        <CharacterSettings character={character} config={config} />
-      )}
     </div>
   )
 }
