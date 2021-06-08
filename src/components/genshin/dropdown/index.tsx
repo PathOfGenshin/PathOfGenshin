@@ -10,7 +10,7 @@ interface SelectorProps<T> {
   options: T[] | Readonly<T[]>
   buttonValue: (t: T) => string | number
   optionValue: (t: T) => string | number
-  onSelected: (ascension: T) => void
+  onSelected: (t: T) => void
 }
 
 const Selector = <T,>({

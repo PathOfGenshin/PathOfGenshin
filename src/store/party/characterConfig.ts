@@ -7,24 +7,28 @@ export interface InventoryReference {
   inventoryId: number
 }
 
-export interface CharacterSkillDepotConfig {
+export interface SkillDepotIdentifier {
+  // Skill depot id & element type
   id: number
   element: VisionType
+}
+
+export interface CharacterSkillDepotConfig {
+  // How many constellations the character has unlocked for this skill depot
+  constellationLevel: ConstellationLevel
+  // Talent levels
+  levelTalentAttack: number
+  levelTalentSkill: number
+  levelTalentBurst: number
 }
 
 export type ConstellationLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 export interface CharacterConfig {
-  // How many constellations the character has unlocked
-  constellationLevel: ConstellationLevel
   // Level range from 1 to 90
   level: number
   lowerMaxLevel: number
   maxLevel: number
-  // Talent levels
-  levelTalentAttack: number
-  levelTalentSkill: number
-  levelTalentBurst: number
   // Equipped weapon
   weaponId: number
   weaponLevel: number
@@ -37,7 +41,23 @@ export interface CharacterConfig {
   goblet: InventoryReference | null
   circlet: InventoryReference | null
   // Skill depot id & element type
-  skillDepot: CharacterSkillDepotConfig | null
+  skillDepot: SkillDepotIdentifier | null
+  skillSets: Record<number, CharacterSkillDepotConfig>
+}
+
+export function createDefaultSkillDepotConfig(
+  skillDepotId: number | null,
+): Record<number, CharacterSkillDepotConfig> {
+  return skillDepotId
+    ? {
+        [skillDepotId]: {
+          constellationLevel: 0,
+          levelTalentAttack: 1,
+          levelTalentSkill: 1,
+          levelTalentBurst: 1,
+        },
+      }
+    : {}
 }
 
 export function createDefaultCharacterConfig(
@@ -46,13 +66,9 @@ export function createDefaultCharacterConfig(
   vision: VisionType,
 ): CharacterConfig {
   return {
-    constellationLevel: 0,
     level: 1,
     lowerMaxLevel: 1,
     maxLevel: 20,
-    levelTalentAttack: 1,
-    levelTalentSkill: 1,
-    levelTalentBurst: 1,
     weaponId,
     weaponLevel: 1,
     weaponMaxLevel: 20,
@@ -62,6 +78,12 @@ export function createDefaultCharacterConfig(
     sands: null,
     goblet: null,
     circlet: null,
-    skillDepot: skillDepotId ? { element: vision, id: skillDepotId } : null,
+    skillDepot: skillDepotId
+      ? {
+          element: vision,
+          id: skillDepotId,
+        }
+      : null,
+    skillSets: createDefaultSkillDepotConfig(skillDepotId),
   }
 }

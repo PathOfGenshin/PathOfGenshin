@@ -8,6 +8,7 @@ import {
   CharacterConfig,
   ConstellationLevel,
   createDefaultCharacterConfig,
+  SkillDepotIdentifier,
 } from "./characterConfig"
 import { AscensionLevel } from "./partyModels"
 
@@ -42,6 +43,9 @@ interface AddCharacterPayload {
   defaultSkillDepotId: number | null
   vision: VisionType
 }
+
+const getCurrentConfig = (state: Readonly<PartyState>): CharacterConfig | null =>
+  state.currentCharacter ? state.characterConfig[state.currentCharacter.id] : null
 
 export const partySlice = createSlice({
   name: "party",
@@ -104,16 +108,14 @@ export const partySlice = createSlice({
 
     // Set max level for current character
     setAscension: (state, action: PayloadAction<AscensionLevel>) => {
-      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
-        const config = state.characterConfig[state.currentCharacter.id]
+      const config = getCurrentConfig(state)
+      if (config) {
         // Update max level
-        state.characterConfig[state.currentCharacter.id].maxLevel =
-          action.payload.maxLevel
-        state.characterConfig[state.currentCharacter.id].lowerMaxLevel =
-          action.payload.lowerMaxLevel
+        config.maxLevel = action.payload.maxLevel
+        config.lowerMaxLevel = action.payload.lowerMaxLevel
 
         // Clamp level to the current ascension
-        state.characterConfig[state.currentCharacter.id].level = clamp(
+        config.level = clamp(
           config.level,
           action.payload.lowerMaxLevel,
           action.payload.maxLevel,
@@ -123,17 +125,40 @@ export const partySlice = createSlice({
 
     // Set current level for current character
     setLevel: (state, action: PayloadAction<number>) => {
-      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
-        const config = state.characterConfig[state.currentCharacter.id]
+      const config = getCurrentConfig(state)
+      if (config) {
         config.level = action.payload
       }
     },
 
     // Set constellation level for current character
     setConstellationLevel: (state, action: PayloadAction<ConstellationLevel>) => {
-      if (state.currentCharacter && state.characterConfig[state.currentCharacter.id]) {
-        const config = state.characterConfig[state.currentCharacter.id]
-        config.constellationLevel = action.payload
+      const config = getCurrentConfig(state)
+      if (config && config.skillDepot) {
+        const skillDepotConfig = config.skillSets[config.skillDepot.id]
+        if (skillDepotConfig) {
+          skillDepotConfig.constellationLevel = action.payload
+        }
+      }
+    },
+
+    // Set the skill depot for current character
+    setSkillDepot: (state, action: PayloadAction<SkillDepotIdentifier | null>) => {
+      const config = getCurrentConfig(state)
+      if (config) {
+        // Create default skill set config for the given skill depot if it does not
+        // already exist. This defaults the constellation level to 0 and talent levels
+        // to 1.
+        if (action.payload && !(action.payload.id in config.skillSets)) {
+          config.skillSets[action.payload.id] = {
+            constellationLevel: 0,
+            levelTalentAttack: 1,
+            levelTalentSkill: 1,
+            levelTalentBurst: 1,
+          }
+        }
+
+        config.skillDepot = action.payload
       }
     },
   },
@@ -146,6 +171,7 @@ export const {
   setAscension,
   setLevel,
   setConstellationLevel,
+  setSkillDepot,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

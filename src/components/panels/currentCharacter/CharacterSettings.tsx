@@ -4,12 +4,21 @@ import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 
 import DropdownSelector from "@/components/genshin/dropdown"
-import { querySingleSkillDepot } from "@/db"
+import { querySingleSkillDepot, querySkillDepots } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
-import { Character } from "@/generated/model/characters"
+import {
+  Character,
+  CharacterSkillDepot,
+  VisionType,
+} from "@/generated/model/characters"
 import { useAppDispatch } from "@/store/hooks"
 import { CharacterConfig, ConstellationLevel } from "@/store/party/characterConfig"
-import { setAscension, setConstellationLevel, setLevel } from "@/store/party/partySlice"
+import {
+  setAscension,
+  setConstellationLevel,
+  setLevel,
+  setSkillDepot,
+} from "@/store/party/partySlice"
 
 import RemoveFromPartyButton from "./RemoveFromPartyButton"
 
@@ -17,6 +26,10 @@ interface CharacterSettingsProps {
   character: Character
   config: CharacterConfig
 }
+
+const skillDepotOptions = (
+  availableSkillDepots: CharacterSkillDepot[],
+): Array<CharacterSkillDepot | null> => [null, ...availableSkillDepots]
 
 const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   character,
@@ -26,6 +39,14 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   const { data: skillDepot, isSuccess: skillDepotLoaded } = useQuery(
     ["skillDepot", character.id, config.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
+  )
+
+  const { data: availableSkillDepots, isSuccess: availableSkillDepotsLoaded } =
+    useQuery(["skillDepots", character.id], querySkillDepots(character.skillDepotIds))
+
+  const selectedSkillDepotValue = useCallback(
+    (skillDepot) => skillDepot?.element ?? VisionType.None,
+    [],
   )
 
   const onSelectedAscension = useCallback(
@@ -57,13 +78,45 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
     [dispatch],
   )
 
+  const onSelectedSkillDepot = useCallback(
+    (skillDepot: CharacterSkillDepot | null): void => {
+      dispatch(
+        setSkillDepot(
+          skillDepot
+            ? {
+                id: skillDepot.id,
+                element: skillDepot.element,
+              }
+            : null,
+        ),
+      )
+    },
+    [dispatch],
+  )
+
   return (
-    <div className="relative w-full font-genshin">
+    <div className="relative space-y-4 w-full font-genshin">
       <div className="flex flex-wrap justify-between items-center w-full">
-        <h2 className="my-2 text-2xl tracking-tight">Character Settings</h2>
+        <h2 className="text-2xl tracking-tight">Character Settings</h2>
         <RemoveFromPartyButton characterId={character.id} />
       </div>
-      <div className="flex flex-wrap items-center py-2 space-x-8">
+      {availableSkillDepotsLoaded && availableSkillDepots && (
+        <>
+          <div>Skill Set</div>
+          <DropdownSelector
+            selected={
+              availableSkillDepots.find(
+                (skillDepot) => skillDepot.id === config.skillDepot?.id,
+              ) ?? null
+            }
+            options={skillDepotOptions(availableSkillDepots)}
+            onSelected={onSelectedSkillDepot}
+            buttonValue={selectedSkillDepotValue}
+            optionValue={selectedSkillDepotValue}
+          />
+        </>
+      )}
+      <div className="flex flex-wrap items-center space-x-8">
         <div className="flex flex-row items-center space-x-4">
           <span>Level</span>
           <DropdownSelector<number>
@@ -91,11 +144,15 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           <div className="flex flex-row items-center space-x-4">
             <span>Constellations</span>
             <DropdownSelector<ConstellationLevel>
-              selected={skillDepot ? config.constellationLevel : 0}
+              selected={
+                skillDepot && config.skillDepot
+                  ? config.skillSets[config.skillDepot.id].constellationLevel
+                  : 0
+              }
               options={
                 range(
                   0,
-                  skillDepot?.constellations.length ?? 0 + 1,
+                  (skillDepot?.constellations.length ?? 0) + 1,
                 ) as ConstellationLevel[]
               }
               onSelected={onSelectedConstellationLevel}

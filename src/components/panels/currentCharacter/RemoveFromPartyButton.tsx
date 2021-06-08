@@ -22,7 +22,7 @@ const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
 
   return (
     <button
-      className="py-2 px-4 my-2 h-10 text-sm rounded-full ring-inset transition duration-100 font-genshin text-g-paper bg-g-dark-600 hover:ring hover:ring-g-button-hover focus:outline-none focus:ring focus:ring-g-button-focus-ring focus:bg-g-button-focus focus:text-g-button-focus"
+      className="py-2 px-4 h-10 text-sm rounded-full ring-inset transition duration-100 font-genshin text-g-paper bg-g-dark-600 hover:ring hover:ring-g-button-hover focus:outline-none focus:ring focus:ring-g-button-focus-ring focus:bg-g-button-focus focus:text-g-button-focus"
       onClick={removeFromParty}
     >
       <span>

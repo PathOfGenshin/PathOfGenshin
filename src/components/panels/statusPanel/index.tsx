@@ -83,15 +83,15 @@ export const StatusPanel: React.FC = () => {
     AlternateSprint: 1,
   })
   useEffect(() => {
-    if (config) {
+    if (config && skillDepot) {
       setSkillLevels({
-        Normal: config.levelTalentAttack,
-        Skill: config.levelTalentSkill,
-        Burst: config.levelTalentBurst,
+        Normal: config.skillSets[skillDepot.id].levelTalentAttack,
+        Skill: config.skillSets[skillDepot.id].levelTalentSkill,
+        Burst: config.skillSets[skillDepot.id].levelTalentBurst,
         AlternateSprint: 1,
       })
     }
-  }, [config])
+  }, [config, skillDepot])
 
   return (
     <div
@@ -132,7 +132,7 @@ export const StatusPanel: React.FC = () => {
         {config && skillDepot && (
           <ConstellationInfo
             constellations={skillDepot.constellations}
-            constellationLevel={config.constellationLevel}
+            constellationLevel={config.skillSets[skillDepot.id].constellationLevel}
             element={skillDepot.element}
           />
         )}

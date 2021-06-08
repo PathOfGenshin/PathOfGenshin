@@ -211,6 +211,14 @@ export const querySingleSkillDepot =
     return skillDepot ?? null
   }
 
+export const querySkillDepots =
+  (skillDepotIds: number[]) => async (): Promise<CharacterSkillDepot[]> => {
+    const skillDepots = (await db.skillDepots.bulkGet(skillDepotIds)).filter(
+      notUndefined,
+    )
+    return skillDepots
+  }
+
 export const queryTextMappings =
   (keys: string[]) => async (): Promise<Record<string, string>> => {
     const textMappings = (await db.manualTextMappings.bulkGet(keys)).filter(
