@@ -136,11 +136,13 @@ export const StatusPanel: React.FC = () => {
             element={skillDepot.element}
           />
         )}
+        {config && !skillDepot && <p>None</p>}
       </AccordionSection>
       <AccordionSection title="Talents">
         {config && skillDepot && (
           <TalentInfo skills={skillDepot.skills} levels={skillLevels} />
         )}
+        {config && !skillDepot && <p>None</p>}
       </AccordionSection>
       <AccordionSection title="Weapon">
         {config && weapon && (
