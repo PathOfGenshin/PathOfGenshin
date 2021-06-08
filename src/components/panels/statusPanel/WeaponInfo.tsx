@@ -30,10 +30,9 @@ const WeaponInfo: React.FC<WeaponInfoProps> = ({
           label={`Lv. ${level} / ${maxLevel}`}
         />
         <div className="flex flex-col text-sm">
-          <h2 className="text-lg tracking-tight leading-6 font-genshin">
+          <h2 className="text-lg tracking-tight font-genshin">
             {weaponName}
           </h2>
-          {/* <p className="text-xs tracking-tight leading-6 font-genshin">{description}</p> */}
           <p className="my-0.5">{description}</p>
         </div>
       </div>

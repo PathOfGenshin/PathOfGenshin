@@ -21,7 +21,7 @@ const Selector = <T,>({
   onSelected,
 }: SelectorProps<T>): React.ReactElement | null => {
   return (
-    <div className="h-10 leading-6 font-genshin">
+    <div className="h-10 font-genshin">
       <div className="w-24 h-10 text-g-paper-0">
         <Listbox value={selected} onChange={onSelected}>
           <div className="relative mt-1">

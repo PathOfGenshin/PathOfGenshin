@@ -75,10 +75,10 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           <ArchiveIcon className="inline-block pr-1 w-5 h-5" /> Remove from party
         </span>
       </button>
-      <h2 className="mb-4 text-2xl tracking-tight leading-6 font-genshin">
+      <h2 className="py-2 text-2xl tracking-tight font-genshin">
         Character Settings
       </h2>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center py-2">
         <span className="pr-4">Level</span>
         <DropdownSelector<number>
           selected={config.level}
@@ -99,6 +99,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           optionValue={ascensionLevelValue}
         />
       </div>
+      <div>Constellations</div>
     </div>
   )
 }

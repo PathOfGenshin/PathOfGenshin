@@ -37,7 +37,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
     <Disclosure defaultOpen>
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex justify-between py-1 my-1 text-xl tracking-tight leading-6 text-left font-genshin">
+          <Disclosure.Button className="flex justify-between py-1 my-1 text-xl tracking-tight text-left font-genshin">
             <span>{title}</span>
             <ChevronUpIcon
               className={clsx("w-5 h-5", open ? "transform rotate-180" : "")}
