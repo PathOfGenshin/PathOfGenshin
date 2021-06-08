@@ -122,12 +122,14 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
   if (!isDatabaseLoaded) {
     return (
       <div className="flex flex-col h-full lg:flex-row">
-        <div className="flex flex-col justify-center items-center w-full h-full text-2xl">
-          <p>Downloading game data...</p>
-          <p>
-            {doneQueriesCount} / {gameDataQueries.length} game data files downloaded.
-          </p>
-        </div>
+        {needGameData && (
+          <div className="flex flex-col justify-center items-center w-full h-full text-2xl">
+            <p>Downloading game data...</p>
+            <p>
+              {doneQueriesCount} / {gameDataQueries.length} game data files downloaded.
+            </p>
+          </div>
+        )}
       </div>
     )
   }
