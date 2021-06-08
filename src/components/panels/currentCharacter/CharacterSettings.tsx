@@ -1,8 +1,11 @@
 import { useCallback } from "react"
 
+import Image from "next/image"
+
 import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 
+import { elementalIcon } from "@/assets/static"
 import DropdownSelector from "@/components/genshin/dropdown"
 import { querySingleSkillDepot, querySkillDepots } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
@@ -45,7 +48,18 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
     useQuery(["skillDepots", character.id], querySkillDepots(character.skillDepotIds))
 
   const selectedSkillDepotValue = useCallback(
-    (skillDepot) => skillDepot?.element ?? VisionType.None,
+    (skillDepot: CharacterSkillDepot | null): React.ReactNode => (
+      <span className="flex items-center min-w-0">
+        <span className="flex-shrink-0 w-5 h-5">
+          <Image
+            src={elementalIcon(skillDepot?.element ?? VisionType.None)}
+            width={32}
+            height={32}
+          />
+        </span>
+        <span className="px-2 truncate">{skillDepot?.element ?? VisionType.None}</span>
+      </span>
+    ),
     [],
   )
 
@@ -100,7 +114,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
         <h2 className="text-2xl tracking-tight">Character Settings</h2>
         <RemoveFromPartyButton characterId={character.id} />
       </div>
-      {availableSkillDepotsLoaded && availableSkillDepots && (
+      {availableSkillDepotsLoaded && availableSkillDepots ? (
         <DropdownSelector
           label="Skill Set"
           width="md"
@@ -115,6 +129,8 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           optionValue={selectedSkillDepotValue}
           disabled={availableSkillDepots.length <= 1}
         />
+      ) : (
+        <div className="h-10" />
       )}
       <div className="flex flex-wrap items-center space-x-8">
         <DropdownSelector
