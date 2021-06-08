@@ -101,65 +101,62 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
         <RemoveFromPartyButton characterId={character.id} />
       </div>
       {availableSkillDepotsLoaded && availableSkillDepots && (
-        <>
-          <div>Skill Set</div>
-          <DropdownSelector
-            selected={
-              availableSkillDepots.find(
-                (skillDepot) => skillDepot.id === config.skillDepot?.id,
-              ) ?? null
-            }
-            options={skillDepotOptions(availableSkillDepots)}
-            onSelected={onSelectedSkillDepot}
-            buttonValue={selectedSkillDepotValue}
-            optionValue={selectedSkillDepotValue}
-          />
-        </>
+        <DropdownSelector
+          label="Skill Set"
+          width="md"
+          selected={
+            availableSkillDepots.find(
+              (skillDepot) => skillDepot.id === config.skillDepot?.id,
+            ) ?? null
+          }
+          options={skillDepotOptions(availableSkillDepots)}
+          onSelected={onSelectedSkillDepot}
+          buttonValue={selectedSkillDepotValue}
+          optionValue={selectedSkillDepotValue}
+          disabled={availableSkillDepots.length <= 1}
+        />
       )}
       <div className="flex flex-wrap items-center space-x-8">
-        <div className="flex flex-row items-center space-x-4">
-          <span>Level</span>
-          <DropdownSelector<number>
-            selected={config.level}
-            options={range(config.lowerMaxLevel, config.maxLevel + 1)}
-            onSelected={onSelectedLevel}
+        <DropdownSelector
+          label="Level"
+          width="sm"
+          selected={config.level}
+          options={range(config.lowerMaxLevel, config.maxLevel + 1)}
+          onSelected={onSelectedLevel}
+          buttonValue={identity}
+          optionValue={identity}
+        />
+        <DropdownSelector
+          label="Max Level"
+          width="sm"
+          selected={
+            character.ascensions.find((a) => a.maxLevel === config.maxLevel) ??
+            character.ascensions[0]
+          }
+          options={character.ascensions}
+          onSelected={onSelectedAscension}
+          buttonValue={ascensionLevelValue}
+          optionValue={ascensionLevelValue}
+        />
+        {skillDepotLoaded && (
+          <DropdownSelector
+            label="Constellations"
+            width="sm"
+            selected={
+              skillDepot && config.skillDepot
+                ? config.skillSets[config.skillDepot.id].constellationLevel
+                : 0
+            }
+            options={
+              range(
+                0,
+                (skillDepot?.constellations.length ?? 0) + 1,
+              ) as ConstellationLevel[]
+            }
+            onSelected={onSelectedConstellationLevel}
             buttonValue={identity}
             optionValue={identity}
           />
-        </div>
-        <div className="flex flex-row items-center space-x-4">
-          <span>Max Level</span>
-          <DropdownSelector<Ascension>
-            selected={
-              character.ascensions.find((a) => a.maxLevel === config.maxLevel) ??
-              character.ascensions[0]
-            }
-            options={character.ascensions}
-            onSelected={onSelectedAscension}
-            buttonValue={ascensionLevelValue}
-            optionValue={ascensionLevelValue}
-          />
-        </div>
-        {skillDepotLoaded && (
-          <div className="flex flex-row items-center space-x-4">
-            <span>Constellations</span>
-            <DropdownSelector<ConstellationLevel>
-              selected={
-                skillDepot && config.skillDepot
-                  ? config.skillSets[config.skillDepot.id].constellationLevel
-                  : 0
-              }
-              options={
-                range(
-                  0,
-                  (skillDepot?.constellations.length ?? 0) + 1,
-                ) as ConstellationLevel[]
-              }
-              onSelected={onSelectedConstellationLevel}
-              buttonValue={identity}
-              optionValue={identity}
-            />
-          </div>
         )}
       </div>
     </div>
