@@ -8,7 +8,7 @@ import { useSelector } from "react-redux"
 
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
-import { CharacterSettings } from "@/components/panels/currentCharacter/CharacterSettings"
+import CharacterSettings from "@/components/panels/currentCharacter/CharacterSettings"
 import { querySingleCharacter } from "@/db"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
