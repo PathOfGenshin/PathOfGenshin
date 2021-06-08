@@ -64,15 +64,15 @@ export const StatusPanel: React.FC = () => {
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config: CharacterConfig | null = useAppSelector(selectCharacterConfig)
   const { data: character } = useQuery(
-    ["character", currentCharacter],
+    ["character", currentCharacter?.id],
     querySingleCharacter(currentCharacter),
   )
   const { data: weapon } = useQuery(
-    ["weapon", config?.weaponId ?? null],
+    ["weapon", currentCharacter?.id, config?.weaponId ?? null],
     querySingleWeapon(config?.weaponId ?? null),
   )
   const { data: skillDepot } = useQuery(
-    ["skillDepot", config?.skillDepot?.id ?? null],
+    ["skillDepot", currentCharacter?.id, config?.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
   )
 

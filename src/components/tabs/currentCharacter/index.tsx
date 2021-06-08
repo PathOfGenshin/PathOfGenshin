@@ -21,7 +21,7 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config = useSelector(selectCharacterConfig)
   const { data: character } = useQuery(
-    ["character", currentCharacter],
+    ["character", currentCharacter?.id],
     querySingleCharacter(currentCharacter),
   )
 
@@ -33,10 +33,7 @@ export const CurrentCharacterTab: React.FC<CurrentCharacterTabProps> = ({
         </div>
       )}
       {isValidCharacter && config && character && (
-        <CharacterSettings
-          character={character}
-          config={config}
-        />
+        <CharacterSettings character={character} config={config} />
       )}
     </div>
   )

@@ -56,7 +56,7 @@ export const CharacterSettings: React.FC<CharacterSettingsProps> = ({
 }: CharacterSettingsProps) => {
   const dispatch = useAppDispatch()
   const { data: skillDepot, isSuccess: skillDepotLoaded } = useQuery(
-    ["skillDepot", config.skillDepot?.id ?? null],
+    ["skillDepot", character.id, config.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
   )
 
