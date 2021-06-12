@@ -1,5 +1,3 @@
-import { useCallback } from "react"
-
 import Image from "next/image"
 
 import { identity, range } from "lodash"
@@ -34,6 +32,23 @@ const skillDepotOptions = (
   availableSkillDepots: CharacterSkillDepot[],
 ): Array<CharacterSkillDepot | null> => [null, ...availableSkillDepots]
 
+interface SkillDepotValueProps {
+  element: VisionType
+}
+
+const SkillDepotValue: React.FC<SkillDepotValueProps> = ({
+  element,
+}: SkillDepotValueProps) => {
+  return (
+    <span className="flex items-center min-w-0">
+      <span className="flex-shrink-0 w-5 h-5">
+        <Image src={elementalIcon(element)} width={32} height={32} />
+      </span>
+      <span className="px-2 truncate">{element}</span>
+    </span>
+  )
+}
+
 const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   character,
   config,
@@ -47,66 +62,46 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   const { data: availableSkillDepots, isSuccess: availableSkillDepotsLoaded } =
     useQuery(["skillDepots", character.id], querySkillDepots(character.skillDepotIds))
 
-  const selectedSkillDepotValue = useCallback(
-    (skillDepot: CharacterSkillDepot | null): React.ReactNode => (
-      <span className="flex items-center min-w-0">
-        <span className="flex-shrink-0 w-5 h-5">
-          <Image
-            src={elementalIcon(skillDepot?.element ?? VisionType.None)}
-            width={32}
-            height={32}
-          />
-        </span>
-        <span className="px-2 truncate">{skillDepot?.element ?? VisionType.None}</span>
-      </span>
-    ),
-    [],
+  const selectedSkillDepotValue = (
+    skillDepot: CharacterSkillDepot | null,
+  ): React.ReactNode => (
+    <SkillDepotValue element={skillDepot?.element ?? VisionType.None} />
   )
 
-  const onSelectedAscension = useCallback(
-    (ascension: Ascension): void => {
-      const prevIndex: number = ascension.ascensionLevel - 1
-      dispatch(
-        setAscension({
-          maxLevel: ascension.maxLevel,
-          lowerMaxLevel: prevIndex >= 0 ? character.ascensions[prevIndex].maxLevel : 1,
-        }),
-      )
-    },
-    [character.ascensions, dispatch],
-  )
+  const onSelectedAscension = (ascension: Ascension): void => {
+    const prevIndex: number = ascension.ascensionLevel - 1
+    dispatch(
+      setAscension({
+        maxLevel: ascension.maxLevel,
+        lowerMaxLevel: prevIndex >= 0 ? character.ascensions[prevIndex].maxLevel : 1,
+      }),
+    )
+  }
 
-  const onSelectedLevel = useCallback(
-    (level: number): void => {
-      dispatch(setLevel(level))
-    },
-    [dispatch],
-  )
+  const onSelectedLevel = (level: number): void => {
+    dispatch(setLevel(level))
+  }
 
-  const ascensionLevelValue = useCallback((a: Ascension): number => a.maxLevel, [])
+  const ascensionLevelValue = (a: Ascension): number => a.maxLevel
 
-  const onSelectedConstellationLevel = useCallback(
-    (constellationLevel: ConstellationLevel): void => {
-      dispatch(setConstellationLevel(constellationLevel))
-    },
-    [dispatch],
-  )
+  const onSelectedConstellationLevel = (
+    constellationLevel: ConstellationLevel,
+  ): void => {
+    dispatch(setConstellationLevel(constellationLevel))
+  }
 
-  const onSelectedSkillDepot = useCallback(
-    (skillDepot: CharacterSkillDepot | null): void => {
-      dispatch(
-        setSkillDepot(
-          skillDepot
-            ? {
-                id: skillDepot.id,
-                element: skillDepot.element,
-              }
-            : null,
-        ),
-      )
-    },
-    [dispatch],
-  )
+  const onSelectedSkillDepot = (skillDepot: CharacterSkillDepot | null): void => {
+    dispatch(
+      setSkillDepot(
+        skillDepot
+          ? {
+              id: skillDepot.id,
+              element: skillDepot.element,
+            }
+          : null,
+      ),
+    )
+  }
 
   return (
     <div className="relative space-y-4 w-full font-genshin">

@@ -1,4 +1,4 @@
-import { Fragment, MouseEventHandler, useCallback, useRef } from "react"
+import { Fragment, MouseEventHandler, useRef } from "react"
 
 import clsx from "clsx"
 
@@ -27,26 +27,21 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   setIsOpen,
   onClose,
 }: ConfirmationDialogProps) => {
-  const closeDialog = useCallback(() => {
+  const closeDialog = (): void => {
     setIsOpen(false)
-  }, [setIsOpen])
+  }
 
-  const onConfirm = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      confirmAction(event)
-      closeDialog()
-    },
-    [confirmAction, closeDialog],
-  )
-  const onCancel = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (cancelAction) {
-        cancelAction(event)
-      }
-      closeDialog()
-    },
-    [cancelAction, closeDialog],
-  )
+  const onConfirm = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    confirmAction(event)
+    closeDialog()
+  }
+
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    if (cancelAction) {
+      cancelAction(event)
+    }
+    closeDialog()
+  }
 
   const confirmRef = useRef<HTMLButtonElement | null>(null)
 

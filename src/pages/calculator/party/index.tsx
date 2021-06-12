@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import React, { MouseEventHandler, useEffect, useState } from "react"
 
 import clsx from "clsx"
 import { noop } from "lodash"
@@ -37,27 +37,27 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
 
   const party: CharacterData[] = useAppSelector(selectCharacters)
 
-  const selectCharacter = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    const dataset = event.currentTarget.dataset
-    const charId = dataset["id"]
-    const charName = dataset["name"]
-    const defaultWeaponId = dataset["weaponId"]
-    const skillDepotId = dataset["skillDepotId"]
-    const vision = (dataset["vision"] as VisionType | undefined) ?? VisionType.None
-    if (charId && charName && defaultWeaponId) {
+  const selectCharacter = (
+    id: number,
+    name: string,
+    defaultWeaponId: number,
+    defaultSkillDepotId: number | null,
+    vision: VisionType,
+  ): MouseEventHandler<HTMLButtonElement> => {
+    return (event: React.MouseEvent<HTMLButtonElement>): void => {
       setDialogOpen(true)
       setWantedCharacter({
-        id: parseInt(charId),
-        name: charName,
-        defaultWeaponId: parseInt(defaultWeaponId),
-        defaultSkillDepotId: skillDepotId ? parseInt(skillDepotId) : null,
+        id,
+        name,
+        defaultWeaponId,
+        defaultSkillDepotId,
         vision,
         targetElement: event.currentTarget,
       })
     }
   }
 
-  const addCharacterById = useCallback(() => {
+  const addCharacterById = (): void => {
     if (wantedCharacter) {
       dispatch(
         addCharacter({
@@ -69,7 +69,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         }),
       )
     }
-  }, [dispatch, wantedCharacter])
+  }
 
   // Clear and unfocus the wanted character
   useEffect(() => {
@@ -103,18 +103,17 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
             allCharacters.map((char: Character) => (
               <AvatarIconButton
                 key={char.id}
-                data-id={char.id}
-                data-name={char.name}
-                data-weapon-id={defaultWeapons[char.weaponType].id}
-                data-skill-depot-id={
-                  char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null
-                }
-                data-vision={char.metadata.vision}
                 charName={char.name}
                 iconName={char.icon}
                 quality={char.quality}
                 element={char.metadata.vision}
-                onClick={selectCharacter}
+                onClick={selectCharacter(
+                  char.id,
+                  char.name,
+                  defaultWeapons[char.weaponType].id,
+                  char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
+                  char.metadata.vision,
+                )}
                 isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
                 disabled={party.some((partyChar) => partyChar.id === char.id)}
               />

@@ -79,22 +79,12 @@ export const AvatarIconButton: React.FC<
   quality,
   element,
   onClick,
-  "data-id": dataId,
-  "data-name": dataName,
-  "data-weapon-id": dataWeaponId,
-  "data-skill-depot-id": dataSkillDepotId,
-  "data-vision": dataVision,
   isFocused,
   disabled,
 }: AvatarIconButtonProps & FocusedProps & HTMLProps<HTMLButtonElement>) => {
   return (
     <div className={clsx("block w-24 2xl:w-32", disabled ? "opacity-30" : "")}>
       <button
-        data-id={dataId}
-        data-name={dataName}
-        data-weapon-id={dataWeaponId}
-        data-skill-depot-id={dataSkillDepotId}
-        data-vision={dataVision}
         className={clsx(
           "block relative w-24 rounded-md shadow-md transition duration-75 transform 2xl:w-32 hover:outline-none focus:outline-none",
           isFocused ? "ring ring-blue-400 dark:ring-blue-50 scale-105" : "",

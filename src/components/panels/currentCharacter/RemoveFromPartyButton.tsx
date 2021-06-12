@@ -1,5 +1,3 @@
-import { useCallback } from "react"
-
 import { useRouter } from "next/router"
 
 import { useAppDispatch } from "@/store/hooks"
@@ -15,10 +13,11 @@ const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
 }: RemoveFromPartyButtonProps) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const removeFromParty = useCallback(() => {
+
+  const removeFromParty = (): void => {
     dispatch(removeCharacterById(characterId))
     router.back()
-  }, [dispatch, characterId, router])
+  }
 
   return (
     <button
