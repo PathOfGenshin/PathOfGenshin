@@ -3,12 +3,14 @@ import { clamp } from "lodash"
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
 import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
+import { TravelerGender } from "@/store/settings/settingsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
 import {
   CharacterConfig,
   ConstellationLevel,
+  copyCharacterConfig,
   createDefaultCharacterConfig,
   SkillDepotIdentifier,
   SkillDepotSetLevel,
@@ -196,6 +198,20 @@ export const partySlice = createSlice({
         }
       }
     },
+
+    // Toggle the traveler gender if in party, do nothing otherwise
+    // action is the DESIRED gender
+    toggleTraveler: (state, action: PayloadAction<TravelerGender>) => {
+      const index = state.charactersInParty.findIndex(
+        (char) => char.name === "Traveler",
+      )
+      if (index > -1) {
+        const newId = action.payload === "male" ? 10000005 : 10000007
+        const oldId = action.payload === "male" ? 10000007 : 10000005
+        state.charactersInParty[index].id = newId
+        state.characterConfig[newId] = copyCharacterConfig(state.characterConfig[oldId])
+      }
+    },
   },
 })
 
@@ -208,6 +224,7 @@ export const {
   setConstellationLevel,
   setSkillDepot,
   setSkillLevel,
+  toggleTraveler,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

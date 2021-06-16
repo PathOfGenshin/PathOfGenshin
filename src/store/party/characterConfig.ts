@@ -95,3 +95,23 @@ export function createDefaultCharacterConfig(
     skillSets: createDefaultSkillDepotConfig(skillDepotId),
   }
 }
+
+export function copyCharacterConfig(otherConfig: CharacterConfig): CharacterConfig {
+  return {
+    level: otherConfig.level,
+    ascensionLevel: otherConfig.ascensionLevel,
+    lowerMaxLevel: otherConfig.lowerMaxLevel,
+    maxLevel: otherConfig.maxLevel,
+    weaponId: otherConfig.weaponId,
+    weaponLevel: otherConfig.weaponLevel,
+    weaponMaxLevel: otherConfig.weaponMaxLevel,
+    weaponRefinement: otherConfig.weaponRefinement,
+    flower: otherConfig.flower,
+    plume: otherConfig.plume,
+    sands: otherConfig.sands,
+    goblet: otherConfig.goblet,
+    circlet: otherConfig.circlet,
+    skillDepot: otherConfig.skillDepot,
+    skillSets: otherConfig.skillSets,
+  }
+}
