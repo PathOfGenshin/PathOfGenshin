@@ -12,7 +12,7 @@ import {
   SkillDepotIdentifier,
   SkillDepotSetLevel,
 } from "./characterConfig"
-import { AscensionLevel } from "./partyModels"
+import { AscensionLevel, SkillLevels } from "./partyModels"
 
 export const MAX_PARTY_SIZE = 4
 
@@ -209,5 +209,25 @@ export const selectCharacterConfig = (state: RootState): CharacterConfig | null 
   state.party.currentCharacter
     ? state.party.characterConfig[state.party.currentCharacter.id]
     : null
+
+export const selectSkillLevels = (state: RootState): SkillLevels => {
+  const config = getCurrentConfig(state.party)
+  if (config && config.skillDepot) {
+    const levels = config.skillSets[config.skillDepot.id]
+    return {
+      Normal: levels.levelTalentAttack,
+      Skill: levels.levelTalentSkill,
+      Burst: levels.levelTalentBurst,
+      AlternateSprint: 1,
+    }
+  } else {
+    return {
+      Normal: 1,
+      Skill: 1,
+      Burst: 1,
+      AlternateSprint: 1,
+    }
+  }
+}
 
 export default partySlice.reducer

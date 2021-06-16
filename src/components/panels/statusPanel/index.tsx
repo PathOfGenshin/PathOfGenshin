@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 import { useRouter } from "next/router"
 
 import clsx from "clsx"
@@ -9,10 +7,12 @@ import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "
 import { VisionType } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
+import { SkillLevels } from "@/store/party/partyModels"
 import {
   CharacterData,
   selectCharacterConfig,
   selectCurrentCharacter,
+  selectSkillLevels,
 } from "@/store/party/partySlice"
 import { Disclosure, Transition } from "@headlessui/react"
 import { ChevronUpIcon } from "@heroicons/react/solid"
@@ -22,7 +22,6 @@ import ConstellationInfo from "./ConstellationInfo"
 import StatsInfo from "./StatsInfo"
 import TalentInfo from "./TalentInfo"
 import WeaponInfo from "./WeaponInfo"
-import { SkillLevels } from "./skills"
 
 interface AccordionSectionProps {
   title: string
@@ -63,6 +62,7 @@ export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config: CharacterConfig | null = useAppSelector(selectCharacterConfig)
+  const skillLevels: SkillLevels = useAppSelector(selectSkillLevels)
   const { data: character } = useQuery(
     ["character", currentCharacter?.id],
     querySingleCharacter(currentCharacter),
@@ -75,23 +75,6 @@ export const StatusPanel: React.FC = () => {
     ["skillDepot", currentCharacter?.id, config?.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
   )
-
-  const [skillLevels, setSkillLevels] = useState<SkillLevels>({
-    Normal: 1,
-    Skill: 1,
-    Burst: 1,
-    AlternateSprint: 1,
-  })
-  useEffect(() => {
-    if (config && skillDepot) {
-      setSkillLevels({
-        Normal: config.skillSets[skillDepot.id].levelTalentAttack,
-        Skill: config.skillSets[skillDepot.id].levelTalentSkill,
-        Burst: config.skillSets[skillDepot.id].levelTalentBurst,
-        AlternateSprint: 1,
-      })
-    }
-  }, [config, skillDepot])
 
   return (
     <div
