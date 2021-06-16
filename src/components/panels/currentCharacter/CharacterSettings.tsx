@@ -1,6 +1,7 @@
 import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 
+import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
 import DropdownSelector from "@/components/genshin/dropdown"
 import { querySingleSkillDepot, querySkillDepots } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
@@ -22,16 +23,6 @@ import {
 
 import RemoveFromPartyButton from "./RemoveFromPartyButton"
 import SkillDepotValue from "./SkillDepotValue"
-
-const ASCENSION_MAX_TALENT_LEVEL: [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-] = [1, 1, 2, 4, 6, 8, 10]
 
 const skillDepotOptions = (
   availableSkillDepots: CharacterSkillDepot[],

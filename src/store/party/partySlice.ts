@@ -1,5 +1,6 @@
 import { clamp } from "lodash"
 
+import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
 import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
@@ -111,9 +112,10 @@ export const partySlice = createSlice({
     // Set max level for current character
     setAscension: (state, action: PayloadAction<AscensionLevel>) => {
       const config = getCurrentConfig(state)
+      const ascensionLevel = action.payload.ascensionLevel
       if (config) {
         // Update ascension level
-        config.ascensionLevel = action.payload.ascensionLevel
+        config.ascensionLevel = ascensionLevel
 
         // Update max level
         config.maxLevel = action.payload.maxLevel
@@ -125,6 +127,15 @@ export const partySlice = createSlice({
           action.payload.lowerMaxLevel,
           action.payload.maxLevel,
         )
+
+        // Clamp skill levels to current ascension
+        if (config.skillDepot) {
+          const levels = config.skillSets[config.skillDepot.id]
+          const maxLevel = ASCENSION_MAX_TALENT_LEVEL[ascensionLevel]
+          levels.levelTalentAttack = clamp(levels.levelTalentAttack, 1, maxLevel)
+          levels.levelTalentSkill = clamp(levels.levelTalentSkill, 1, maxLevel)
+          levels.levelTalentBurst = clamp(levels.levelTalentBurst, 1, maxLevel)
+        }
       }
     },
 
