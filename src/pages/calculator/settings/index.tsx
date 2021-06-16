@@ -1,3 +1,7 @@
+import { useCallback } from "react"
+
+import clsx from "clsx"
+
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
@@ -7,8 +11,6 @@ import {
   TravelerGender,
 } from "@/store/settings/settingsSlice"
 import { Switch } from "@headlessui/react"
-import clsx from "clsx"
-import { useCallback } from "react"
 
 export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const dispatch = useAppDispatch()
