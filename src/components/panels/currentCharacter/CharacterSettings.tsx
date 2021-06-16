@@ -1,12 +1,10 @@
-import Image from "next/image"
-
 import { identity, range } from "lodash"
 import { useQuery } from "react-query"
 
-import { elementalIcon } from "@/assets/static"
 import DropdownSelector from "@/components/genshin/dropdown"
 import { querySingleSkillDepot, querySkillDepots } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
+import { SkillType } from "@/generated/model/character_skills"
 import {
   Character,
   CharacterSkillDepot,
@@ -19,34 +17,29 @@ import {
   setConstellationLevel,
   setLevel,
   setSkillDepot,
+  setSkillLevel,
 } from "@/store/party/partySlice"
 
 import RemoveFromPartyButton from "./RemoveFromPartyButton"
+import SkillDepotValue from "./SkillDepotValue"
 
-interface CharacterSettingsProps {
-  character: Character
-  config: CharacterConfig
-}
+const ASCENSION_MAX_TALENT_LEVEL: [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+] = [1, 1, 2, 4, 6, 8, 10]
 
 const skillDepotOptions = (
   availableSkillDepots: CharacterSkillDepot[],
 ): Array<CharacterSkillDepot | null> => [null, ...availableSkillDepots]
 
-interface SkillDepotValueProps {
-  element: VisionType
-}
-
-const SkillDepotValue: React.FC<SkillDepotValueProps> = ({
-  element,
-}: SkillDepotValueProps) => {
-  return (
-    <span className="flex items-center min-w-0">
-      <span className="flex-shrink-0 w-5 h-5">
-        <Image src={elementalIcon(element)} width={32} height={32} />
-      </span>
-      <span className="px-2 truncate">{element}</span>
-    </span>
-  )
+interface CharacterSettingsProps {
+  character: Character
+  config: CharacterConfig
 }
 
 const CharacterSettings: React.FC<CharacterSettingsProps> = ({
@@ -72,6 +65,7 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
     const prevIndex: number = ascension.ascensionLevel - 1
     dispatch(
       setAscension({
+        ascensionLevel: ascension.ascensionLevel,
         maxLevel: ascension.maxLevel,
         lowerMaxLevel: prevIndex >= 0 ? character.ascensions[prevIndex].maxLevel : 1,
       }),
@@ -101,6 +95,17 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
           : null,
       ),
     )
+  }
+
+  const onSelectedSkillLevel = (skillType: SkillType): ((level: number) => void) => {
+    return (level: number): void => {
+      dispatch(
+        setSkillLevel({
+          skillType,
+          level,
+        }),
+      )
+    }
   }
 
   return (
@@ -168,6 +173,51 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
             buttonValue={identity}
             optionValue={identity}
           />
+        )}
+      </div>
+      <div className="flex flex-wrap items-center space-x-8">
+        {skillDepotLoaded && (
+          <>
+            <DropdownSelector
+              label="Normal Attack"
+              width="sm"
+              selected={
+                skillDepot && config.skillDepot
+                  ? config.skillSets[config.skillDepot.id].levelTalentAttack
+                  : 1
+              }
+              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              onSelected={onSelectedSkillLevel(SkillType.Normal)}
+              buttonValue={identity}
+              optionValue={identity}
+            />
+            <DropdownSelector
+              label="Skill Attack"
+              width="sm"
+              selected={
+                skillDepot && config.skillDepot
+                  ? config.skillSets[config.skillDepot.id].levelTalentSkill
+                  : 1
+              }
+              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              onSelected={onSelectedSkillLevel(SkillType.Skill)}
+              buttonValue={identity}
+              optionValue={identity}
+            />
+            <DropdownSelector
+              label="Burst Attack"
+              width="sm"
+              selected={
+                skillDepot && config.skillDepot
+                  ? config.skillSets[config.skillDepot.id].levelTalentBurst
+                  : 1
+              }
+              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              onSelected={onSelectedSkillLevel(SkillType.Burst)}
+              buttonValue={identity}
+              optionValue={identity}
+            />
+          </>
         )}
       </div>
     </div>

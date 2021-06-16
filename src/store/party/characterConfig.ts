@@ -1,3 +1,4 @@
+import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
 
 // TODO: put this interface in the inventory slice instead
@@ -11,6 +12,11 @@ export interface SkillDepotIdentifier {
   // Skill depot id & element type
   id: number
   element: VisionType
+}
+
+export interface SkillDepotSetLevel {
+  skillType: SkillType
+  level: number
 }
 
 export interface CharacterSkillDepotConfig {
@@ -27,6 +33,7 @@ export type ConstellationLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6
 export interface CharacterConfig {
   // Level range from 1 to 90
   level: number
+  ascensionLevel: number
   lowerMaxLevel: number
   maxLevel: number
   // Equipped weapon
@@ -67,6 +74,7 @@ export function createDefaultCharacterConfig(
 ): CharacterConfig {
   return {
     level: 1,
+    ascensionLevel: 0,
     lowerMaxLevel: 1,
     maxLevel: 20,
     weaponId,

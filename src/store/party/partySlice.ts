@@ -1,5 +1,6 @@
 import { clamp } from "lodash"
 
+import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
@@ -9,6 +10,7 @@ import {
   ConstellationLevel,
   createDefaultCharacterConfig,
   SkillDepotIdentifier,
+  SkillDepotSetLevel,
 } from "./characterConfig"
 import { AscensionLevel } from "./partyModels"
 
@@ -110,6 +112,9 @@ export const partySlice = createSlice({
     setAscension: (state, action: PayloadAction<AscensionLevel>) => {
       const config = getCurrentConfig(state)
       if (config) {
+        // Update ascension level
+        config.ascensionLevel = action.payload.ascensionLevel
+
         // Update max level
         config.maxLevel = action.payload.maxLevel
         config.lowerMaxLevel = action.payload.lowerMaxLevel
@@ -161,6 +166,25 @@ export const partySlice = createSlice({
         config.skillDepot = action.payload
       }
     },
+
+    // Set the skill level for the current character and skill set
+    setSkillLevel: (state, action: PayloadAction<SkillDepotSetLevel>) => {
+      const config = getCurrentConfig(state)
+      if (config && config.skillDepot) {
+        const skillSet = config.skillSets[config.skillDepot.id]
+        switch (action.payload.skillType) {
+          case SkillType.Normal:
+            skillSet.levelTalentAttack = action.payload.level
+            break
+          case SkillType.Skill:
+            skillSet.levelTalentSkill = action.payload.level
+            break
+          case SkillType.Burst:
+            skillSet.levelTalentBurst = action.payload.level
+            break
+        }
+      }
+    },
   },
 })
 
@@ -172,6 +196,7 @@ export const {
   setLevel,
   setConstellationLevel,
   setSkillDepot,
+  setSkillLevel,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>
