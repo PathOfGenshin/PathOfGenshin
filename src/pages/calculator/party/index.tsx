@@ -100,7 +100,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   }, [dialogOpen, wantedCharacter])
 
   return (
-    <div className="space-y-2 w-full">
+    <div className="w-full space-y-2">
       <div className="font-semibold text-center">
         {party.length < MAX_PARTY_SIZE ? (
           <>Select a character to add to your party.</>
@@ -112,7 +112,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
         )}
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="max-w-5xl mx-auto">
         <div
           className={clsx(
             "grid gap-4 justify-center p-4 transition-opacity duration-1000 grid-cols-auto-icon-6 2xl:grid-cols-auto-icon-8",
@@ -122,24 +122,28 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           {allCharacters &&
             defaultWeapons &&
             travelerGender &&
-            sortedCharacters(allCharacters).map((char: Character) => (
-              <AvatarIconButton
-                key={char.id}
-                charName={char.name}
-                iconName={char.icon}
-                quality={char.quality}
-                element={char.metadata.vision}
-                onClick={selectCharacter(
-                  char.id,
-                  char.name,
-                  defaultWeapons[char.weaponType].id,
-                  char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
-                  char.metadata.vision,
-                )}
-                isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
-                disabled={party.some((partyChar) => partyChar.id === char.id)}
-              />
-            ))}
+            sortedCharacters(allCharacters)
+              .filter((char: Character) =>
+                travelerGender === "male" ? char.id !== 10000007 : char.id !== 10000005,
+              )
+              .map((char: Character) => (
+                <AvatarIconButton
+                  key={char.id}
+                  charName={char.name}
+                  iconName={char.icon}
+                  quality={char.quality}
+                  element={char.metadata.vision}
+                  onClick={selectCharacter(
+                    char.id,
+                    char.name,
+                    defaultWeapons[char.weaponType].id,
+                    char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
+                    char.metadata.vision,
+                  )}
+                  isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+                  disabled={party.some((partyChar) => partyChar.id === char.id)}
+                />
+              ))}
         </div>
         <ConfirmationDialog
           description={`Would you like to add ${wantedCharacter?.name} to your team?`}
