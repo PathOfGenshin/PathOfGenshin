@@ -25,13 +25,10 @@ import {
   selectIsDatabaseLoaded,
   setDatabaseIsLoaded,
 } from "@/store/settings/settingsSlice"
-import {
-  selectTravelerGender,
-  setTravelerGender,
-  TravelerGender,
-} from "@/store/settings/settingsSlice"
+import { selectTravelerGender, setTravelerGender } from "@/store/settings/settingsSlice"
 import { CURRENT_GAME_VERSION } from "@/version"
 
+import { TravelerGender } from "../genshin/characters/traveler"
 import { LayoutProps } from "./types"
 
 export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
@@ -73,17 +70,17 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
   const [firstTimeDialogOpen, setFirstTimeDialogOpen] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!travelerGender) {
+    if (travelerGender === null) {
       setFirstTimeDialogOpen(true)
     }
   }, [travelerGender])
 
   const setMale = useCallback(() => {
-    dispatch(setTravelerGender("male"))
+    dispatch(setTravelerGender(TravelerGender.MALE))
   }, [dispatch])
 
   const setFemale = useCallback(() => {
-    dispatch(setTravelerGender("female"))
+    dispatch(setTravelerGender(TravelerGender.FEMALE))
   }, [dispatch])
 
   const loadDatabase = useCallback(async (): Promise<void> => {

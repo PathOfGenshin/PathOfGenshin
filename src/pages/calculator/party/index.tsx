@@ -5,7 +5,7 @@ import { noop, partition } from "lodash"
 import { useQuery } from "react-query"
 
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
-import { isTravelerId, TravelerID } from "@/components/genshin/characters/traveler"
+import { isTravelerId, TravelerGender } from "@/components/genshin/characters/traveler"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
@@ -18,7 +18,7 @@ import {
   MAX_PARTY_SIZE,
   selectCharacters,
 } from "@/store/party/partySlice"
-import { selectTravelerGender, TravelerGender } from "@/store/settings/settingsSlice"
+import { selectTravelerGender } from "@/store/settings/settingsSlice"
 
 interface SelectedCharacter {
   id: number
@@ -66,9 +66,9 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
     partition(characters, (char: Character) => isTravelerId(char.id))
       .flat()
       .filter((char: Character) =>
-        travelerGender === "male"
-          ? char.id !== TravelerID.FEMALE
-          : char.id !== TravelerID.MALE,
+        travelerGender === TravelerGender.MALE
+          ? char.id !== TravelerGender.FEMALE
+          : char.id !== TravelerGender.MALE,
       )
 
   const addCharacterById = (): void => {

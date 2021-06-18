@@ -1,8 +1,7 @@
+import { TravelerGender } from "@/components/genshin/characters/traveler"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
-
-export type TravelerGender = "male" | "female"
 
 interface SettingsState {
   databaseLoaded: boolean

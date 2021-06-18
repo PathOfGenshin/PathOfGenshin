@@ -1,10 +1,9 @@
 import { clamp } from "lodash"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
-import { isTravelerId, TravelerID } from "@/components/genshin/characters/traveler"
+import { isTravelerId } from "@/components/genshin/characters/traveler"
 import { SkillType } from "@/generated/model/character_skills"
-import { VisionType } from "@/generated/model/characters"
-import { TravelerGender } from "@/store/settings/settingsSlice"
+import { Character, VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
@@ -16,6 +15,7 @@ import {
   SkillDepotSetLevel,
 } from "./characterConfig"
 import { AscensionLevel, SkillLevels } from "./partyModels"
+import { copyTravelerConfig } from "./travelerDraft"
 
 export const MAX_PARTY_SIZE = 4
 
@@ -47,6 +47,11 @@ interface AddCharacterPayload {
   defaultWeaponId: number
   defaultSkillDepotId: number | null
   vision: VisionType
+}
+
+interface ToggleTravelerPayload {
+  target: Character
+  previous: Character
 }
 
 const getCurrentConfig = (state: Readonly<PartyState>): CharacterConfig | null =>
@@ -201,17 +206,34 @@ export const partySlice = createSlice({
 
     // Toggle the traveler gender if in party, do nothing otherwise
     // action is the DESIRED gender
-    setTraveler: (state, action: PayloadAction<TravelerGender>) => {
+    setTraveler: (state, action: PayloadAction<ToggleTravelerPayload>) => {
+      const { target: targetTraveler, previous: prevTraveler } = action.payload
+
+      // We need to copy over the whole character config, but do a bit of additional
+      // processing on the skill depot configs since the skill depot ids are unique
+      if (state.characterConfig[prevTraveler.id]) {
+        const copiedConfig: CharacterConfig = copyTravelerConfig(
+          state.characterConfig,
+          targetTraveler,
+          prevTraveler,
+        )
+        state.characterConfig[targetTraveler.id] = copiedConfig
+      }
+
+      // Handle swapping for party icons
       const index = state.charactersInParty.findIndex((char) => isTravelerId(char.id))
       if (index > -1) {
-        const oldTraveler: CharacterData = state.charactersInParty[index]
-        const newId = action.payload === "male" ? TravelerID.MALE : TravelerID.FEMALE
-        state.characterConfig[newId] = state.characterConfig[oldTraveler.id]
-        if (state.currentCharacter && isTravelerId(state.currentCharacter.id)) {
-          state.currentCharacter = {
-            id: newId,
-            name: oldTraveler.name, // TODO: dont hardcode traveler name
-          }
+        state.charactersInParty.splice(index, 1, {
+          id: targetTraveler.id,
+          name: targetTraveler.name,
+        })
+      }
+
+      // Handle swapping for status panel
+      if (state.currentCharacter && isTravelerId(state.currentCharacter.id)) {
+        state.currentCharacter = {
+          id: targetTraveler.id,
+          name: targetTraveler.name,
         }
       }
     },
