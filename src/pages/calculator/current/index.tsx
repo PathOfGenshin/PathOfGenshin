@@ -45,7 +45,7 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
   const config = useSelector(selectCharacterConfig)
   const { data: character, isSuccess: isFetchedCharacter } = useQuery(
     ["character", currentCharacter?.id],
-    querySingleCharacter(currentCharacter),
+    querySingleCharacter(currentCharacter?.id ?? null),
     { enabled: validCharacter === ValidCharacter.IS_VALID },
   )
 

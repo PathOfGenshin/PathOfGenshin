@@ -1,2 +1,0 @@
-export const TRAVELER_ID_MALE = 10000005
-export const TRAVELER_ID_FEMALE = 10000007

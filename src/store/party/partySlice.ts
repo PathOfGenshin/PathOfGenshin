@@ -1,8 +1,10 @@
 import { clamp } from "lodash"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
+import { isTravelerId, TravelerID } from "@/components/genshin/characters/traveler"
 import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
+import { TravelerGender } from "@/store/settings/settingsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
@@ -196,6 +198,23 @@ export const partySlice = createSlice({
         }
       }
     },
+
+    // Toggle the traveler gender if in party, do nothing otherwise
+    // action is the DESIRED gender
+    setTraveler: (state, action: PayloadAction<TravelerGender>) => {
+      const index = state.charactersInParty.findIndex((char) => isTravelerId(char.id))
+      if (index > -1) {
+        const oldTraveler: CharacterData = state.charactersInParty[index]
+        const newId = action.payload === "male" ? TravelerID.MALE : TravelerID.FEMALE
+        state.characterConfig[newId] = state.characterConfig[oldTraveler.id]
+        if (state.currentCharacter && isTravelerId(state.currentCharacter.id)) {
+          state.currentCharacter = {
+            id: newId,
+            name: oldTraveler.name, // TODO: dont hardcode traveler name
+          }
+        }
+      }
+    },
   },
 })
 
@@ -208,6 +227,7 @@ export const {
   setConstellationLevel,
   setSkillDepot,
   setSkillLevel,
+  setTraveler,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

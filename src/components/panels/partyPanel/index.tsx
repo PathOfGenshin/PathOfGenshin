@@ -19,7 +19,7 @@ export const PartyPanel: React.FC = () => {
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const { data: partyCharacters } = useQuery(
     ["partyCharacters", party],
-    queryCharacters(party),
+    queryCharacters(party.map((c: CharacterData) => c.id)),
   )
 
   return (

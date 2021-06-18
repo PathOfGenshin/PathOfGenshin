@@ -5,10 +5,7 @@ import { noop, partition } from "lodash"
 import { useQuery } from "react-query"
 
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
-import {
-  TRAVELER_ID_FEMALE,
-  TRAVELER_ID_MALE,
-} from "@/components/genshin/characters/constants"
+import { isTravelerId, TravelerID } from "@/components/genshin/characters/traveler"
 import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
@@ -66,16 +63,12 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
 
   // Sorts characters by placing traveler as the first selection
   const sortedCharacters = (characters: Character[]): Character[] =>
-    partition(
-      characters,
-      (char: Character) =>
-        char.id === TRAVELER_ID_MALE || char.id === TRAVELER_ID_FEMALE,
-    )
+    partition(characters, (char: Character) => isTravelerId(char.id))
       .flat()
       .filter((char: Character) =>
         travelerGender === "male"
-          ? char.id !== TRAVELER_ID_FEMALE
-          : char.id !== TRAVELER_ID_MALE,
+          ? char.id !== TravelerID.FEMALE
+          : char.id !== TravelerID.MALE,
       )
 
   const addCharacterById = (): void => {
