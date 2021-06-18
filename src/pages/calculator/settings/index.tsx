@@ -14,37 +14,38 @@ import { Switch } from "@headlessui/react"
 
 export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const dispatch = useAppDispatch()
-  const twin: TravelerGender | null = useAppSelector(selectTravelerGender)
+  const travelerGender: TravelerGender | null = useAppSelector(selectTravelerGender)
+  const travelerName = travelerGender === "male" || null ? "Aether" : "Lumine"
 
   const toggleTwin = (): void => {
-    const desiredGender = twin === "male" ? "female" : "male"
+    const desiredGender = travelerGender === "male" ? "female" : "male"
     dispatch(setTravelerGender(desiredGender))
     dispatch(setTraveler(desiredGender))
   }
 
   return (
-    <Switch.Group as="div" className="flex space-x-4">
-      <Switch.Label>
-        Select twin. Currently {twin === "male" || null ? "Aether" : "Lumine"}.
-      </Switch.Label>
-      <Switch
-        as="button"
-        checked={twin === "female"}
-        onChange={toggleTwin}
-        className={clsx(
-          "relative inline-flex flex-shrink-0 h-6 w-12 transition-colors duration-200 ease-in-out border-2 border-transparent rounded-full cursor-pointer focus:outline-none focus:shadow-outline",
-          twin === "female" ? "bg-pink-400" : "bg-gray-200",
-        )}
-      >
-        {({ checked }) => (
-          <span
-            className={`${
-              checked ? "translate-x-6" : "translate-x-0"
-            } inline-block w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full`}
-          />
-        )}
-      </Switch>
-    </Switch.Group>
+    <div className="flex relative mx-auto w-full max-w-5xl">
+      <Switch.Group as="div" className="flex space-x-4">
+        <Switch.Label>Select twin. Currently {travelerName}.</Switch.Label>
+        <Switch
+          as="button"
+          checked={travelerGender === "female"}
+          onChange={toggleTwin}
+          className={clsx(
+            "inline-flex relative flex-shrink-0 w-12 h-6 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out cursor-pointer focus:outline-none focus:shadow-outline",
+            travelerGender === "female" ? "bg-pink-400" : "bg-gray-200",
+          )}
+        >
+          {({ checked }) => (
+            <span
+              className={`${
+                checked ? "translate-x-6" : "translate-x-0"
+              } inline-block w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full`}
+            />
+          )}
+        </Switch>
+      </Switch.Group>
+    </div>
   )
 }
 SettingsPage.Layout = CalculatorLayout
