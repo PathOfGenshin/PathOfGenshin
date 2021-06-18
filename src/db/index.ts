@@ -8,7 +8,6 @@ import { PartyResonance } from "@/generated/model/party_resonance"
 import { StatCurve } from "@/generated/model/stat_curves"
 import { Weapon, WeaponType } from "@/generated/model/weapon"
 import { WeaponExpLevel } from "@/generated/model/weapon_exp_levels"
-import { CharacterData } from "@/store/party/partySlice"
 import { CURRENT_GAME_VERSION, DATABASE_SCHEMA_VERSION } from "@/version"
 
 const DATABASE_NAME = "genshindata"
@@ -180,18 +179,16 @@ export const queryDefaultWeapons = async (): Promise<Record<WeaponType, Weapon>>
 }
 
 export const queryCharacters =
-  (characterDatas: CharacterData[]) => async (): Promise<Character[]> => {
-    const characters = (
-      await db.characters.bulkGet(characterDatas.map((char) => char.id))
-    ).filter(notUndefined)
+  (characterIds: number[]) => async (): Promise<Character[]> => {
+    const characters = (await db.characters.bulkGet(characterIds)).filter(notUndefined)
     return characters
   }
 
 export const querySingleCharacter =
-  (characterData: CharacterData | null) => async (): Promise<Character | null> => {
-    if (characterData === null) return null
+  (characterId: number | null) => async (): Promise<Character | null> => {
+    if (characterId === null) return null
 
-    const character = await db.characters.get(characterData.id)
+    const character = await db.characters.get(characterId)
     return character ?? null
   }
 

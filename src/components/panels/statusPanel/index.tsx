@@ -65,7 +65,7 @@ export const StatusPanel: React.FC = () => {
   const skillLevels: SkillLevels = useAppSelector(selectSkillLevels)
   const { data: character } = useQuery(
     ["character", currentCharacter?.id],
-    querySingleCharacter(currentCharacter),
+    querySingleCharacter(currentCharacter?.id ?? null),
   )
   const { data: weapon } = useQuery(
     ["weapon", currentCharacter?.id, config?.weaponId ?? null],
