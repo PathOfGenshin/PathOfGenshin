@@ -4,7 +4,7 @@ import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import "@/store/party/partySlice"
-import { toggleTraveler } from "@/store/party/partySlice"
+import { setTraveler } from "@/store/party/partySlice"
 import {
   selectTravelerGender,
   setTravelerGender,
@@ -19,7 +19,7 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const toggleTwin = (): void => {
     const desiredGender = twin === "male" ? "female" : "male"
     dispatch(setTravelerGender(desiredGender))
-    dispatch(toggleTraveler(desiredGender))
+    dispatch(setTraveler(desiredGender))
   }
 
   return (

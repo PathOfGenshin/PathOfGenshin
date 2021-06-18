@@ -122,28 +122,24 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           {allCharacters &&
             defaultWeapons &&
             travelerGender &&
-            sortedCharacters(allCharacters)
-              .filter((char: Character) =>
-                travelerGender === "male" ? char.id !== 10000007 : char.id !== 10000005,
-              )
-              .map((char: Character) => (
-                <AvatarIconButton
-                  key={char.id}
-                  charName={char.name}
-                  iconName={char.icon}
-                  quality={char.quality}
-                  element={char.metadata.vision}
-                  onClick={selectCharacter(
-                    char.id,
-                    char.name,
-                    defaultWeapons[char.weaponType].id,
-                    char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
-                    char.metadata.vision,
-                  )}
-                  isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
-                  disabled={party.some((partyChar) => partyChar.id === char.id)}
-                />
-              ))}
+            sortedCharacters(allCharacters).map((char: Character) => (
+              <AvatarIconButton
+                key={char.id}
+                charName={char.name}
+                iconName={char.icon}
+                quality={char.quality}
+                element={char.metadata.vision}
+                onClick={selectCharacter(
+                  char.id,
+                  char.name,
+                  defaultWeapons[char.weaponType].id,
+                  char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
+                  char.metadata.vision,
+                )}
+                isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+                disabled={party.some((partyChar) => partyChar.id === char.id)}
+              />
+            ))}
         </div>
         <ConfirmationDialog
           description={`Would you like to add ${wantedCharacter?.name} to your team?`}

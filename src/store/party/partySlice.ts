@@ -1,6 +1,10 @@
 import { clamp } from "lodash"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
+import {
+  TRAVELER_ID_FEMALE,
+  TRAVELER_ID_MALE,
+} from "@/components/genshin/characters/constants"
 import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
 import { TravelerGender } from "@/store/settings/settingsSlice"
@@ -10,7 +14,6 @@ import { RootState } from "../"
 import {
   CharacterConfig,
   ConstellationLevel,
-  copyCharacterConfig,
   createDefaultCharacterConfig,
   SkillDepotIdentifier,
   SkillDepotSetLevel,
@@ -201,15 +204,23 @@ export const partySlice = createSlice({
 
     // Toggle the traveler gender if in party, do nothing otherwise
     // action is the DESIRED gender
-    toggleTraveler: (state, action: PayloadAction<TravelerGender>) => {
+    setTraveler: (state, action: PayloadAction<TravelerGender>) => {
       const index = state.charactersInParty.findIndex(
-        (char) => char.name === "Traveler",
+        (char) => char.id === TRAVELER_ID_MALE || char.id === TRAVELER_ID_FEMALE,
       )
       if (index > -1) {
-        const newId = action.payload === "male" ? 10000005 : 10000007
-        const oldId = action.payload === "male" ? 10000007 : 10000005
-        state.charactersInParty[index].id = newId
-        state.characterConfig[newId] = copyCharacterConfig(state.characterConfig[oldId])
+        const oldTraveler: CharacterData = state.charactersInParty[index]
+        const newId = action.payload === "male" ? TRAVELER_ID_MALE : TRAVELER_ID_FEMALE
+        state.characterConfig[newId] = state.characterConfig[oldTraveler.id]
+        if (
+          state.currentCharacter?.id === TRAVELER_ID_MALE ||
+          state.currentCharacter?.id === TRAVELER_ID_FEMALE
+        ) {
+          state.currentCharacter = {
+            id: newId,
+            name: oldTraveler.name, // TODO: dont hardcode traveler name
+          }
+        }
       }
     },
   },
@@ -224,7 +235,7 @@ export const {
   setConstellationLevel,
   setSkillDepot,
   setSkillLevel,
-  toggleTraveler,
+  setTraveler,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>
