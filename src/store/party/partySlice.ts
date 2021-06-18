@@ -1,10 +1,7 @@
 import { clamp } from "lodash"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
-import {
-  TRAVELER_ID_FEMALE,
-  TRAVELER_ID_MALE,
-} from "@/components/genshin/characters/constants"
+import { isTravelerId, TravelerID } from "@/components/genshin/characters/traveler"
 import { SkillType } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
 import { TravelerGender } from "@/store/settings/settingsSlice"
@@ -205,17 +202,12 @@ export const partySlice = createSlice({
     // Toggle the traveler gender if in party, do nothing otherwise
     // action is the DESIRED gender
     setTraveler: (state, action: PayloadAction<TravelerGender>) => {
-      const index = state.charactersInParty.findIndex(
-        (char) => char.id === TRAVELER_ID_MALE || char.id === TRAVELER_ID_FEMALE,
-      )
+      const index = state.charactersInParty.findIndex((char) => isTravelerId(char.id))
       if (index > -1) {
         const oldTraveler: CharacterData = state.charactersInParty[index]
-        const newId = action.payload === "male" ? TRAVELER_ID_MALE : TRAVELER_ID_FEMALE
+        const newId = action.payload === "male" ? TravelerID.MALE : TravelerID.FEMALE
         state.characterConfig[newId] = state.characterConfig[oldTraveler.id]
-        if (
-          state.currentCharacter?.id === TRAVELER_ID_MALE ||
-          state.currentCharacter?.id === TRAVELER_ID_FEMALE
-        ) {
+        if (state.currentCharacter && isTravelerId(state.currentCharacter.id)) {
           state.currentCharacter = {
             id: newId,
             name: oldTraveler.name, // TODO: dont hardcode traveler name
