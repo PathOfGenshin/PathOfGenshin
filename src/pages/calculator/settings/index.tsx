@@ -1,5 +1,3 @@
-import { useCallback } from "react"
-
 import clsx from "clsx"
 
 import CalculatorLayout from "@/components/layouts/calculator"
@@ -16,9 +14,9 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const dispatch = useAppDispatch()
   const twin: TravelerGender | null = useAppSelector(selectTravelerGender)
 
-  const toggleTwin = useCallback(() => {
+  const toggleTwin = (): void => {
     dispatch(setTravelerGender(twin === "male" ? "female" : "male"))
-  }, [dispatch, twin])
+  }
 
   return (
     <Switch.Group as="div" className="flex space-x-4">
