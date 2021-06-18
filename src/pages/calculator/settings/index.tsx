@@ -26,7 +26,7 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
   return (
     <div className="flex relative mx-auto w-full max-w-5xl">
       <Switch.Group as="div" className="flex space-x-4">
-        <Switch.Label>Select twin. Currently {travelerName}.</Switch.Label>
+        <Switch.Label>Select twin</Switch.Label>
         <Switch
           as="button"
           checked={travelerGender === "female"}
@@ -38,12 +38,14 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
         >
           {({ checked }) => (
             <span
-              className={`${
-                checked ? "translate-x-6" : "translate-x-0"
-              } inline-block w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full`}
+              className={clsx(
+                "inline-block w-5 h-5 bg-white rounded-full transition duration-200 ease-in-out transform",
+                checked ? "translate-x-6" : "translate-x-0",
+              )}
             />
           )}
         </Switch>
+        <span>{travelerName}</span>
       </Switch.Group>
     </div>
   )
