@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 
 import { memoize } from "lodash"
 import { useQuery } from "react-query"
-import { useSelector } from "react-redux"
 
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
@@ -42,7 +41,7 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
   )
 
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
-  const config = useSelector(selectCharacterConfig)
+  const config = useAppSelector(selectCharacterConfig)
   const { data: character, isSuccess: isFetchedCharacter } = useQuery(
     ["character", currentCharacter?.id],
     querySingleCharacter(currentCharacter?.id ?? null),
