@@ -177,7 +177,10 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
                   ? config.skillSets[config.skillDepot.id].levelTalentAttack
                   : 1
               }
-              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              options={range(
+                1,
+                skillDepot ? ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1 : 2,
+              )}
               onSelected={onSelectedSkillLevel(SkillType.Normal)}
               buttonValue={identity}
               optionValue={identity}
@@ -190,7 +193,10 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
                   ? config.skillSets[config.skillDepot.id].levelTalentSkill
                   : 1
               }
-              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              options={range(
+                1,
+                skillDepot ? ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1 : 2,
+              )}
               onSelected={onSelectedSkillLevel(SkillType.Skill)}
               buttonValue={identity}
               optionValue={identity}
@@ -203,7 +209,10 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
                   ? config.skillSets[config.skillDepot.id].levelTalentBurst
                   : 1
               }
-              options={range(1, ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1)}
+              options={range(
+                1,
+                skillDepot ? ASCENSION_MAX_TALENT_LEVEL[config.ascensionLevel] + 1 : 2,
+              )}
               onSelected={onSelectedSkillLevel(SkillType.Burst)}
               buttonValue={identity}
               optionValue={identity}
