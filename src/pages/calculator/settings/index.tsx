@@ -15,7 +15,7 @@ import { Switch } from "@headlessui/react"
 export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const dispatch = useAppDispatch()
   const travelerGender: TravelerGender | null = useAppSelector(selectTravelerGender)
-  const travelerName = travelerGender === "male" || null ? "Aether" : "Lumine"
+  const travelerName = travelerGender === "male" ? "Aether" : "Lumine"
 
   const toggleTwin = (): void => {
     const desiredGender = travelerGender === "male" ? "female" : "male"
