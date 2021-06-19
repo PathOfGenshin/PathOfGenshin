@@ -11,6 +11,8 @@ export const qualityBackgroundSquare = (quality: StarQuality): string =>
   `/static/quality/background${quality}_square.png`
 export const elementalIcon = (element: VisionType): string =>
   `/static/elements/${element}.png`
+export const elementalIconWhite = (element: VisionType): string =>
+  `/static/elements/${element}_White.png`
 export const constellationIcon = (icon: string): string =>
   `/static/constellation_icon/${icon}.png`
 export const skillIcon = (icon: string): string => `/static/skill_icon/${icon}.png`

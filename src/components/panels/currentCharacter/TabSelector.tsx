@@ -38,7 +38,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({
     >
       <div className="flex flex-row justify-center items-center">
         <div className="block mr-1 w-6 h-6">
-          <Image src={uiIcon(icon)} width={32} height={32} quality={100} />
+          <Image src={uiIcon(icon)} width={32} height={32} alt={label} />
         </div>
         <span>{label}</span>
       </div>

@@ -3,6 +3,8 @@ import Link from "next/link"
 
 import clsx from "clsx"
 
+import { elementalIconWhite } from "@/assets/static"
+import { VisionType } from "@/generated/model/characters"
 import { Menu, Transition } from "@headlessui/react"
 
 export const SettingsDropdown: React.FC = () => {
@@ -16,7 +18,7 @@ export const SettingsDropdown: React.FC = () => {
               <div className="w-8 h-8 pointer-events-none select-none">
                 <Image
                   className="rounded-full"
-                  src="/static/elements/Hydro_White.png"
+                  src={elementalIconWhite(VisionType.Hydro)}
                   alt="Settings Icon"
                   width={32}
                   height={32}
