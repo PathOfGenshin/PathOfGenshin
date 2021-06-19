@@ -29,7 +29,7 @@ const DropdownSelector = <T,>({
   disabled,
 }: DropdownSelectorProps<T>): React.ReactElement | null => {
   return (
-    <div className="h-10 font-genshin text-g-paper-0">
+    <div className="mr-8 h-10 font-genshin text-g-paper-0">
       <Listbox value={selected} onChange={onSelected} disabled={disabled}>
         {({ open }) => (
           <div className="flex items-center space-x-4">

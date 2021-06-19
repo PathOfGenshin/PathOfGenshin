@@ -87,52 +87,63 @@ const CharacterTab: React.FC<TabContentProps> = ({
   }
 
   return (
-    <div className="space-y-4 w-full">
-      <h2 className="text-2xl tracking-tight">Character Settings</h2>
-      {availableSkillDepotsLoaded && availableSkillDepots ? (
-        <SkillSetDropdown
-          config={config}
-          availableSkillDepots={availableSkillDepots}
-          onSelectedSkillDepot={onSelectedSkillDepot}
-        />
-      ) : (
-        <div className="h-10" />
-      )}
-      <div className="flex flex-wrap items-center space-x-8">
-        <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
-        <AscensionLevelDropdown
-          config={config}
-          character={character}
-          onSelectedAscension={onSelectedAscension}
-        />
-        {skillDepotLoaded && (
-          <ConstellationDropdown
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h2 className="text-2xl tracking-tight">Character Settings</h2>
+        {availableSkillDepotsLoaded && availableSkillDepots ? (
+          <SkillSetDropdown
             config={config}
-            skillDepot={skillDepot ?? null}
-            onSelectedConstellationLevel={onSelectedConstellationLevel}
+            availableSkillDepots={availableSkillDepots}
+            onSelectedSkillDepot={onSelectedSkillDepot}
           />
+        ) : (
+          <div className="h-10" />
         )}
+        <div className="flex flex-wrap justify-start items-center">
+          <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
+          <AscensionLevelDropdown
+            config={config}
+            character={character}
+            onSelectedAscension={onSelectedAscension}
+          />
+          {skillDepotLoaded && (
+            <ConstellationDropdown
+              config={config}
+              skillDepot={skillDepot ?? null}
+              onSelectedConstellationLevel={onSelectedConstellationLevel}
+            />
+          )}
+        </div>
+        <div className="flex flex-wrap justify-start items-center">
+          {skillDepotLoaded && (
+            <>
+              <NormalAttackLevelDropdown
+                config={config}
+                skillDepot={skillDepot ?? null}
+                onSelectedLevel={onSelectedSkillLevel(SkillType.Normal)}
+              />
+              <SkillAttackLevelDropdown
+                config={config}
+                skillDepot={skillDepot ?? null}
+                onSelectedLevel={onSelectedSkillLevel(SkillType.Skill)}
+              />
+              <BurstAttackLevelDropdown
+                config={config}
+                skillDepot={skillDepot ?? null}
+                onSelectedLevel={onSelectedSkillLevel(SkillType.Burst)}
+              />
+            </>
+          )}
+        </div>
       </div>
-      <div className="flex flex-wrap items-center space-x-8">
-        {skillDepotLoaded && (
-          <>
-            <NormalAttackLevelDropdown
-              config={config}
-              skillDepot={skillDepot ?? null}
-              onSelectedLevel={onSelectedSkillLevel(SkillType.Normal)}
-            />
-            <SkillAttackLevelDropdown
-              config={config}
-              skillDepot={skillDepot ?? null}
-              onSelectedLevel={onSelectedSkillLevel(SkillType.Skill)}
-            />
-            <BurstAttackLevelDropdown
-              config={config}
-              skillDepot={skillDepot ?? null}
-              onSelectedLevel={onSelectedSkillLevel(SkillType.Burst)}
-            />
-          </>
-        )}
+      <div className="space-y-4">
+        <h2 className="text-2xl tracking-tight">Constellations</h2>
+      </div>
+      <div className="space-y-4">
+        <h2 className="text-2xl tracking-tight">Talents</h2>
+      </div>
+      <div className="space-y-4">
+        <h2 className="text-2xl tracking-tight">Passives</h2>
       </div>
     </div>
   )

@@ -29,7 +29,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({
   return (
     <button
       className={clsx(
-        "py-2 px-3 h-10 text-sm align-middle rounded-sm border-transparent transition duration-100 font-genshin focus:outline-none border-b-3 hover:border-b-3 hover:border-g-dark-2 focus:border-b-3 focus:border-g-dark-1",
+        "py-2 px-3 m-1 h-10 text-sm align-middle rounded-sm border-transparent transition duration-100 font-genshin focus:outline-none border-b-3 hover:border-b-3 hover:border-g-dark-2 focus:border-b-3 focus:border-g-dark-1",
         isActive
           ? "text-white border-g-dark-1 hover:border-g-dark-1 focus:border-g-dark-1 bg-g-dark-600"
           : "text-g-paper bg-g-dark-500",

@@ -39,8 +39,8 @@ const TabContent: React.FC<TabContentProps> = ({
   return (
     <div className="w-full font-genshin">
       {/* Tabs */}
-      <div className="flex flex-row justify-between items-center mb-4">
-        <div className="space-x-2">
+      <div className="flex flex-col justify-between items-center mb-4 md:flex-row">
+        <div className="flex flex-row flex-wrap justify-center 2xl:justify-between">
           <TabSelector
             tab={TabType.Character}
             isActive={currentTab === TabType.Character}
