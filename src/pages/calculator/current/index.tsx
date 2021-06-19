@@ -1,10 +1,10 @@
 import { useQuery } from "react-query"
 
-import { useValidCharacter } from "@/components/genshin/hooks/useValidCharacter"
 import CalculatorLayout from "@/components/layouts/calculator"
 import { ComponentWithLayout } from "@/components/layouts/types"
-import CharacterSettings from "@/components/panels/currentCharacter/CharacterSettings"
+import TabContent from "@/components/panels/currentCharacter/TabContent"
 import { querySingleCharacter } from "@/db"
+import { useValidCharacter } from "@/hooks/useValidCharacter"
 import { useAppSelector } from "@/store/hooks"
 import {
   CharacterData,
@@ -31,7 +31,7 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
         </div>
       )}
       {!loading && validCharacter && config && character && (
-        <CharacterSettings character={character} config={config} />
+        <TabContent character={character} config={config} />
       )}
     </div>
   )

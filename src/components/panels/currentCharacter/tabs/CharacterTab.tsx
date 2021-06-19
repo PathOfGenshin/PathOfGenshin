@@ -6,13 +6,9 @@ import DropdownSelector from "@/components/genshin/dropdown"
 import { querySingleSkillDepot, querySkillDepots } from "@/db"
 import { Ascension } from "@/generated/model/ascension"
 import { SkillType } from "@/generated/model/character_skills"
-import {
-  Character,
-  CharacterSkillDepot,
-  VisionType,
-} from "@/generated/model/characters"
+import { CharacterSkillDepot, VisionType } from "@/generated/model/characters"
 import { useAppDispatch } from "@/store/hooks"
-import { CharacterConfig, ConstellationLevel } from "@/store/party/characterConfig"
+import { ConstellationLevel } from "@/store/party/characterConfig"
 import {
   setAscension,
   setConstellationLevel,
@@ -21,22 +17,17 @@ import {
   setSkillLevel,
 } from "@/store/party/partySlice"
 
-import RemoveFromPartyButton from "./RemoveFromPartyButton"
-import SkillDepotValue from "./SkillDepotValue"
+import SkillDepotValue from "../SkillDepotValue"
+import { TabContentProps } from "../TabContent"
 
 const skillDepotOptions = (
   availableSkillDepots: CharacterSkillDepot[],
 ): Array<CharacterSkillDepot | null> => [null, ...availableSkillDepots]
 
-interface CharacterSettingsProps {
-  character: Character
-  config: CharacterConfig
-}
-
-const CharacterSettings: React.FC<CharacterSettingsProps> = ({
+const CharacterTab: React.FC<TabContentProps> = ({
   character,
   config,
-}: CharacterSettingsProps) => {
+}: TabContentProps) => {
   const dispatch = useAppDispatch()
   const { data: skillDepot, isSuccess: skillDepotLoaded } = useQuery(
     ["skillDepot", character.id, config.skillDepot?.id ?? null],
@@ -100,11 +91,8 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   }
 
   return (
-    <div className="relative space-y-4 w-full font-genshin">
-      <div className="flex flex-wrap justify-between items-center w-full">
-        <h2 className="text-2xl tracking-tight">Character Settings</h2>
-        <RemoveFromPartyButton characterId={character.id} />
-      </div>
+    <div className="space-y-4 w-full">
+      <h2 className="text-2xl tracking-tight">Character Settings</h2>
       {availableSkillDepotsLoaded && availableSkillDepots ? (
         <DropdownSelector
           label="Skill Set"
@@ -224,4 +212,4 @@ const CharacterSettings: React.FC<CharacterSettingsProps> = ({
   )
 }
 
-export default CharacterSettings
+export default CharacterTab

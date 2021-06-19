@@ -16,3 +16,4 @@ export const constellationIcon = (icon: string): string =>
 export const skillIcon = (icon: string): string => `/static/skill_icon/${icon}.png`
 export const propertyIcon = (icon: string): string =>
   `/static/property_icon/${icon}.png`
+export const uiIcon = (icon: string): string => `/static/ui/${icon}.png`
