@@ -10,9 +10,9 @@ import { selectTravelerGender } from "@/store/settings/settingsSlice"
 import RemoveFromPartyButton from "./RemoveFromPartyButton"
 import TabSelector from "./TabSelector"
 import { ArtifactsTab } from "./tabs/ArtifactsTab"
-import CharacterTab from "./tabs/CharacterTab"
 import { PartyTab } from "./tabs/PartyTab"
 import { WeaponsTab } from "./tabs/WeaponsTab"
+import CharacterTab from "./tabs/characterTab"
 import { TabType } from "./tabs/tabType"
 
 export interface TabContentProps {
