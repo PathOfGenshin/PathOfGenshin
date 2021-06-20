@@ -17,7 +17,7 @@ export const NormalAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
 }: AttackLevelDropdownProps) => {
   return (
     <DropdownSelector
-      label="Normal Attack"
+      label="Normal Attack Lv."
       width="sm"
       selected={
         skillDepot && config.skillDepot
@@ -42,7 +42,7 @@ export const SkillAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
 }: AttackLevelDropdownProps) => {
   return (
     <DropdownSelector
-      label="Skill Attack"
+      label="Skill Lv."
       width="sm"
       selected={
         skillDepot && config.skillDepot
@@ -67,7 +67,7 @@ export const BurstAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
 }: AttackLevelDropdownProps) => {
   return (
     <DropdownSelector
-      label="Burst Attack"
+      label="Burst Lv."
       width="sm"
       selected={
         skillDepot && config.skillDepot
