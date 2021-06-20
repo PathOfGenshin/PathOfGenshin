@@ -6,10 +6,10 @@ export interface ColoredText {
 }
 
 enum State {
-  STANDARD = "STANDARD",
-  COLOR_START = "CSTART ",
-  COLOR_END = "CEND",
-  NEW_LINE = "NL",
+  STANDARD,
+  COLOR_START,
+  COLOR_END,
+  NEW_LINE,
 }
 
 const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\\n/g
