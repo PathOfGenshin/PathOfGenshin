@@ -37,7 +37,7 @@ const TabContent: React.FC<TabContentProps> = ({
   const CurrentTabComponent = TAB_MAPPING[currentTab]
 
   return (
-    <div className="w-full font-genshin">
+    <div className="w-full">
       {/* Tabs */}
       <div className="flex flex-col justify-between items-center mb-4 md:flex-row">
         <div className="flex flex-row flex-wrap justify-center 2xl:justify-between">

@@ -10,7 +10,7 @@ import image from "@/styles/image.module.scss"
 interface ConstellationIconProps {
   constellationName: string
   iconName: string
-  disabled: boolean
+  disabled?: boolean
   element: VisionType
 }
 

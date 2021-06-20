@@ -22,6 +22,7 @@ import {
   SkillAttackLevelDropdown,
 } from "./AttackLevelDropdown"
 import { ConstellationDropdown } from "./ConstellationDropdown"
+import { ConstellationSummary } from "./ConstellationSummary"
 import { LevelDropdown } from "./LevelDropdown"
 import { SkillSetDropdown } from "./SkillSetDropdown"
 
@@ -89,7 +90,7 @@ const CharacterTab: React.FC<TabContentProps> = ({
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight">Character Settings</h2>
+        <h2 className="text-2xl tracking-tight font-genshin">Character Settings</h2>
         {availableSkillDepotsLoaded && availableSkillDepots ? (
           <SkillSetDropdown
             config={config}
@@ -137,13 +138,18 @@ const CharacterTab: React.FC<TabContentProps> = ({
         </div>
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight">Constellations</h2>
+        <h2 className="text-2xl tracking-tight font-genshin">Constellations</h2>
+        <ConstellationSummary
+          config={config}
+          character={character}
+          skillDepot={skillDepot ?? null}
+        />
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight">Talents</h2>
+        <h2 className="text-2xl tracking-tight font-genshin">Talents</h2>
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight">Passives</h2>
+        <h2 className="text-2xl tracking-tight font-genshin">Passives</h2>
       </div>
     </div>
   )
