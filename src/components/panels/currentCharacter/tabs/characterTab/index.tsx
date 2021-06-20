@@ -91,14 +91,12 @@ const CharacterTab: React.FC<TabContentProps> = ({
     <div className="space-y-8">
       <div className="space-y-4">
         <h2 className="text-2xl tracking-tight font-genshin">Character Settings</h2>
-        {availableSkillDepotsLoaded && availableSkillDepots ? (
+        {availableSkillDepotsLoaded && availableSkillDepots && (
           <SkillSetDropdown
             config={config}
             availableSkillDepots={availableSkillDepots}
             onSelectedSkillDepot={onSelectedSkillDepot}
           />
-        ) : (
-          <div className="h-10" />
         )}
         <div className="flex flex-wrap justify-start items-center">
           <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
