@@ -1,9 +1,6 @@
 import coloredText from "@/styles/coloredText.module.scss"
 
-export interface ColoredText {
-  id: number
-  value: React.ReactNode
-}
+const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\\n/g
 
 enum State {
   STANDARD,
@@ -11,8 +8,6 @@ enum State {
   COLOR_END,
   NEW_LINE,
 }
-
-const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\\n/g
 
 const getNextState = (currentState: State, match: RegExpMatchArray): State => {
   if (match[1]) {
@@ -29,6 +24,18 @@ const getNextState = (currentState: State, match: RegExpMatchArray): State => {
   }
 }
 
+const coloredSpan = (
+  id: number,
+  color: string | null,
+  text: string,
+): React.ReactNode => {
+  return (
+    <span key={id} className={color ? coloredText[`c${color}`] : undefined}>
+      {text}
+    </span>
+  )
+}
+
 export const parseDescription = (desc: string): React.ReactNode[] => {
   const outputs: React.ReactNode[] = []
   const matches = desc.matchAll(DESCRIPTION_REGEX)
@@ -39,26 +46,18 @@ export const parseDescription = (desc: string): React.ReactNode[] => {
   let color: string | null = null
 
   for (const match of matches) {
-    const value: string = match[0]
-    const index: number = match.index ?? 0
-    const lastIndex: number = index + value.length
+    const startIndex: number = match.index ?? 0
+    const endIndex: number = startIndex + match[0].length
 
     // Begin stateful iteration check
     const nextState: State = getNextState(state, match)
 
     // Update previous end index
-    end = index
+    end = startIndex
 
     // Set up for next iteration
-    outputs.push(
-      <span
-        key={outputs.length}
-        className={color ? coloredText[`c${color}`] : undefined}
-      >
-        {desc.substring(start, end)}
-      </span>,
-    )
-    start = lastIndex
+    outputs.push(coloredSpan(outputs.length, color, desc.substring(start, end)))
+    start = endIndex
     end = desc.length
     if (nextState === State.COLOR_START) {
       color = match[1]
@@ -71,11 +70,7 @@ export const parseDescription = (desc: string): React.ReactNode[] => {
     state = nextState
   }
   // End case
-  outputs.push(
-    <span key={outputs.length} className={color ? coloredText[`c${color}`] : undefined}>
-      {desc.substring(start, end)}
-    </span>,
-  )
+  outputs.push(coloredSpan(outputs.length, color, desc.substring(start, end)))
 
   return outputs
 }
