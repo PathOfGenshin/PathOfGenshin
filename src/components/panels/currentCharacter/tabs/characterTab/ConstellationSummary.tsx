@@ -41,9 +41,9 @@ const ConstellationEntry: React.FC<ConstellationEntryProps> = ({
           iconName={constellation.icon}
           element={element}
         />
-        <div className="">
+        <span>
           {parseDescription(constellation.description).map((output) => output)}
-        </div>
+        </span>
       </div>
     </li>
   )

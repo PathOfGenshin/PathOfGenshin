@@ -53,7 +53,7 @@ export const parseDescription = (desc: string): React.ReactNode[] => {
 
     // Set up for next iteration
     outputs.push(
-      <span key={outputs.length} className={c ? coloredText[`c${c}`] : ""}>
+      <span key={outputs.length} className={c ? coloredText[`c${c}`] : undefined}>
         {desc.substring(s, e)}
       </span>,
     )
@@ -73,7 +73,7 @@ export const parseDescription = (desc: string): React.ReactNode[] => {
 
   // End case
   outputs.push(
-    <span key={outputs.length} className={c ? coloredText[c] : ""}>
+    <span key={outputs.length} className={c ? coloredText[`c${c}`] : undefined}>
       {desc.substring(s, e)}
     </span>,
   )
