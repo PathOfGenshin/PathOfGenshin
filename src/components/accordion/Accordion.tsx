@@ -11,11 +11,15 @@ interface AccordionSectionProps {
 }
 
 type VariantType = "in" | "out"
-const inVariant: Variant = { height: "auto", transition: { duration: 0.1 } }
-const outVariant: Variant = { height: 0, transition: { duration: 0.075 } }
 const variants: Record<VariantType, Variant> = {
-  in: inVariant,
-  out: outVariant,
+  in: {
+    height: "auto",
+    transition: { duration: 0.1 },
+  },
+  out: {
+    height: 0,
+    transition: { duration: 0.075 },
+  },
 }
 
 const Accordion: React.FC<AccordionSectionProps> = ({

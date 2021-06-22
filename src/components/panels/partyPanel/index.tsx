@@ -20,11 +20,17 @@ interface AnimatedListItemProps {
 }
 
 type VariantType = "in" | "out"
-const inVariant: Variant = { scale: 1, opacity: 1, transition: { duration: 0.2 } }
-const outVariant: Variant = { scale: 0, opacity: 0, transition: { duration: 0.2 } }
 const variants: Record<VariantType, Variant> = {
-  in: inVariant,
-  out: outVariant,
+  in: {
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 0.2 },
+  },
+  out: {
+    scale: 0,
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
 }
 
 const AnimatedListItem: React.FC<AnimatedListItemProps> = ({
