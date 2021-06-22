@@ -13,8 +13,10 @@ import { setTraveler } from "@/store/party/partySlice"
 import {
   selectAnimateAccordion,
   selectTravelerGender,
+  selectUseCustomCursor,
   setAnimateAccordion,
   setTravelerGender,
+  setUseCustomCursor,
 } from "@/store/settings/settingsSlice"
 
 export const SettingsPage: React.FC & ComponentWithLayout = () => {
@@ -56,6 +58,12 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
     dispatch(setAnimateAccordion(checked))
   }
 
+  // Toggle use custom cursor setting
+  const customCursor: boolean = useAppSelector(selectUseCustomCursor)
+  const toggleUseCustomCursor = (checked: boolean): void => {
+    dispatch(setUseCustomCursor(checked))
+  }
+
   return (
     <div className="flex relative mx-auto w-full max-w-5xl">
       <div className="flex flex-col space-y-4">
@@ -72,6 +80,12 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
           enabled={animateAccordion}
           onChange={toggleAnimateAccordion}
           label="Enable accordion animations"
+        />
+        <Switch
+          name="Toggle game cursor"
+          enabled={customCursor}
+          onChange={toggleUseCustomCursor}
+          label="Use game cursor"
         />
       </div>
     </div>
