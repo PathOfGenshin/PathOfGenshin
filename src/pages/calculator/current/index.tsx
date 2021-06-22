@@ -1,6 +1,6 @@
 import { useQuery } from "react-query"
 
-import CalculatorLayout from "@/components/layouts/calculator"
+import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import TabContent from "@/components/panels/currentCharacter/TabContent"
 import { querySingleCharacter } from "@/db"

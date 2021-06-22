@@ -2,7 +2,7 @@ import { Fragment, MouseEventHandler, useRef } from "react"
 
 import clsx from "clsx"
 
-import { Dialog, Transition } from "@headlessui/react"
+import { Dialog as HeadlessDialog, Transition } from "@headlessui/react"
 
 interface ConfirmationDialogProps {
   title?: React.ReactNode
@@ -16,7 +16,7 @@ interface ConfirmationDialogProps {
   onClose?: () => void
 }
 
-export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
+const Dialog: React.FC<ConfirmationDialogProps> = ({
   title,
   description,
   confirmText,
@@ -49,7 +49,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog
+      <HeadlessDialog
         as="div"
         static
         className="overflow-y-auto fixed inset-0 z-10"
@@ -67,7 +67,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-30 transition-opacity" />
+            <HeadlessDialog.Overlay className="fixed inset-0 bg-black bg-opacity-30 transition-opacity" />
           </Transition.Child>
 
           <Transition.Child
@@ -83,16 +83,16 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
               <div className="w-full h-0.5 bg-g-paper-dialog-border my-2" />
               <div className="flex flex-col justify-center items-center py-2 md:py-4">
                 {title && (
-                  <Dialog.Title className="px-4 pb-2 text-lg text-center md:px-8 md:pb-4">
+                  <HeadlessDialog.Title className="px-4 pb-2 text-lg text-center md:px-8 md:pb-4">
                     {title}
-                  </Dialog.Title>
+                  </HeadlessDialog.Title>
                 )}
 
-                <Dialog.Description
+                <HeadlessDialog.Description
                   className={clsx("md:px-8", title ? "" : "py-2 md:py-4")}
                 >
                   {description}
-                </Dialog.Description>
+                </HeadlessDialog.Description>
               </div>
 
               <div className="w-full h-0.5 bg-g-paper-dialog-border my-2" />
@@ -117,9 +117,9 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
             </div>
           </Transition.Child>
         </div>
-      </Dialog>
+      </HeadlessDialog>
     </Transition.Root>
   )
 }
 
-export default ConfirmationDialog
+export default Dialog

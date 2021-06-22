@@ -10,7 +10,7 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
 import { queryClient } from "@/api/client"
-import MainLayout from "@/components/layouts/main"
+import { MainLayout } from "@/components/layouts"
 import { ComponentWithLayout, LayoutProps } from "@/components/layouts/types"
 import { persistor, store } from "@/store"
 import "@/styles/globals.scss"

@@ -1,9 +1,8 @@
-import Footer from "@/components/footer"
-import NavBar from "@/components/navbar"
+import { NavBar, Footer } from "@/components"
 
 import { LayoutProps } from "./types"
 
-export const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div className="flex relative flex-col min-h-screen lg:min-h-0 lg:h-screen">
       <NavBar className="absolute w-full h-16 shadow-sm" />

@@ -14,8 +14,7 @@ import {
   fetchWeaponExpLevels,
   fetchWeapons,
 } from "@/api/queries"
-import { Divider } from "@/components/Divider"
-import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
+import { Dialog, Divider } from "@/components"
 import { PartyPanel } from "@/components/panels/partyPanel"
 import { RightPanel } from "@/components/panels/rightPanel"
 import { StatusPanel } from "@/components/panels/statusPanel"
@@ -31,7 +30,7 @@ import { CURRENT_GAME_VERSION } from "@/version"
 import { TravelerGender } from "../genshin/characters/traveler"
 import { LayoutProps } from "./types"
 
-export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
   const dispatch = useAppDispatch()
   const [needGameData, setNeedGameData] = useState<boolean>(false)
@@ -142,7 +141,7 @@ export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProp
       </div>
       <Divider />
       <RightPanel />
-      <ConfirmationDialog
+      <Dialog
         title="Welcome!"
         description={
           <span className="block text-center">

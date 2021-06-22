@@ -4,10 +4,10 @@ import clsx from "clsx"
 import { noop, partition } from "lodash"
 import { useQuery } from "react-query"
 
+import { Dialog } from "@/components"
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
 import { isTravelerId, TravelerGender } from "@/components/genshin/characters/traveler"
-import ConfirmationDialog from "@/components/genshin/dialog/ConfirmationDialog"
-import CalculatorLayout from "@/components/layouts/calculator"
+import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryAllCharacters, queryDefaultWeapons } from "@/db"
 import { Character, VisionType } from "@/generated/model/characters"
@@ -134,7 +134,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
               />
             ))}
         </div>
-        <ConfirmationDialog
+        <Dialog
           description={`Would you like to add ${wantedCharacter?.name} to your team?`}
           confirmText="Confirm"
           cancelText="Cancel"

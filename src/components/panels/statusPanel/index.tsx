@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import clsx from "clsx"
 import { useQuery } from "react-query"
 
+import { Accordion } from "@/components"
 import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "@/db"
 import { VisionType } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
@@ -14,49 +15,13 @@ import {
   selectCurrentCharacter,
   selectSkillLevels,
 } from "@/store/party/partySlice"
-import { Disclosure, Transition } from "@headlessui/react"
-import { ChevronUpIcon } from "@heroicons/react/solid"
+import { selectAnimateAccordion } from "@/store/settings/settingsSlice"
 
 import CharacterInfo from "./CharacterInfo"
 import ConstellationInfo from "./ConstellationInfo"
 import StatsInfo from "./StatsInfo"
 import TalentInfo from "./TalentInfo"
 import WeaponInfo from "./WeaponInfo"
-
-interface AccordionSectionProps {
-  title: string
-  children: React.ReactNode
-}
-
-const AccordionSection: React.FC<AccordionSectionProps> = ({
-  title,
-  children,
-}: AccordionSectionProps) => {
-  return (
-    <Disclosure defaultOpen>
-      {({ open }) => (
-        <>
-          <Disclosure.Button className="flex justify-between py-1 my-1 text-xl tracking-tight text-left font-genshin">
-            <span>{title}</span>
-            <ChevronUpIcon
-              className={clsx("w-5 h-5", open ? "transform rotate-180" : "")}
-            />
-          </Disclosure.Button>
-          <Transition
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
-          >
-            <Disclosure.Panel>{children}</Disclosure.Panel>
-          </Transition>
-        </>
-      )}
-    </Disclosure>
-  )
-}
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()
@@ -75,6 +40,7 @@ export const StatusPanel: React.FC = () => {
     ["skillDepot", currentCharacter?.id, config?.skillDepot?.id ?? null],
     querySingleSkillDepot(config?.skillDepot?.id ?? null),
   )
+  const animateAccordion = useAppSelector(selectAnimateAccordion)
 
   return (
     <div
@@ -83,7 +49,7 @@ export const StatusPanel: React.FC = () => {
         asPath.startsWith("/calculator/current") ? "" : "opacity-30",
       )}
     >
-      <AccordionSection title="Character">
+      <Accordion title="Character" animatedHeight={animateAccordion}>
         {character && config && (
           <CharacterInfo
             iconName={character.icon}
@@ -110,8 +76,8 @@ export const StatusPanel: React.FC = () => {
             maxLevel={config.maxLevel}
           />
         )}
-      </AccordionSection>
-      <AccordionSection title="Constellations">
+      </Accordion>
+      <Accordion title="Constellations" animatedHeight={animateAccordion}>
         {config && skillDepot && (
           <ConstellationInfo
             constellations={skillDepot.constellations}
@@ -120,14 +86,14 @@ export const StatusPanel: React.FC = () => {
           />
         )}
         {config && !skillDepot && <p>None</p>}
-      </AccordionSection>
-      <AccordionSection title="Talents">
+      </Accordion>
+      <Accordion title="Talents" animatedHeight={animateAccordion}>
         {config && skillDepot && (
           <TalentInfo skills={skillDepot.skills} levels={skillLevels} />
         )}
         {config && !skillDepot && <p>None</p>}
-      </AccordionSection>
-      <AccordionSection title="Weapon">
+      </Accordion>
+      <Accordion title="Weapon" animatedHeight={animateAccordion}>
         {config && weapon && (
           <WeaponInfo
             iconName={weapon.icon}
@@ -139,11 +105,13 @@ export const StatusPanel: React.FC = () => {
             maxLevel={config.weaponMaxLevel}
           />
         )}
-      </AccordionSection>
-      <AccordionSection title="Artifacts">Currently none equipped</AccordionSection>
-      <AccordionSection title="Stats">
+      </Accordion>
+      <Accordion title="Artifacts" animatedHeight={animateAccordion}>
+        Currently none equipped
+      </Accordion>
+      <Accordion title="Stats" animatedHeight={animateAccordion}>
         {config && <StatsInfo config={config} />}
-      </AccordionSection>
+      </Accordion>
     </div>
   )
 }

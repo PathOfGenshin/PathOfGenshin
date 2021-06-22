@@ -47,6 +47,7 @@ module.exports = {
         47: "11.75rem",
       },
       height: {
+        inherit: "inherit",
         7.5: "1.875rem",
         13.5: "3.375rem",
         18: "4.5rem",

@@ -1,4 +1,4 @@
-import CalculatorLayout from "@/components/layouts/calculator"
+import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
 
 export const CalculatorWelcome: React.FC & ComponentWithLayout = () => {
