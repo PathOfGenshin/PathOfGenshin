@@ -2,7 +2,7 @@ import { partition } from "lodash"
 import { useQueryClient } from "react-query"
 
 import { Switch } from "@/components"
-import { flipGender, TravelerGender } from "@/components/genshin/characters/traveler"
+import { boolToGender, TravelerGender } from "@/components/genshin/characters/traveler"
 import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryCharacters } from "@/db"
@@ -20,22 +20,22 @@ import {
 export const SettingsPage: React.FC & ComponentWithLayout = () => {
   const queryClient = useQueryClient()
   const dispatch = useAppDispatch()
+
+  // Toggle traveler twin
   const travelerGender: TravelerGender | null = useAppSelector(selectTravelerGender)
-  const animateAccordion: boolean = useAppSelector(selectAnimateAccordion)
   const travelerName =
     travelerGender === null
       ? "Toggle Traveler Twin"
       : travelerGender === TravelerGender.MALE
       ? "Traveler Twin: Aether"
       : "Traveler Twin: Lumine"
-
-  const toggleTwin = async (): Promise<void> => {
+  const toggleTwin = async (checked: boolean): Promise<void> => {
     if (travelerGender) {
       const travelers = await queryClient.fetchQuery(
         "travelers",
         queryCharacters([TravelerGender.MALE, TravelerGender.FEMALE]),
       )
-      const desiredGender: TravelerGender = flipGender(travelerGender)
+      const desiredGender: TravelerGender = boolToGender(checked)
       const [target, previous] = partition(
         travelers,
         (c: Character) => c.id === desiredGender,
@@ -50,8 +50,10 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
     }
   }
 
-  const toggleAnimateAccordion = (): void => {
-    dispatch(setAnimateAccordion(!animateAccordion))
+  // Toggle animate accordion setting to use framer motion
+  const animateAccordion: boolean = useAppSelector(selectAnimateAccordion)
+  const toggleAnimateAccordion = (checked: boolean): void => {
+    dispatch(setAnimateAccordion(checked))
   }
 
   return (
@@ -66,15 +68,16 @@ export const SettingsPage: React.FC & ComponentWithLayout = () => {
           label={travelerName}
         />
         <Switch
-          name="Toggle Accordion animation"
+          name="Toggle accordion animation"
           enabled={animateAccordion}
           onChange={toggleAnimateAccordion}
-          label="Enable Accordion Animations"
+          label="Enable accordion animations"
         />
       </div>
     </div>
   )
 }
+
 SettingsPage.Layout = CalculatorLayout
 
 export default SettingsPage

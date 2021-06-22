@@ -6,5 +6,5 @@ export enum TravelerGender {
 export const isTravelerId = (id: number): boolean =>
   id === TravelerGender.MALE || id === TravelerGender.FEMALE
 
-export const flipGender = (gender: TravelerGender): TravelerGender =>
-  gender === TravelerGender.MALE ? TravelerGender.FEMALE : TravelerGender.MALE
+export const boolToGender = (checked: boolean): TravelerGender =>
+  checked ? TravelerGender.FEMALE : TravelerGender.MALE
