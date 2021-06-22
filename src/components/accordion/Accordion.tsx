@@ -1,17 +1,21 @@
 import clsx from "clsx"
-import { AnimatePresence, motion, Target, Transition } from "framer-motion"
+import { AnimatePresence, motion, Variant } from "framer-motion"
 
 import { Disclosure, Transition as HeadlessTransition } from "@headlessui/react"
 import { ChevronUpIcon } from "@heroicons/react/solid"
-
-const animateClosed: Target = { height: 0 }
-const animateOpen: Target = { height: "auto" }
-const animateTransition: Transition = { transition: 0.1 }
 
 interface AccordionSectionProps {
   title: string
   children: React.ReactNode
   animatedHeight?: boolean
+}
+
+type VariantType = "in" | "out"
+const inVariant: Variant = { height: "auto", transition: { duration: 0.1 } }
+const outVariant: Variant = { height: 0, transition: { duration: 0.075 } }
+const variants: Record<VariantType, Variant> = {
+  in: inVariant,
+  out: outVariant,
 }
 
 const Accordion: React.FC<AccordionSectionProps> = ({
@@ -33,10 +37,10 @@ const Accordion: React.FC<AccordionSectionProps> = ({
             <AnimatePresence initial={false}>
               {open && (
                 <motion.div
-                  initial={animateClosed}
-                  animate={animateOpen}
-                  exit={animateClosed}
-                  transition={animateTransition}
+                  initial="out"
+                  animate={open ? "in" : "out"}
+                  exit="out"
+                  variants={variants}
                 >
                   <Disclosure.Panel static className="overflow-hidden h-inherit">
                     {children}

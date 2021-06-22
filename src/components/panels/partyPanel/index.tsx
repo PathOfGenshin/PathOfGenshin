@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { AnimatePresence, motion, Target, usePresence } from "framer-motion"
+import { AnimatePresence, motion, usePresence, Variant } from "framer-motion"
 import { useQuery } from "react-query"
 
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
@@ -19,20 +19,26 @@ interface AnimatedListItemProps {
   children: React.ReactNode
 }
 
+type VariantType = "in" | "out"
+const inVariant: Variant = { scale: 1, opacity: 1, transition: { duration: 0.2 } }
+const outVariant: Variant = { scale: 0, opacity: 0, transition: { duration: 0.2 } }
+const variants: Record<VariantType, Variant> = {
+  in: inVariant,
+  out: outVariant,
+}
+
 const AnimatedListItem: React.FC<AnimatedListItemProps> = ({
   children,
 }: AnimatedListItemProps) => {
   const [isPresent, safeToRemove] = usePresence()
-  const inVariant: Target = { scale: 1, opacity: 1 }
-  const outVariant: Target = { scale: 0, opacity: 0 }
 
   return (
     <motion.div
       layout
-      initial={outVariant}
-      animate={inVariant}
-      exit={outVariant}
-      transition={{ duration: 0.2 }}
+      initial="out"
+      animate={isPresent ? "in" : "out"}
+      exit="out"
+      variants={variants}
       onAnimationComplete={() => !isPresent && safeToRemove && safeToRemove()}
     >
       {children}

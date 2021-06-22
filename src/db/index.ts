@@ -1,4 +1,5 @@
 import Dexie from "dexie"
+import { isEmpty } from "lodash"
 
 import { Artifact } from "@/generated/model/artifacts"
 import { CharacterExpLevel } from "@/generated/model/character_exp_levels"
@@ -180,6 +181,7 @@ export const queryDefaultWeapons = async (): Promise<Record<WeaponType, Weapon>>
 
 export const queryCharacters =
   (characterIds: number[]) => async (): Promise<Character[]> => {
+    if (isEmpty(characterIds)) return []
     const characters = (await db.characters.bulkGet(characterIds)).filter(notUndefined)
     return characters
   }
@@ -210,6 +212,7 @@ export const querySingleSkillDepot =
 
 export const querySkillDepots =
   (skillDepotIds: number[]) => async (): Promise<CharacterSkillDepot[]> => {
+    if (isEmpty(skillDepotIds)) return []
     const skillDepots = (await db.skillDepots.bulkGet(skillDepotIds)).filter(
       notUndefined,
     )

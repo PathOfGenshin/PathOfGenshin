@@ -69,7 +69,7 @@ export const ConstellationSummary: React.FC<ConstellationSummaryProps> = ({
   const constellationLevels: number[] = range(
     0,
     skillDepot && config.skillDepot
-      ? config.skillSets[config.skillDepot.id].constellationLevel
+      ? config.skillSets[config.skillDepot.id]?.constellationLevel
       : 0,
   )
 

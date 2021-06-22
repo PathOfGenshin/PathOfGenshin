@@ -21,7 +21,7 @@ export const NormalAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
       width="sm"
       selected={
         skillDepot && config.skillDepot
-          ? config.skillSets[config.skillDepot.id].levelTalentAttack
+          ? config.skillSets[config.skillDepot.id]?.levelTalentAttack
           : 1
       }
       options={range(
@@ -46,7 +46,7 @@ export const SkillAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
       width="sm"
       selected={
         skillDepot && config.skillDepot
-          ? config.skillSets[config.skillDepot.id].levelTalentSkill
+          ? config.skillSets[config.skillDepot.id]?.levelTalentSkill
           : 1
       }
       options={range(
@@ -71,7 +71,7 @@ export const BurstAttackLevelDropdown: React.FC<AttackLevelDropdownProps> = ({
       width="sm"
       selected={
         skillDepot && config.skillDepot
-          ? config.skillSets[config.skillDepot.id].levelTalentBurst
+          ? config.skillSets[config.skillDepot.id]?.levelTalentBurst
           : 1
       }
       options={range(

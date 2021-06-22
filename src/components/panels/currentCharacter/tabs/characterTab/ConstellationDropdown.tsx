@@ -21,7 +21,7 @@ export const ConstellationDropdown: React.FC<ConstellationDropdownProps> = ({
       width="sm"
       selected={
         skillDepot && config.skillDepot
-          ? config.skillSets[config.skillDepot.id].constellationLevel
+          ? config.skillSets[config.skillDepot.id]?.constellationLevel
           : 0
       }
       options={
