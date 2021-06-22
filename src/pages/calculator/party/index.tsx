@@ -1,12 +1,12 @@
 import React, { MouseEventHandler, useEffect, useState } from "react"
 
 import clsx from "clsx"
-import { noop, partition } from "lodash"
+import { noop } from "lodash"
 import { useQuery } from "react-query"
 
 import { Dialog } from "@/components"
 import { AvatarIconButton } from "@/components/genshin/characters/AvatarIcon"
-import { isTravelerId, TravelerGender } from "@/components/genshin/characters/traveler"
+import { TravelerGender } from "@/components/genshin/characters/traveler"
 import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryAllCharacters, queryDefaultWeapons } from "@/db"
@@ -62,14 +62,14 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
   }
 
   // Sorts characters by placing traveler as the first selection
-  const sortedCharacters = (characters: Character[]): Character[] =>
-    partition(characters, (char: Character) => isTravelerId(char.id))
-      .flat()
+  const filteredCharacters = (characters: Character[]): Character[] =>
+    characters
       .filter((char: Character) =>
         travelerGender === TravelerGender.MALE
           ? char.id !== TravelerGender.FEMALE
           : char.id !== TravelerGender.MALE,
       )
+      .sort((a: Character, b: Character) => a.sortId - b.sortId)
 
   const addCharacterById = (): void => {
     if (wantedCharacter) {
@@ -115,7 +115,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           {allCharacters &&
             defaultWeapons &&
             travelerGender &&
-            sortedCharacters(allCharacters).map((char: Character) => (
+            filteredCharacters(allCharacters).map((char: Character) => (
               <AvatarIconButton
                 key={char.id}
                 charName={char.name}

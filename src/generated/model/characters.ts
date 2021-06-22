@@ -67,4 +67,5 @@ export interface Character {
     props: PropCurve[];
     skillDepotIds: number[];
     ascensions: Ascension[];
+    sortId: number;
 }
