@@ -5,6 +5,7 @@ import { useQuery } from "react-query"
 
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
 import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
+import { isTravelerId } from "@/components/genshin/characters/traveler"
 import { queryCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
@@ -62,7 +63,7 @@ export const PartyPanel: React.FC = () => {
 
   const characterItems =
     partyCharacters?.map((char: Character) => (
-      <AnimatedListItem key={char.id}>
+      <AnimatedListItem key={isTravelerId(char.id) ? char.name : char.id}>
         <Link href={`/calculator/current#${char.name}`} passHref>
           <AvatarSideIcon
             iconName={char.sideIcon}
