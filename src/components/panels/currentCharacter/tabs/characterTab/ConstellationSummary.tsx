@@ -49,7 +49,18 @@ const ConstellationEntry: React.FC<ConstellationEntryProps> = ({
   )
 }
 
-const MemoizedConstellationEntry = memo(ConstellationEntry)
+const compareConstellationEntry = (
+  a: Readonly<ConstellationEntryProps>,
+  b: Readonly<ConstellationEntryProps>,
+): boolean => {
+  return (
+    a.constellation.id === b.constellation.id &&
+    a.level === b.level &&
+    a.element === b.element
+  )
+}
+
+const MemoizedConstellationEntry = memo(ConstellationEntry, compareConstellationEntry)
 
 export const ConstellationSummary: React.FC<ConstellationSummaryProps> = ({
   config,
