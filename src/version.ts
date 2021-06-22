@@ -12,4 +12,4 @@ export const DATABASE_SCHEMA_VERSION = 1
  * assumption that there will be very little changes to the actual game data for every
  * new game patch.
  */
-export const CURRENT_GAME_VERSION = 150
+export const CURRENT_GAME_VERSION = 160
