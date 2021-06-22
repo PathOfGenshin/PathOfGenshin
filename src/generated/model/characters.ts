@@ -5,13 +5,13 @@ import { PropCurve } from "./stat_curves";
 import { Ascension } from "./ascension";
 
 export enum VisionType {
-    Anemo = "Anemo",
     None = "None",
+    Pyro = "Pyro",
+    Cryo = "Cryo",
     Electro = "Electro",
     Hydro = "Hydro",
-    Cryo = "Cryo",
-    Pyro = "Pyro",
     Geo = "Geo",
+    Anemo = "Anemo",
 }
 
 export interface CharacterMetadata {
