@@ -81,7 +81,9 @@ export const StatusPanel: React.FC = () => {
         {config && skillDepot && (
           <ConstellationInfo
             constellations={skillDepot.constellations}
-            constellationLevel={config.skillSets[skillDepot.id].constellationLevel}
+            constellationLevel={
+              config.skillSets[skillDepot.id]?.constellationLevel ?? 0
+            }
             element={skillDepot.element}
           />
         )}

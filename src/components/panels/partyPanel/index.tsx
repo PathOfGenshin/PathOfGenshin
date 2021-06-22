@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { AnimatePresence, motion, Target, usePresence } from "framer-motion"
 import { useQuery } from "react-query"
 
 import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
@@ -8,11 +9,36 @@ import { queryCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import {
+  CharacterData,
   MAX_PARTY_SIZE,
   selectCharacters,
   selectCurrentCharacter,
-  CharacterData,
 } from "@/store/party/partySlice"
+
+interface AnimatedListItemProps {
+  children: React.ReactNode
+}
+
+const AnimatedListItem: React.FC<AnimatedListItemProps> = ({
+  children,
+}: AnimatedListItemProps) => {
+  const [isPresent, safeToRemove] = usePresence()
+  const inVariant: Target = { scale: 1, opacity: 1 }
+  const outVariant: Target = { scale: 0, opacity: 0 }
+
+  return (
+    <motion.div
+      layout
+      initial={outVariant}
+      animate={inVariant}
+      exit={outVariant}
+      transition={{ duration: 0.2 }}
+      onAnimationComplete={() => !isPresent && safeToRemove && safeToRemove()}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export const PartyPanel: React.FC = () => {
   const party: CharacterData[] = useAppSelector(selectCharacters)
@@ -22,23 +48,33 @@ export const PartyPanel: React.FC = () => {
     queryCharacters(party.map((c: CharacterData) => c.id)),
   )
 
-  return (
-    <div className="flex flex-row justify-center items-center py-2 max-w-full">
-      {partyCharacters &&
-        partyCharacters.map((char: Character) => (
-          <Link key={char.id} href={`/calculator/current#${char.name}`} passHref>
-            <AvatarSideIcon
-              iconName={char.sideIcon}
-              charName={char.name}
-              quality={char.quality}
-              element={char.metadata.vision}
-              isSelected={currentCharacter?.id === char.id}
-            />
-          </Link>
-        ))}
+  const characterItems =
+    partyCharacters?.map((char: Character) => (
+      <AnimatedListItem key={char.id}>
+        <Link href={`/calculator/current#${char.name}`} passHref>
+          <AvatarSideIcon
+            iconName={char.sideIcon}
+            charName={char.name}
+            quality={char.quality}
+            element={char.metadata.vision}
+            isSelected={currentCharacter?.id === char.id}
+          />
+        </Link>
+      </AnimatedListItem>
+    )) ?? []
+
+  const items = [
+    ...characterItems,
+    <AnimatedListItem key="addCharacter">
       <Link href="/calculator/party" passHref>
         <AddCharacterIcon disabled={party.length >= MAX_PARTY_SIZE} />
       </Link>
+    </AnimatedListItem>,
+  ]
+
+  return (
+    <div className="flex flex-row justify-center items-center py-2 max-w-full">
+      <AnimatePresence>{items.map((item) => item)}</AnimatePresence>
     </div>
   )
 }
