@@ -41,7 +41,7 @@ const tableIndexSchema: Record<TableName, string> = {
   [TableName.characterExpLevels]: "level",
   [TableName.partyResonance]: "id,name",
   [TableName.artifacts]: "id",
-  [TableName.weapons]: "id,name,quality",
+  [TableName.weapons]: "id,name,quality,weaponType",
   [TableName.weaponExpLevels]: "[quality+level]",
   [TableName.skillDepots]: "id",
   [TableName.statCurves]: "[curveId+level]",
@@ -178,6 +178,12 @@ export const queryDefaultWeapons = async (): Promise<Record<WeaponType, Weapon>>
     weapons.map((weapon) => [weapon.weaponType, weapon]),
   ) as Record<WeaponType, Weapon>
 }
+
+export const queryWeaponsByType =
+  (weaponType: WeaponType) => async (): Promise<Weapon[]> => {
+    const weapons = await db.weapons.where("weaponType").equals(weaponType).toArray()
+    return weapons
+  }
 
 export const queryCharacters =
   (characterIds: number[]) => async (): Promise<Character[]> => {

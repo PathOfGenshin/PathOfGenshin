@@ -3,18 +3,19 @@ import { clamp } from "lodash"
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
 import { isTravelerId } from "@/components/genshin/characters/traveler"
 import { SkillType } from "@/generated/model/character_skills"
-import { Character, VisionType } from "@/generated/model/characters"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
 import {
+  AscensionLevel,
   CharacterConfig,
   ConstellationLevel,
   createDefaultCharacterConfig,
   SkillDepotIdentifier,
   SkillDepotSetLevel,
+  SkillLevels,
 } from "./characterConfig"
-import { AscensionLevel, SkillLevels } from "./partyModels"
+import type { AddCharacterPayload, ToggleTravelerPayload } from "./payloads"
 import { copyTravelerConfig } from "./travelerDraft"
 
 export const MAX_PARTY_SIZE = 4
@@ -39,19 +40,6 @@ const initialState: PartyState = {
   charactersInParty: [],
   currentCharacter: null,
   characterConfig: {},
-}
-
-interface AddCharacterPayload {
-  id: number
-  name: string
-  defaultWeaponId: number
-  defaultSkillDepotId: number | null
-  vision: VisionType
-}
-
-interface ToggleTravelerPayload {
-  target: Character
-  previous: Character
 }
 
 const getCurrentConfig = (state: Readonly<PartyState>): CharacterConfig | null =>
@@ -237,6 +225,16 @@ export const partySlice = createSlice({
         }
       }
     },
+
+    setWeapon: (state, action: PayloadAction<number>) => {
+      const config = getCurrentConfig(state)
+      if (config) {
+        config.weaponId = action.payload
+        config.weaponLevel = 1
+        config.weaponMaxLevel = 20
+        config.weaponRefinement = 1
+      }
+    },
   },
 })
 
@@ -250,6 +248,7 @@ export const {
   setSkillDepot,
   setSkillLevel,
   setTraveler,
+  setWeapon,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

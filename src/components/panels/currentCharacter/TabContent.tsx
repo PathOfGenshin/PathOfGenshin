@@ -11,9 +11,9 @@ import RemoveFromPartyButton from "./RemoveFromPartyButton"
 import TabSelector from "./TabSelector"
 import { ArtifactsTab } from "./tabs/ArtifactsTab"
 import { PartyTab } from "./tabs/PartyTab"
-import { WeaponsTab } from "./tabs/WeaponsTab"
 import CharacterTab from "./tabs/characterTab"
 import { TabType } from "./tabs/tabType"
+import { WeaponsTab } from "./tabs/weaponTab"
 
 export interface TabContentProps {
   character: Character

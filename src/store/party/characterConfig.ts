@@ -8,6 +8,19 @@ export interface InventoryReference {
   inventoryId: number
 }
 
+export interface AscensionLevel {
+  ascensionLevel: number
+  maxLevel: number
+  lowerMaxLevel: number
+}
+
+export interface SkillLevels {
+  [SkillType.Normal]: number
+  [SkillType.Skill]: number
+  [SkillType.Burst]: number
+  [SkillType.AlternateSprint]: 1
+}
+
 export interface SkillDepotIdentifier {
   // Skill depot id & element type
   id: number
