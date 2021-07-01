@@ -40,7 +40,7 @@ const WeaponSelection: React.FC<WeaponSelectionProps> = ({
         onClick={setWeaponId}
       />
       <div className="flex flex-col">
-        <h3 className="tracking-tight font-genshin">{weaponName}</h3>
+        <h3 className="font-genshin">{weaponName}</h3>
         <p>{description}</p>
       </div>
     </div>
@@ -68,9 +68,9 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
 
   return (
     <div className="space-y-4 w-full">
-      <h2 className="text-2xl tracking-tight font-genshin">Weapon Settings</h2>
+      <h2 className="text-2xl font-genshin">Weapon Settings</h2>
       {currentWeapon && <div>{currentWeapon.name}</div>}
-      <h2 className="text-2xl tracking-tight font-genshin">Switch Weapon</h2>
+      <h2 className="text-2xl font-genshin">Switch Weapon</h2>
       <div className="flex flex-col">
         {weapons &&
           weapons

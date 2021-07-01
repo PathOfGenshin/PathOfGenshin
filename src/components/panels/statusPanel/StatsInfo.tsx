@@ -65,7 +65,7 @@ const StatsInfo: React.FC<StatsInfoProps> = ({ config }: StatsInfoProps) => {
           <ul key={index}>
             {statRow.map((entry: StatRow) => (
               <li
-                className="flex flex-row items-center h-6 text-sm tracking-tight leading-6 font-genshin"
+                className="flex flex-row items-center h-6 text-sm leading-6 font-genshin"
                 key={entry.key}
               >
                 <div className="flex justify-center items-center w-6 h-6">

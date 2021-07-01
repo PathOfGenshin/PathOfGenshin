@@ -42,8 +42,8 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({
           label={`Lv. ${level} / ${maxLevel}`}
         />
         <div className="flex flex-col text-sm">
-          <h2 className="text-lg tracking-tight font-genshin">{charName}</h2>
-          <p className="tracking-tight font-genshin">{title}</p>
+          <h2 className="text-lg font-genshin">{charName}</h2>
+          <p className="font-genshin">{title}</p>
           <p className="my-0.5">Birthday: {birthday}</p>
           <p className="my-0.5">Affiliation: {affiliation}</p>
           <p className="my-0.5">Vision: {vision}</p>

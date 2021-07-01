@@ -90,7 +90,7 @@ const CharacterTab: React.FC<TabContentProps> = ({
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight font-genshin">Character Settings</h2>
+        <h2 className="text-2xl font-genshin">Character Settings</h2>
         {availableSkillDepotsLoaded && availableSkillDepots && (
           <SkillSetDropdown
             config={config}
@@ -136,7 +136,7 @@ const CharacterTab: React.FC<TabContentProps> = ({
         </div>
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight font-genshin">Constellations</h2>
+        <h2 className="text-2xl font-genshin">Constellations</h2>
         <ConstellationSummary
           config={config}
           character={character}
@@ -144,10 +144,10 @@ const CharacterTab: React.FC<TabContentProps> = ({
         />
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight font-genshin">Talents</h2>
+        <h2 className="text-2xl font-genshin">Talents</h2>
       </div>
       <div className="space-y-4">
-        <h2 className="text-2xl tracking-tight font-genshin">Passives</h2>
+        <h2 className="text-2xl font-genshin">Passives</h2>
       </div>
     </div>
   )
