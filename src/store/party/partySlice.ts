@@ -230,9 +230,39 @@ export const partySlice = createSlice({
       const config = getCurrentConfig(state)
       if (config) {
         config.weaponId = action.payload
+        config.weaponAscensionLevel = 0
         config.weaponLevel = 1
         config.weaponMaxLevel = 20
+        config.weaponLowerMaxLevel = 1
         config.weaponRefinement = 1
+      }
+    },
+
+    setWeaponLevel: (state, action: PayloadAction<number>) => {
+      const config = getCurrentConfig(state)
+      if (config) {
+        config.weaponLevel = action.payload
+      }
+    },
+
+    setWeaponMaxLevel: (state, action: PayloadAction<AscensionLevel>) => {
+      const config = getCurrentConfig(state)
+      if (config) {
+        config.weaponLevel = clamp(
+          config.weaponLevel,
+          action.payload.lowerMaxLevel,
+          action.payload.maxLevel,
+        )
+        config.weaponAscensionLevel = action.payload.ascensionLevel
+        config.weaponLowerMaxLevel = action.payload.lowerMaxLevel
+        config.weaponMaxLevel = action.payload.maxLevel
+      }
+    },
+
+    setWeaponRefinement: (state, action: PayloadAction<number>) => {
+      const config = getCurrentConfig(state)
+      if (config) {
+        config.weaponRefinement = clamp(action.payload, 1, 5)
       }
     },
   },
@@ -249,6 +279,9 @@ export const {
   setSkillLevel,
   setTraveler,
   setWeapon,
+  setWeaponLevel,
+  setWeaponMaxLevel,
+  setWeaponRefinement,
 } = partySlice.actions
 
 export const selectCharacters = (state: RootState): CharacterData[] =>

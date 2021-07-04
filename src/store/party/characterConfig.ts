@@ -52,6 +52,8 @@ export interface CharacterConfig {
   // Equipped weapon
   weaponId: number
   weaponLevel: number
+  weaponAscensionLevel: number
+  weaponLowerMaxLevel: number
   weaponMaxLevel: number
   weaponRefinement: number
   // Artifacts
@@ -92,6 +94,8 @@ export function createDefaultCharacterConfig(
     maxLevel: 20,
     weaponId,
     weaponLevel: 1,
+    weaponAscensionLevel: 0,
+    weaponLowerMaxLevel: 1,
     weaponMaxLevel: 20,
     weaponRefinement: 1,
     flower: null,

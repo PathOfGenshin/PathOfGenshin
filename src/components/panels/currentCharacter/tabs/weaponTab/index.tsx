@@ -5,13 +5,23 @@ import { useQuery } from "react-query"
 
 import { Dialog } from "@/components"
 import { QUALITY_TEXT_COLORS } from "@/components/genshin/quality/colorMapping"
+import { WeaponIcon } from "@/components/genshin/weapons/WeaponIcon"
 import { querySingleWeapon, queryWeaponsByType } from "@/db"
+import { Ascension } from "@/generated/model/ascension"
 import { StarQuality } from "@/generated/model/type_aliases"
 import { Weapon } from "@/generated/model/weapon"
 import { useAppDispatch } from "@/store/hooks"
-import { setWeapon } from "@/store/party/partySlice"
+import {
+  setWeapon,
+  setWeaponLevel,
+  setWeaponMaxLevel,
+  setWeaponRefinement,
+} from "@/store/party/partySlice"
 
 import { TabContentProps } from "../../TabContent"
+import { LevelDropdown } from "./LevelDropdown"
+import { MaxLevelDropdown } from "./MaxLevelDropdown"
+import { RefinementRankDropdown } from "./RefinementRankDropdown"
 import { WeaponSelection } from "./WeaponSelection"
 
 interface SelectedWeapon {
@@ -67,6 +77,26 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
     }
   }
 
+  const onSelectedLevel = (level: number): void => {
+    dispatch(setWeaponLevel(level))
+  }
+
+  const onSelectedRank = (rank: number): void => {
+    dispatch(setWeaponRefinement(rank))
+  }
+
+  const onSelectedMaxLevel = (ascension: Ascension): void => {
+    const prevIndex: number = ascension.ascensionLevel - 1
+    dispatch(
+      setWeaponMaxLevel({
+        ascensionLevel: ascension.ascensionLevel,
+        maxLevel: ascension.maxLevel,
+        lowerMaxLevel:
+          prevIndex >= 0 ? currentWeapon?.ascensions[prevIndex].maxLevel ?? 1 : 1,
+      }),
+    )
+  }
+
   // Clear and unfocus the wanted weapon
   useEffect(() => {
     if (!dialogOpen && wantedWeapon !== null) {
@@ -77,7 +107,32 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
   return (
     <div className="space-y-4 w-full">
       <h2 className="text-2xl font-genshin">Weapon Settings</h2>
-      {currentWeapon && <div>{currentWeapon.name}</div>}
+      {currentWeapon && (
+        <div className="flex space-x-4">
+          <WeaponIcon
+            iconName={
+              config.weaponAscensionLevel >= 2
+                ? currentWeapon.iconAwakened
+                : currentWeapon.icon
+            }
+            weaponName={currentWeapon.name}
+            quality={currentWeapon.quality}
+            label={`Lv. ${config.weaponLevel} / ${config.weaponMaxLevel}`}
+          />
+          <div className="space-y-2">
+            <h3 className="text-xl font-genshin">{currentWeapon.name}</h3>
+            <RefinementRankDropdown config={config} onSelectedRank={onSelectedRank} />
+            <div className="flex flex-row">
+              <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
+              <MaxLevelDropdown
+                config={config}
+                weapon={currentWeapon}
+                onSelectedAscension={onSelectedMaxLevel}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <h2 className="text-2xl font-genshin">Switch Weapon</h2>
       <div className="flex flex-col">
         {weapons &&
