@@ -105,50 +105,54 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
   }, [dialogOpen, wantedWeapon])
 
   return (
-    <div className="space-y-4 w-full">
-      <h2 className="text-2xl font-genshin">Weapon Settings</h2>
-      {currentWeapon && (
-        <div className="flex space-x-4">
-          <WeaponIcon
-            iconName={
-              config.weaponAscensionLevel >= 2
-                ? currentWeapon.iconAwakened
-                : currentWeapon.icon
-            }
-            weaponName={currentWeapon.name}
-            quality={currentWeapon.quality}
-            label={`Lv. ${config.weaponLevel} / ${config.weaponMaxLevel}`}
-          />
-          <div className="space-y-2">
-            <h3 className="text-xl font-genshin">{currentWeapon.name}</h3>
-            <RefinementRankDropdown config={config} onSelectedRank={onSelectedRank} />
-            <div className="flex flex-row">
-              <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
-              <MaxLevelDropdown
-                config={config}
-                weapon={currentWeapon}
-                onSelectedAscension={onSelectedMaxLevel}
-              />
+    <div className="space-y-8 w-full">
+      <div className="space-y-4">
+        <h2 className="text-2xl font-genshin">Weapon Settings</h2>
+        {currentWeapon && (
+          <div className="flex space-x-4">
+            <WeaponIcon
+              iconName={
+                config.weaponAscensionLevel >= 2
+                  ? currentWeapon.iconAwakened
+                  : currentWeapon.icon
+              }
+              weaponName={currentWeapon.name}
+              quality={currentWeapon.quality}
+              label={`Lv. ${config.weaponLevel} / ${config.weaponMaxLevel}`}
+            />
+            <div className="space-y-4">
+              <h3 className="text-xl font-genshin">{currentWeapon.name}</h3>
+              <RefinementRankDropdown config={config} onSelectedRank={onSelectedRank} />
+              <div className="flex flex-row">
+                <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
+                <MaxLevelDropdown
+                  config={config}
+                  weapon={currentWeapon}
+                  onSelectedAscension={onSelectedMaxLevel}
+                />
+              </div>
             </div>
           </div>
+        )}
+      </div>
+      <div className="space-y-4">
+        <h2 className="text-2xl font-genshin">Switch Weapon</h2>
+        <div className="flex flex-col">
+          {weapons &&
+            weapons
+              .sort(sortByQuality)
+              .map((weapon: Weapon) => (
+                <WeaponSelection
+                  key={weapon.id}
+                  onClick={selectWeapon(weapon.id, weapon.name, weapon.quality)}
+                  weaponName={weapon.name}
+                  iconName={weapon.icon}
+                  description={weapon.description}
+                  quality={weapon.quality}
+                  isFocused={dialogOpen && wantedWeapon?.id === weapon.id}
+                />
+              ))}
         </div>
-      )}
-      <h2 className="text-2xl font-genshin">Switch Weapon</h2>
-      <div className="flex flex-col">
-        {weapons &&
-          weapons
-            .sort(sortByQuality)
-            .map((weapon: Weapon) => (
-              <WeaponSelection
-                key={weapon.id}
-                onClick={selectWeapon(weapon.id, weapon.name, weapon.quality)}
-                weaponName={weapon.name}
-                iconName={weapon.icon}
-                description={weapon.description}
-                quality={weapon.quality}
-                isFocused={dialogOpen && wantedWeapon?.id === weapon.id}
-              />
-            ))}
       </div>
       <Dialog
         description={
