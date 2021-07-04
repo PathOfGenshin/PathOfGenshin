@@ -129,7 +129,7 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
                   char.skillDepotIds.length === 1 ? char.skillDepotIds[0] : null,
                   char.metadata.vision,
                 )}
-                isFocused={dialogOpen && (wantedCharacter?.id === char.id ?? false)}
+                isFocused={dialogOpen && wantedCharacter?.id === char.id}
                 disabled={party.some((partyChar) => partyChar.id === char.id)}
               />
             ))}
