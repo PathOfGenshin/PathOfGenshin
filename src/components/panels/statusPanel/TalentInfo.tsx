@@ -1,6 +1,6 @@
 import { TalentIcon } from "@/components/genshin/characters/TalentIcon"
 import { CharacterSkill } from "@/generated/model/character_skills"
-import { SkillLevels } from "@/store/party/partyModels"
+import { SkillLevels } from "@/store/party/characterConfig"
 
 interface TalentInfoProps {
   skills: CharacterSkill[]
