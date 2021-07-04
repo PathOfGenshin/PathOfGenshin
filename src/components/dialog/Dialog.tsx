@@ -79,7 +79,7 @@ const Dialog: React.FC<ConfirmationDialogProps> = ({
             leaveFrom="opacity-100 sm:scale-100"
             leaveTo="opacity-0 sm:scale-95"
           >
-            <div className="z-10 py-2 px-4 mx-auto w-max max-w-xs rounded-lg border-4 transition-all transform md:max-w-2xl lg:max-w-4xl md:px-8 md:py-4 bg-g-paper-dialog text-g-paper-0 border-g-paper-dialog-border font-genshin">
+            <div className="z-10 py-2 px-4 mx-auto w-max max-w-xs rounded-lg border-4 transition-all transform md:max-w-2xl md:px-8 md:py-4 bg-g-paper-dialog text-g-paper-0 border-g-paper-dialog-border font-genshin">
               <div className="w-full h-0.5 bg-g-paper-dialog-border my-2" />
               <div className="flex flex-col justify-center items-center py-2 md:py-4">
                 {title && (

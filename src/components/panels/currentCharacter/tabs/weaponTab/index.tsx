@@ -97,7 +97,7 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
       </div>
       <Dialog
         description={
-          <div>
+          <div className="text-center">
             <p>
               Would you like to equip{" "}
               <span className={QUALITY_TEXT_COLORS[wantedWeapon?.quality ?? 0]}>
@@ -105,7 +105,11 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
               </span>{" "}
               on <span>{character.name}</span>?
             </p>
-            <p>Note that this will reset the level of the weapon to Lv. 1/20!</p>
+            <br />
+            <p>
+              Note that this will reset the weapon level to Lv. 1/20 and Refinement rank
+              to 1.
+            </p>
           </div>
         }
         confirmText="Confirm"
