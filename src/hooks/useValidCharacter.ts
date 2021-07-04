@@ -14,7 +14,7 @@ import {
 const extractName = memoize((asPath: string): string => {
   const hashIndex = asPath.lastIndexOf("#")
   if (hashIndex > -1) {
-    return asPath.substring(hashIndex + 1)
+    return asPath.substring(hashIndex + 1).replace("%20", " ")
   }
   return ""
 })
