@@ -52,7 +52,7 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
           />
           <SVGRoundBorder className="absolute -bottom-px pointer-events-none select-none text-g-paper" />
         </div>
-        <div className="relative h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0 2xl:h-7.5 2xl:text-lg 2xl:leading-7.5">
+        <div className="relative h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0 2xl:h-7.5 2xl:text-lg 2xl:leading-7.5 overflow-hidden">
           {label ?? charName}
         </div>
       </div>
