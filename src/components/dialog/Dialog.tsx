@@ -90,6 +90,7 @@ const Dialog: React.FC<ConfirmationDialogProps> = ({
 
                 <HeadlessDialog.Description
                   className={clsx("md:px-8", title ? "" : "py-2 md:py-4")}
+                  as="div"
                 >
                   {description}
                 </HeadlessDialog.Description>

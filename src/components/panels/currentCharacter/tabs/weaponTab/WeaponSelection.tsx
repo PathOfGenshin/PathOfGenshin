@@ -20,7 +20,7 @@ export const WeaponSelection: React.FC<WeaponSelectionProps> = ({
   isFocused,
 }: WeaponSelectionProps) => {
   return (
-    <div className="flex flex-row my-2 space-x-4">
+    <div className="flex flex-row p-2 space-x-4 rounded-md hover:bg-g-dark-800">
       <WeaponIconButton
         iconName={iconName}
         weaponName={weaponName}
