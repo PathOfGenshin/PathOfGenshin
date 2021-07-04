@@ -4,7 +4,7 @@ import { noop } from "lodash"
 import { useQuery } from "react-query"
 
 import { Dialog } from "@/components"
-import { TEXT_COLORS } from "@/components/genshin/quality/colorMapping"
+import { QUALITY_TEXT_COLORS } from "@/components/genshin/quality/colorMapping"
 import { querySingleWeapon, queryWeaponsByType } from "@/db"
 import { StarQuality } from "@/generated/model/type_aliases"
 import { Weapon } from "@/generated/model/weapon"
@@ -100,7 +100,7 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
           <div>
             <p>
               Would you like to equip{" "}
-              <span className={TEXT_COLORS[wantedWeapon?.quality ?? 0]}>
+              <span className={QUALITY_TEXT_COLORS[wantedWeapon?.quality ?? 0]}>
                 {wantedWeapon?.name}
               </span>{" "}
               on <span>{character.name}</span>?

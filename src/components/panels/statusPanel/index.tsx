@@ -8,7 +8,7 @@ import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "
 import { VisionType } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
-import { SkillLevels } from "@/store/party/partyModels"
+import { SkillLevels } from "@/store/party/characterConfig"
 import {
   CharacterData,
   selectCharacterConfig,
