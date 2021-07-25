@@ -1,3 +1,5 @@
 .cursor {
-  cursor: url("/static/ui/UI_Img_Cursor_PC.png"), auto;
+  * {
+    cursor: url("/static/ui/UI_Img_Cursor_PC.png"), auto;
+  }
 }
