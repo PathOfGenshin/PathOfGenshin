@@ -18,8 +18,8 @@
     "lint": "eslint --ext .ts --ext .tsx --no-error-on-unmatched-pattern -c .eslintrc.js \"./src/**\" && prettier --plugin=./node_modules/@trivago/prettier-plugin-sort-imports --config .prettierrc.js --check ./src"
   },
   "dependencies": {
-    "@headlessui/react": "^1.3.0",
-    "@heroicons/react": "^1.0.2",
+    "@headlessui/react": "^1.4.0",
+    "@heroicons/react": "^1.0.3",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
