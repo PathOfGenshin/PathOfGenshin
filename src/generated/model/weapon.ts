@@ -18,6 +18,7 @@ export interface Weapon {
     description: string;
     icon: string;
     iconAwakened: string;
+    maxRefinement: number;
     props: PropCurve[];
     ascensions: Ascension[];
     affixes: number[];

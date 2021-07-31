@@ -122,7 +122,11 @@ export const WeaponsTab: React.FC<TabContentProps> = ({
             />
             <div className="space-y-4">
               <h3 className="text-xl font-genshin">{currentWeapon.name}</h3>
-              <RefinementRankDropdown config={config} onSelectedRank={onSelectedRank} />
+              <RefinementRankDropdown
+                config={config}
+                weapon={currentWeapon}
+                onSelectedRank={onSelectedRank}
+              />
               <div className="flex flex-row">
                 <LevelDropdown config={config} onSelectedLevel={onSelectedLevel} />
                 <MaxLevelDropdown
