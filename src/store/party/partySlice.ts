@@ -25,7 +25,17 @@ export interface CharacterData {
   name: string
 }
 
+export interface PartyEntry {
+  characters: CharacterData[]
+  // Unique identifier for the current party entry
+  name: string
+}
+
 interface PartyState {
+  // Entries in the party
+  partyEntries: PartyEntry[]
+  currentPartyEntry: PartyEntry | null
+
   // The characters (ids, names) in the party
   charactersInParty: CharacterData[]
 
@@ -37,6 +47,13 @@ interface PartyState {
 }
 
 const initialState: PartyState = {
+  partyEntries: [
+    {
+      characters: [],
+      name: "Party 1",
+    },
+  ],
+  currentPartyEntry: null,
   charactersInParty: [],
   currentCharacter: null,
   characterConfig: {},
