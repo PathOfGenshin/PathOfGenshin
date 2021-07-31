@@ -24,6 +24,7 @@ export const RefinementRankDropdown: React.FC<RefinementRankDropdownProps> = ({
       onSelected={onSelectedRank}
       buttonValue={identity}
       optionValue={identity}
+      disabled={weapon.maxRefinement === 1}
     />
   )
 }
