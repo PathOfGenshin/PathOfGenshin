@@ -22,9 +22,11 @@ import {
   SkillAttackLevelDropdown,
 } from "./AttackLevelDropdown"
 import { ConstellationDropdown } from "./ConstellationDropdown"
-import { ConstellationSummary } from "./ConstellationSummary"
 import { LevelDropdown } from "./LevelDropdown"
 import { SkillSetDropdown } from "./SkillSetDropdown"
+import { ConstellationSummary } from "./constellations/ConstellationSummary"
+import { PassiveSummary } from "./passives/PassiveSummary"
+import { TalentSummary } from "./talents/TalentSummary"
 
 const CharacterTab: React.FC<TabContentProps> = ({
   character,
@@ -145,9 +147,11 @@ const CharacterTab: React.FC<TabContentProps> = ({
       </div>
       <div className="space-y-4">
         <h2 className="text-2xl font-genshin">Talents</h2>
+        <TalentSummary config={config} skillDepot={skillDepot ?? null} />
       </div>
       <div className="space-y-4">
         <h2 className="text-2xl font-genshin">Passives</h2>
+        <PassiveSummary config={config} skillDepot={skillDepot ?? null} />
       </div>
     </div>
   )
