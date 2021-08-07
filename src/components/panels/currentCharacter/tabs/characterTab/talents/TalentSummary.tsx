@@ -14,8 +14,9 @@ interface TalentSummaryProps {
 
 const getSkillLevel = (
   skillType: SkillType,
-  skillDepotConfig: CharacterSkillDepotConfig,
+  skillDepotConfig: CharacterSkillDepotConfig | undefined,
 ): number => {
+  if (!skillDepotConfig) return 1
   switch (skillType) {
     case SkillType.Normal:
       return skillDepotConfig.levelTalentAttack
@@ -33,16 +34,15 @@ export const TalentSummary: React.FC<TalentSummaryProps> = ({
   skillDepot,
 }: TalentSummaryProps) => {
   return (
-    <div className="flex flex-col space-y-8 w-full">
+    <ul>
       {skillDepot &&
         skillDepot.skills.map((skill: CharacterSkill) => (
-          <div key={skill.id} className="flex">
-            <TalentEntry
-              skill={skill}
-              level={getSkillLevel(skill.type, config.skillSets[skillDepot.id])}
-            />
-          </div>
+          <TalentEntry
+            key={skill.id}
+            skill={skill}
+            level={getSkillLevel(skill.type, config.skillSets[skillDepot.id])}
+          />
         ))}
-    </div>
+    </ul>
   )
 }

@@ -12,20 +12,24 @@ export const TalentEntry: React.FC<TalentEntryProps> = ({
   skill,
 }: TalentEntryProps) => {
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row">
-        <TalentIcon skillName={skill.name} iconName={skill.icon} isLarge />
-        <div className="flex flex-col justify-center pl-2 h-16 font-genshin">
-          <p>{skill.name}</p>
-          <p>Lv. {level}</p>
-        </div>
-      </div>
+    <li className="p-2 rounded-md hover:bg-gray-300 dark:hover:bg-g-dark-800">
       <div className="grid grid-cols-2">
+        {/* Left column */}
         <div>
-          <MemoizedColoredText id={skill.id} text={skill.description} as="span" />
+          <div className="flex flex-row">
+            <TalentIcon skillName={skill.name} iconName={skill.icon} isLarge />
+            <div className="flex flex-col justify-center pl-2 h-16 font-genshin">
+              <p>{skill.name}</p>
+              <p>Lv. {level}</p>
+            </div>
+          </div>
+          <div>
+            <MemoizedColoredText id={skill.id} text={skill.description} />
+          </div>
         </div>
-        <div>{/* TODO: skill levels based on current level */}</div>
+        {/* Right column */}
+        <div>{/* TODO: stats for each talent level */}</div>
       </div>
-    </div>
+    </li>
   )
 }

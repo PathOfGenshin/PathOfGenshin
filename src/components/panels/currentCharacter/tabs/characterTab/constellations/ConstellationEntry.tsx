@@ -15,7 +15,7 @@ export const ConstellationEntry: React.FC<ConstellationEntryProps> = ({
   element,
 }: ConstellationEntryProps) => {
   return (
-    <li className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-g-dark-800">
+    <li className="p-2 rounded-md hover:bg-gray-300 dark:hover:bg-g-dark-800">
       <h2 className="mb-1 font-genshin">
         {constellation.name} ({level})
       </h2>
