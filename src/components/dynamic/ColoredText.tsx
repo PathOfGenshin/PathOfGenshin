@@ -42,6 +42,7 @@ const coloredComponent = (
   text: string,
   Component: AsComponent,
 ): React.ReactNode => {
+  if (!color && !italicized) return text
   return (
     <Component
       key={id}

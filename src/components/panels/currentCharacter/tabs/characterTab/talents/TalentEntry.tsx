@@ -20,10 +20,11 @@ export const TalentEntry: React.FC<TalentEntryProps> = ({
           <p>Lv. {level}</p>
         </div>
       </div>
-      <div className="grid grid-cols-1">
+      <div className="grid grid-cols-2">
         <div>
           <MemoizedColoredText id={skill.id} text={skill.description} as="span" />
         </div>
+        <div>{/* TODO: skill levels based on current level */}</div>
       </div>
     </div>
   )
