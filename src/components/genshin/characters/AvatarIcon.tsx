@@ -21,6 +21,8 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
   element,
   label,
 }: AvatarIconProps) => {
+  const avatarName: string = label ?? charName
+  const isLongName: boolean = avatarName.length >= 14
   return (
     <div className="block relative w-24 text-center rounded-md shadow-md 2xl:w-32">
       <div className="absolute w-full pointer-events-none select-none">
@@ -52,8 +54,13 @@ export const AvatarIcon: React.FC<AvatarIconProps> = ({
           />
           <SVGRoundBorder className="absolute -bottom-px pointer-events-none select-none text-g-paper" />
         </div>
-        <div className="relative h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0 2xl:h-7.5 2xl:text-lg 2xl:leading-7.5 overflow-hidden">
-          {label ?? charName}
+        <div
+          className={clsx(
+            "relative h-6 text-sm leading-6 tracking-tight rounded-b-md font-genshin bg-g-paper text-g-paper-0 2xl:h-7.5 2xl:leading-7.5 overflow-hidden",
+            isLongName ? "2xl:text-sm" : "2xl:text-lg",
+          )}
+        >
+          {avatarName}
         </div>
       </div>
       <div className="absolute w-6 h-6 top-0.5 left-0.5 2xl:w-8 2xl:h-8 select-none pointer-events-none">
