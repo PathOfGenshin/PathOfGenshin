@@ -1,76 +1,143 @@
+import { memo } from "react"
+
+import clsx from "clsx"
+import { identity } from "lodash"
+
 import coloredText from "@/styles/coloredText.module.scss"
 
-const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\\n/g
+type AsComponent = keyof JSX.IntrinsicElements
+
+const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\n|<\/?i>|·/g
 
 enum State {
-  STANDARD,
+  TEXT,
   COLOR_START,
   COLOR_END,
+  ITALICIZE_START,
+  ITALICIZE_END,
+  BULLET_POINT,
   NEW_LINE,
 }
 
-const getNextState = (currentState: State, match: RegExpMatchArray): State => {
-  if (match[1]) {
-    return State.COLOR_START
-  } else if (currentState === State.COLOR_START) {
-    if (match[0] !== "</color>") {
-      throw "Expected a closing color tag! Previous state was an opening color tag."
-    }
-    return State.COLOR_END
-  } else if (match[0] === "\\n") {
-    return State.NEW_LINE
-  } else {
-    return State.STANDARD
-  }
+const STATE_MAPPING: Record<string, State> = {
+  "\n": State.NEW_LINE,
+  "<i>": State.ITALICIZE_START,
+  "</i>": State.ITALICIZE_END,
+  "</color>": State.COLOR_END,
+  "·": State.BULLET_POINT,
 }
 
-const coloredSpan = (
+const getNextState = (match: RegExpMatchArray): State => {
+  if (match[1]) {
+    return State.COLOR_START
+  }
+  const state: State | undefined = STATE_MAPPING[match[0]]
+  return state ?? State.TEXT
+}
+
+const coloredComponent = (
   id: number,
   color: string | null,
+  italicized: boolean,
   text: string,
+  Component: AsComponent,
 ): React.ReactNode => {
   return (
-    <span key={id} className={color ? coloredText[`c${color}`] : undefined}>
+    <Component
+      key={id}
+      className={clsx(
+        color ? coloredText[`c${color}`] : undefined,
+        italicized ? "italic" : "",
+      )}
+    >
       {text}
-    </span>
+    </Component>
   )
 }
 
-export const parseDescription = (desc: string): React.ReactNode[] => {
+const parseDescription = (desc: string, as: AsComponent): React.ReactNode[] => {
   const outputs: React.ReactNode[] = []
   const matches = desc.matchAll(DESCRIPTION_REGEX)
 
-  let state: State = State.STANDARD
   let start = 0
   let end = desc.length
   let color: string | null = null
+  let italicized = false
 
   for (const match of matches) {
     const startIndex: number = match.index ?? 0
     const endIndex: number = startIndex + match[0].length
 
     // Begin stateful iteration check
-    const nextState: State = getNextState(state, match)
+    const nextState: State = getNextState(match)
 
     // Update previous end index
     end = startIndex
 
     // Set up for next iteration
-    outputs.push(coloredSpan(outputs.length, color, desc.substring(start, end)))
+    if (start != end) {
+      outputs.push(
+        coloredComponent(
+          outputs.length,
+          color,
+          italicized,
+          desc.substring(start, end),
+          as,
+        ),
+      )
+    }
     start = endIndex
     end = desc.length
-    if (nextState === State.COLOR_START) {
-      color = match[1]
-    } else {
-      color = null
+
+    switch (nextState) {
+      case State.COLOR_START:
+        color = match[1]
+        break
+      case State.COLOR_END:
+        color = null
+        break
+      case State.ITALICIZE_START:
+        italicized = true
+        break
+      case State.ITALICIZE_END:
+        italicized = false
+        break
+      case State.NEW_LINE:
+        outputs.push(<br key={outputs.length} />)
+        break
+      case State.BULLET_POINT:
+        outputs.push(<span key={outputs.length}>• </span>)
+        break
     }
-    if (nextState === State.NEW_LINE) {
-      outputs.push(<br key={outputs.length} />)
-    }
-    state = nextState
   }
+
   // End case
-  outputs.push(coloredSpan(outputs.length, color, desc.substring(start, end)))
+  outputs.push(
+    coloredComponent(outputs.length, color, italicized, desc.substring(start, end), as),
+  )
 
   return outputs
 }
+
+interface ColoredTextProps {
+  id: number
+  text: string
+  as?: AsComponent
+}
+
+const ColoredText: React.FC<ColoredTextProps> = ({
+  text,
+  as = "span",
+}: ColoredTextProps) => {
+  const textComponents = parseDescription(text.trim(), as)
+  return <>{textComponents.map(identity)}</>
+}
+
+const compareColoredText = (
+  a: Readonly<ColoredTextProps>,
+  b: Readonly<ColoredTextProps>,
+): boolean => {
+  return a.id === b.id
+}
+
+export const MemoizedColoredText = memo(ColoredText, compareColoredText)

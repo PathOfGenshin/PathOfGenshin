@@ -8,18 +8,21 @@ import image from "@/styles/image.module.scss"
 interface TalentIconProps {
   skillName: string
   iconName: string
+  isLarge?: boolean
 }
 
 export const TalentIcon: React.FC<TalentIconProps> = ({
   skillName,
   iconName,
+  isLarge,
 }: TalentIconProps) => {
   return (
     <div title={skillName}>
       <span className="sr-only">{skillName} Icon</span>
       <div
         className={clsx(
-          "box-content w-14 h-14 rounded-full pointer-events-none select-none",
+          "box-content rounded-full pointer-events-none select-none",
+          isLarge ? "w-16 h-16" : "w-14 h-14",
         )}
       >
         <Image
