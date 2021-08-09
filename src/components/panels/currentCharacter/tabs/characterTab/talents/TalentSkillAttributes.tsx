@@ -1,5 +1,6 @@
 import { memo } from "react"
 
+import { formatLabel } from "@/components/genshin/characters/skills/skillLabel"
 import { formatParams } from "@/components/genshin/characters/skills/skillParams"
 import { SkillParam } from "@/generated/model/character_skills"
 
@@ -19,7 +20,7 @@ const TalentSkillAttributes: React.FC<TalentSkillAttributesProps> = ({
             key={param.name}
             className="flex flex-row justify-between px-4 my-1 h-8 leading-8 bg-black bg-opacity-20"
           >
-            <td className="text-g-dark-2">{param.name}</td>
+            <td className="text-g-dark-2">{formatLabel(param.name)}</td>
             <td className="text-g-dark-1">
               {formatParams(param.format, param.values)}
             </td>

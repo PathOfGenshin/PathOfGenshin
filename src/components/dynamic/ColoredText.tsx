@@ -5,6 +5,8 @@ import { identity } from "lodash"
 
 import coloredText from "@/styles/coloredText.module.scss"
 
+import { formatLabel } from "../genshin/characters/skills/skillLabel"
+
 type AsComponent = keyof JSX.IntrinsicElements
 
 const DESCRIPTION_REGEX = /<color=#([0-9A-F]+)>|<\/color>|\n|<\/?i>|·/g
@@ -42,7 +44,7 @@ const coloredComponent = (
   text: string,
   Component: AsComponent,
 ): React.ReactNode => {
-  if (!color && !italicized) return text
+  if (!color && !italicized) return formatLabel(text)
   return (
     <Component
       key={id}
@@ -51,7 +53,7 @@ const coloredComponent = (
         italicized ? "italic" : "",
       )}
     >
-      {text}
+      {formatLabel(text)}
     </Component>
   )
 }
