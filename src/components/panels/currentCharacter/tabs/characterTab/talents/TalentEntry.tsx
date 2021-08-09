@@ -1,11 +1,8 @@
 import { MemoizedColoredText } from "@/components/dynamic/ColoredText"
 import { TalentIcon } from "@/components/genshin/characters/TalentIcon"
-import { formatParams } from "@/components/genshin/characters/skills/skillParams"
-import {
-  CharacterSkill,
-  SkillLevel,
-  SkillParam,
-} from "@/generated/model/character_skills"
+import { CharacterSkill, SkillLevel } from "@/generated/model/character_skills"
+
+import { MemoizedTalentSkillAttributes } from "./TalentSkillAttributes"
 
 interface TalentEntryProps {
   level: number
@@ -37,21 +34,10 @@ export const TalentEntry: React.FC<TalentEntryProps> = ({
         {/* Right column */}
         <div>
           <h2 className="text-center font-genshin text-g-dark-1">Skill Attributes</h2>
-          <table className="w-full table-fixed font-genshin">
-            <tbody>
-              {skillLevel.params.map((param: SkillParam) => (
-                <tr
-                  key={param.name}
-                  className="flex flex-row justify-between px-4 my-1 h-8 leading-8 bg-black bg-opacity-20"
-                >
-                  <td className="text-g-dark-2">{param.name}</td>
-                  <td className="text-g-dark-1">
-                    {formatParams(param.format, param.values)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <MemoizedTalentSkillAttributes
+            level={skillLevel.level}
+            params={skillLevel.params}
+          />
         </div>
       </div>
     </li>
