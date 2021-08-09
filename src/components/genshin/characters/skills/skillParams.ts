@@ -1,19 +1,15 @@
 const PARAM_FORMAT_REGEX = /{(param\d+)(?::([FPI\d]+))}/g
 
-enum Rounding {
-  P = "P", // percentage
-  F1P = "F1P", // percentage as float with 1 decimal place
-  F2P = "F2P", // percentage as float with 2 decimal places
-  F1 = "F1", // float with 1 decimal place
-  I = "I", // integer
-}
+const formatValue = (value: number, roundingFormat: string): string => {
+  if (roundingFormat === "I") return Math.round(value).toString()
 
-const ROUNDING_FORMATTER: Record<Rounding, (value: number) => string> = {
-  [Rounding.P]: (value: number) => `${Math.round(value * 100)}%`,
-  [Rounding.F1P]: (value: number) => `${(value * 100).toFixed(1)}%`,
-  [Rounding.F2P]: (value: number) => `${(value * 100).toFixed(2)}%`,
-  [Rounding.F1]: (value: number) => value.toFixed(1),
-  [Rounding.I]: (value: number) => Math.round(value).toString(),
+  const isPercentage = roundingFormat.endsWith("P")
+  const numDecimals = roundingFormat.length > 1 ? parseInt(roundingFormat[1]) : 0
+
+  const outNum: number = isPercentage ? value * 100 : value
+  const outString: string =
+    numDecimals > 0 ? outNum.toFixed(numDecimals) : Math.round(outNum).toString()
+  return isPercentage ? outString + "%" : outString
 }
 
 export const formatParams = (
@@ -41,17 +37,17 @@ export const formatParams = (
   let nextIndex = firstIndex
 
   for (const match of matches) {
+    const [full, paramId, roundingFormat] = match
     const startIndex = match.index ?? 0
-    const endIndex = startIndex + match[0].length
+    const endIndex = startIndex + full.length
 
     // Push middle "text"
     if (nextIndex < startIndex) {
       output.push(format.substring(nextIndex, startIndex))
     }
 
-    const [, paramId, roundFormat] = match
     const value: number = values[paramId]
-    const formatted: string = ROUNDING_FORMATTER[roundFormat as Rounding](value)
+    const formatted: string = formatValue(value, roundingFormat)
     output.push(formatted)
 
     nextIndex = endIndex
