@@ -3,6 +3,7 @@ const PARAM_FORMAT_REGEX = /{(param\d+)(?::([FPI\d]+))}/g
 enum Rounding {
   P = "P", // percentage
   F1P = "F1P", // percentage as float with 1 decimal place
+  F2P = "F2P", // percentage as float with 2 decimal places
   F1 = "F1", // float with 1 decimal place
   I = "I", // integer
 }
@@ -10,6 +11,7 @@ enum Rounding {
 const ROUNDING_FORMATTER: Record<Rounding, (value: number) => string> = {
   [Rounding.P]: (value: number) => `${Math.round(value * 100)}%`,
   [Rounding.F1P]: (value: number) => `${(value * 100).toFixed(1)}%`,
+  [Rounding.F2P]: (value: number) => `${(value * 100).toFixed(2)}%`,
   [Rounding.F1]: (value: number) => value.toFixed(1),
   [Rounding.I]: (value: number) => Math.round(value).toString(),
 }
@@ -59,8 +61,6 @@ export const formatParams = (
   if (nextIndex > 0 && nextIndex < format.length) {
     output.push(format.substring(nextIndex, format.length))
   }
-
-  console.log(format, values, output.join(""))
 
   return output.join("")
 }
