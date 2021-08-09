@@ -113,9 +113,17 @@ const parseDescription = (desc: string, as: AsComponent): React.ReactNode[] => {
   }
 
   // End case
-  outputs.push(
-    coloredComponent(outputs.length, color, italicized, desc.substring(start, end), as),
-  )
+  if (start != end) {
+    outputs.push(
+      coloredComponent(
+        outputs.length,
+        color,
+        italicized,
+        desc.substring(start, end),
+        as,
+      ),
+    )
+  }
 
   return outputs
 }
