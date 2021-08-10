@@ -34,9 +34,9 @@ const FlavouredText: React.FC<FlavouredTextProps> = ({
           switch (type) {
             case FlavouredTextType.TEXT:
             case FlavouredTextType.LIST_ENTRY:
-              if (!colour && !italicized && type != FlavouredTextType.LIST_ENTRY)
-                return text
-              return (
+              return !colour && !italicized && type != FlavouredTextType.LIST_ENTRY ? (
+                text
+              ) : (
                 <Component
                   key={index}
                   className={clsx(
