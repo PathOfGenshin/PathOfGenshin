@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { identity } from "lodash"
 
 import {
-  FlavouredText,
+  FlavouredText as FlavouredTextData,
   FlavouredTextType,
   formatFlavouredText,
 } from "@/genshin/formatting/flavouredText"
@@ -14,21 +14,21 @@ type AsComponent = keyof JSX.IntrinsicElements
 
 const defaultReturn = (text: string): React.ReactNode[] => [text]
 
-interface ColoredTextProps {
+interface FlavouredTextProps {
   id: number
   text: string
   as?: AsComponent
 }
 
-const ColoredText: React.FC<ColoredTextProps> = ({
+const FlavouredText: React.FC<FlavouredTextProps> = ({
   text,
   as: Component = "span",
-}: ColoredTextProps) => {
+}: FlavouredTextProps) => {
   const componentReducer = useCallback(
-    (outputs: FlavouredText[]): React.ReactNode[] =>
+    (outputs: FlavouredTextData[]): React.ReactNode[] =>
       outputs.map(
         (
-          { text, type, colour, italicized }: FlavouredText,
+          { text, type, colour, italicized }: FlavouredTextData,
           index: number,
         ): React.ReactNode => {
           switch (type) {
@@ -66,11 +66,11 @@ const ColoredText: React.FC<ColoredTextProps> = ({
   return <>{formatTextComponents(text).map(identity)}</>
 }
 
-const compareColoredText = (
-  a: Readonly<ColoredTextProps>,
-  b: Readonly<ColoredTextProps>,
+const compareFlavouredText = (
+  a: Readonly<FlavouredTextProps>,
+  b: Readonly<FlavouredTextProps>,
 ): boolean => {
   return a.id === b.id
 }
 
-export const MemoizedColoredText = memo(ColoredText, compareColoredText)
+export const MemoizedFlavouredText = memo(FlavouredText, compareFlavouredText)

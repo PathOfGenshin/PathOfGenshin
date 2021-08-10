@@ -1,4 +1,4 @@
-import { MemoizedColoredText } from "@/components/dynamic/ColoredText"
+import { MemoizedFlavouredText } from "@/components/dynamic/FlavouredText"
 import { ConstellationIcon } from "@/components/genshin/characters/ConstellationIcon"
 import { CharacterConstellation } from "@/generated/model/character_skills"
 import { VisionType } from "@/generated/model/characters"
@@ -27,7 +27,10 @@ export const ConstellationEntry: React.FC<ConstellationEntryProps> = ({
           element={element}
         />
         <span>
-          <MemoizedColoredText id={constellation.id} text={constellation.description} />
+          <MemoizedFlavouredText
+            id={constellation.id}
+            text={constellation.description}
+          />
         </span>
       </div>
     </li>
