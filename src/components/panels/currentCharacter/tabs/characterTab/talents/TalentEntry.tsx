@@ -1,4 +1,4 @@
-import { MemoizedColoredText } from "@/components/dynamic/ColoredText"
+import { MemoizedFlavouredText } from "@/components/dynamic/FlavouredText"
 import { TalentIcon } from "@/components/genshin/characters/TalentIcon"
 import { CharacterSkill, SkillLevel } from "@/generated/model/character_skills"
 
@@ -28,7 +28,7 @@ export const TalentEntry: React.FC<TalentEntryProps> = ({
             </div>
           </div>
           <div>
-            <MemoizedColoredText id={skill.id} text={skill.description} />
+            <MemoizedFlavouredText id={skill.id} text={skill.description} />
           </div>
         </div>
         {/* Right column */}

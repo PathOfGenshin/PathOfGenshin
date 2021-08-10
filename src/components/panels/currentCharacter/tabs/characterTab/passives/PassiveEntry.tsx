@@ -1,4 +1,4 @@
-import { MemoizedColoredText } from "@/components/dynamic/ColoredText"
+import { MemoizedFlavouredText } from "@/components/dynamic/FlavouredText"
 import { TalentIcon } from "@/components/genshin/characters/TalentIcon"
 import { CharacterPassive } from "@/generated/model/character_skills"
 
@@ -18,7 +18,7 @@ export const PassiveEntry: React.FC<PassiveEntryProps> = ({
         </div>
       </div>
       <div>
-        <MemoizedColoredText id={passive.groupId} text={passive.description} />
+        <MemoizedFlavouredText id={passive.groupId} text={passive.description} />
       </div>
     </li>
   )

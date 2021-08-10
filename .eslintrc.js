@@ -11,7 +11,7 @@ module.exports = {
     ".out/*",
     "!.prettierrc.js",
     "src/**/*.scss",
-    "src/generated/**/*.ts"
+    "src/generated/**/*.ts",
   ],
   extends: ["eslint:recommended"],
   overrides: [
@@ -38,6 +38,7 @@ module.exports = {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "jsx-a11y/anchor-is-valid": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-unused-vars": ["error"],
         "@typescript-eslint/explicit-function-return-type": [
           "warn",
