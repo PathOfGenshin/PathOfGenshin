@@ -1,4 +1,0 @@
-avatar_icon/UI_AvatarIcon_Side_Sayu.png
-avatar_icon/UI_AvatarIcon_Side_Sayu.png
-avatar_icon/UI_AvatarIcon_Side_Yoimiya.png
-avatar_icon/UI_AvatarIcon_Side_Yoimiya.png
