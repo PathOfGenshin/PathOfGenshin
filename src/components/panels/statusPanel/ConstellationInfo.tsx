@@ -8,7 +8,7 @@ interface ConstellationInfoProps {
   element: VisionType
 }
 
-const ConstellationInfo: React.FC<ConstellationInfoProps> = ({
+export const ConstellationInfo: React.FC<ConstellationInfoProps> = ({
   constellations,
   constellationLevel,
   element,
@@ -27,5 +27,3 @@ const ConstellationInfo: React.FC<ConstellationInfoProps> = ({
     </div>
   )
 }
-
-export default ConstellationInfo

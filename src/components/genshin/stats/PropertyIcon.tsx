@@ -7,7 +7,7 @@ interface PropertyIconProps {
   property: string
 }
 
-const PropertyIcon: React.FC<PropertyIconProps> = ({
+export const PropertyIcon: React.FC<PropertyIconProps> = ({
   iconName,
   property,
 }: PropertyIconProps) => {
@@ -17,5 +17,3 @@ const PropertyIcon: React.FC<PropertyIconProps> = ({
     </div>
   )
 }
-
-export default PropertyIcon

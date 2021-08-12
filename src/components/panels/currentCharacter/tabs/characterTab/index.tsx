@@ -15,6 +15,7 @@ import {
 } from "@/store/party/partySlice"
 
 import { TabContentProps } from "../../TabContent"
+
 import { AscensionLevelDropdown } from "./AscensionLevelDropdown"
 import {
   BurstAttackLevelDropdown,
@@ -28,7 +29,7 @@ import { ConstellationSummary } from "./constellations/ConstellationSummary"
 import { PassiveSummary } from "./passives/PassiveSummary"
 import { TalentSummary } from "./talents/TalentSummary"
 
-const CharacterTab: React.FC<TabContentProps> = ({
+export const CharacterTab: React.FC<TabContentProps> = ({
   character,
   config,
 }: TabContentProps) => {
@@ -156,5 +157,3 @@ const CharacterTab: React.FC<TabContentProps> = ({
     </div>
   )
 }
-
-export default CharacterTab

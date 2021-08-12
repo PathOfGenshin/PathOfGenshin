@@ -1,17 +1,15 @@
 import { forwardRef, HTMLProps } from "react"
-
 import { useRouter } from "next/router"
-
 import clsx from "clsx"
+import { PlusIcon } from "@heroicons/react/solid"
 
 import partyIcon from "@/styles/partyIcon.module.scss"
-import { PlusIcon } from "@heroicons/react/solid"
 
 interface AddCharacterIconProps {
   disabled?: boolean
 }
 
-const AddCharacterIcon: React.FC<AddCharacterIconProps> = forwardRef<
+export const AddCharacterIcon: React.FC<AddCharacterIconProps> = forwardRef<
   HTMLAnchorElement,
   AddCharacterIconProps
 >(
@@ -49,5 +47,3 @@ const AddCharacterIcon: React.FC<AddCharacterIconProps> = forwardRef<
   },
 )
 AddCharacterIcon.displayName = "AddCharacterIcon"
-
-export default AddCharacterIcon

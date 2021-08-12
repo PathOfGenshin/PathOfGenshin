@@ -8,11 +8,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist"
+import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
 
 import currentTabReducer from "@/store/currentTab/currentTabSlice"
 import partyReducer from "@/store/party/partySlice"
 import settingsReducer from "@/store/settings/settingsSlice"
-import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
 
 import { storage } from "./storage"
 

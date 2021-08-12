@@ -1,11 +1,12 @@
 import { clamp } from "lodash"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
 import { isTravelerId } from "@/components/genshin/characters/traveler"
 import { SkillType } from "@/generated/model/character_skills"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { RootState } from "../"
+
 import {
   AscensionLevel,
   CharacterConfig,

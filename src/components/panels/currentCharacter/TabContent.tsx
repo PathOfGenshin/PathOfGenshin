@@ -7,11 +7,11 @@ import { useAppSelector } from "@/store/hooks"
 import { CharacterConfig } from "@/store/party/characterConfig"
 import { selectTravelerGender } from "@/store/settings/settingsSlice"
 
-import RemoveFromPartyButton from "./RemoveFromPartyButton"
-import TabSelector from "./TabSelector"
+import { RemoveFromPartyButton } from "./RemoveFromPartyButton"
+import { TabSelector } from "./TabSelector"
 import { ArtifactsTab } from "./tabs/ArtifactsTab"
 import { PartyTab } from "./tabs/PartyTab"
-import CharacterTab from "./tabs/characterTab"
+import { CharacterTab } from "./tabs/characterTab"
 import { TabType } from "./tabs/tabType"
 import { WeaponsTab } from "./tabs/weaponTab"
 
@@ -27,7 +27,7 @@ const TAB_MAPPING: Record<TabType, React.FC<TabContentProps>> = {
   [TabType.Party]: PartyTab,
 }
 
-const TabContent: React.FC<TabContentProps> = ({
+export const TabContent: React.FC<TabContentProps> = ({
   character,
   config,
 }: TabContentProps) => {
@@ -78,5 +78,3 @@ const TabContent: React.FC<TabContentProps> = ({
     </div>
   )
 }
-
-export default TabContent

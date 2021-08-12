@@ -1,4 +1,4 @@
-import DropdownSelector from "@/components/genshin/dropdown"
+import { DropdownSelector } from "@/components/genshin/dropdown"
 import { Ascension } from "@/generated/model/ascension"
 import { Weapon } from "@/generated/model/weapon"
 import { CharacterConfig } from "@/store/party/characterConfig"

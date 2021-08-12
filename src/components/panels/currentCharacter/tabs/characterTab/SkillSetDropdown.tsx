@@ -1,8 +1,8 @@
-import DropdownSelector from "@/components/genshin/dropdown"
+import { DropdownSelector } from "@/components/genshin/dropdown"
 import { CharacterSkillDepot, VisionType } from "@/generated/model/characters"
 import { CharacterConfig } from "@/store/party/characterConfig"
 
-import SkillDepotValue from "../../SkillDepotValue"
+import { SkillDepotValue } from "../../SkillDepotValue"
 
 interface SkillSetDropdownProps {
   config: CharacterConfig

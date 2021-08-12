@@ -1,7 +1,7 @@
 import { identity, range } from "lodash"
 
 import { ASCENSION_MAX_TALENT_LEVEL } from "@/components/genshin/characters/ascensions/maxTalentLevel"
-import DropdownSelector from "@/components/genshin/dropdown"
+import { DropdownSelector } from "@/components/genshin/dropdown"
 import { CharacterConfig, SkillDepotIdentifier } from "@/store/party/characterConfig"
 
 interface AttackLevelDropdownProps {

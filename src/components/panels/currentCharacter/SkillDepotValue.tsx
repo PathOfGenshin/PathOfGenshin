@@ -7,7 +7,7 @@ interface SkillDepotValueProps {
   element: VisionType
 }
 
-const SkillDepotValue: React.FC<SkillDepotValueProps> = ({
+export const SkillDepotValue: React.FC<SkillDepotValueProps> = ({
   element,
 }: SkillDepotValueProps) => {
   return (
@@ -19,5 +19,3 @@ const SkillDepotValue: React.FC<SkillDepotValueProps> = ({
     </span>
   )
 }
-
-export default SkillDepotValue

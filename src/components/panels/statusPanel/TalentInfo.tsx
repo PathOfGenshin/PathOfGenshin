@@ -7,7 +7,10 @@ interface TalentInfoProps {
   levels: SkillLevels
 }
 
-const TalentInfo: React.FC<TalentInfoProps> = ({ skills, levels }: TalentInfoProps) => {
+export const TalentInfo: React.FC<TalentInfoProps> = ({
+  skills,
+  levels,
+}: TalentInfoProps) => {
   return (
     <div className="flex flex-col w-full">
       {skills.map((skill: CharacterSkill) => (
@@ -22,5 +25,3 @@ const TalentInfo: React.FC<TalentInfoProps> = ({ skills, levels }: TalentInfoPro
     </div>
   )
 }
-
-export default TalentInfo

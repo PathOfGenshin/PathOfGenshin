@@ -1,7 +1,5 @@
 import { Fragment, MouseEventHandler, useRef } from "react"
-
 import clsx from "clsx"
-
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react"
 
 interface ConfirmationDialogProps {
@@ -16,7 +14,7 @@ interface ConfirmationDialogProps {
   onClose?: () => void
 }
 
-const Dialog: React.FC<ConfirmationDialogProps> = ({
+export const Dialog: React.FC<ConfirmationDialogProps> = ({
   title,
   description,
   confirmText,
@@ -122,5 +120,3 @@ const Dialog: React.FC<ConfirmationDialogProps> = ({
     </Transition.Root>
   )
 }
-
-export default Dialog

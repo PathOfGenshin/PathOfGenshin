@@ -2,7 +2,7 @@ import { SVGProps } from "react"
 
 // The curvature at the bottom-right of the avatar icon, which overlays on top of the
 // existing character image.
-const SVGRoundBorder = ({
+export const SVGRoundBorder = ({
   className,
 }: SVGProps<SVGSVGElement>): React.ReactElement<SVGSVGElement> => {
   return (
@@ -19,5 +19,3 @@ const SVGRoundBorder = ({
     </svg>
   )
 }
-
-export default SVGRoundBorder

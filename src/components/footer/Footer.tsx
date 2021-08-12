@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-const Footer: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+export const Footer: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   className,
 }: React.HTMLAttributes<HTMLElement>) => {
   return (
@@ -23,5 +23,3 @@ const Footer: React.FC<React.HTMLAttributes<HTMLElement>> = ({
     </footer>
   )
 }
-
-export default Footer

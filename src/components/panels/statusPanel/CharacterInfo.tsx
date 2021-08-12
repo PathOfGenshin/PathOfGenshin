@@ -17,7 +17,7 @@ interface CharacterInfoProps {
   maxLevel: number
 }
 
-const CharacterInfo: React.FC<CharacterInfoProps> = ({
+export const CharacterInfo: React.FC<CharacterInfoProps> = ({
   iconName,
   charName,
   quality,
@@ -54,5 +54,3 @@ const CharacterInfo: React.FC<CharacterInfoProps> = ({
     </div>
   )
 }
-
-export default CharacterInfo

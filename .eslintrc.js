@@ -13,7 +13,14 @@ module.exports = {
     "src/**/*.scss",
     "src/generated/**/*.ts",
   ],
-  extends: ["eslint:recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+  ],
+  settings: {
+    "import/resolver": "typescript",
+  },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
@@ -45,6 +52,19 @@ module.exports = {
           {
             allowExpressions: true,
             allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+          },
+        ],
+        "import/order": [
+          "error",
+          {
+            pathGroups: [
+              {
+                pattern: "@/**",
+                group: "internal",
+              },
+            ],
+            groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+            "newlines-between": "always",
           },
         ],
       },

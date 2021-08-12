@@ -7,7 +7,7 @@ import cursor from "@/styles/cursor.module.scss"
 
 import { LayoutProps } from "./types"
 
-const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+export const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const customCursor: boolean = useAppSelector(selectUseCustomCursor)
 
   return (
@@ -23,5 +23,3 @@ const MainLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
     </div>
   )
 }
-
-export default MainLayout

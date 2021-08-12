@@ -1,7 +1,5 @@
 import { forwardRef, HTMLProps } from "react"
-
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { avatarIcon } from "@/assets/static"
@@ -10,7 +8,7 @@ import partyIcon from "@/styles/partyIcon.module.scss"
 
 import { AvatarIconProps } from "./icon"
 
-const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
+export const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
   HTMLAnchorElement,
   AvatarIconProps
 >(
@@ -65,5 +63,3 @@ const AvatarSideIcon: React.FC<AvatarIconProps> = forwardRef<
   },
 )
 AvatarSideIcon.displayName = "AvatarSideIcon"
-
-export default AvatarSideIcon

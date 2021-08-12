@@ -4,7 +4,7 @@ interface DividerProps {
   horizontal?: boolean
 }
 
-const Divider: React.FC<DividerProps> = ({ horizontal }: DividerProps) => {
+export const Divider: React.FC<DividerProps> = ({ horizontal }: DividerProps) => {
   return (
     <div
       className={clsx(
@@ -21,5 +21,3 @@ const Divider: React.FC<DividerProps> = ({ horizontal }: DividerProps) => {
     </div>
   )
 }
-
-export default Divider

@@ -1,5 +1,4 @@
 import React, { MouseEventHandler, useEffect, useState } from "react"
-
 import { noop } from "lodash"
 import { useQuery } from "react-query"
 
@@ -19,6 +18,7 @@ import {
 } from "@/store/party/partySlice"
 
 import { TabContentProps } from "../../TabContent"
+
 import { LevelDropdown } from "./LevelDropdown"
 import { MaxLevelDropdown } from "./MaxLevelDropdown"
 import { RefinementRankDropdown } from "./RefinementRankDropdown"

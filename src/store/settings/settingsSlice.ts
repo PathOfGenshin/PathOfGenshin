@@ -1,5 +1,6 @@
-import { TravelerGender } from "@/components/genshin/characters/traveler"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+
+import { TravelerGender } from "@/components/genshin/characters/traveler"
 
 import { RootState } from "../"
 

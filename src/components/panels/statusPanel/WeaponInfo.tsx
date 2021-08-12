@@ -11,7 +11,7 @@ interface WeaponInfoProps {
   maxLevel: number
 }
 
-const WeaponInfo: React.FC<WeaponInfoProps> = ({
+export const WeaponInfo: React.FC<WeaponInfoProps> = ({
   iconName,
   awakenIconName,
   quality,
@@ -38,5 +38,3 @@ const WeaponInfo: React.FC<WeaponInfoProps> = ({
     </div>
   )
 }
-
-export default WeaponInfo

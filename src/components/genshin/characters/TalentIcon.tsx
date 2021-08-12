@@ -1,5 +1,4 @@
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { skillIcon } from "@/assets/static"

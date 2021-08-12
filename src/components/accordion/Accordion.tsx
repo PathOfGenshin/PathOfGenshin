@@ -1,6 +1,5 @@
 import clsx from "clsx"
 import { AnimatePresence, motion, Variant } from "framer-motion"
-
 import { Disclosure, Transition as HeadlessTransition } from "@headlessui/react"
 import { ChevronUpIcon } from "@heroicons/react/solid"
 
@@ -22,7 +21,7 @@ const variants: Record<VariantType, Variant> = {
   },
 }
 
-const Accordion: React.FC<AccordionSectionProps> = ({
+export const Accordion: React.FC<AccordionSectionProps> = ({
   title,
   children,
   animatedHeight,
@@ -70,5 +69,3 @@ const Accordion: React.FC<AccordionSectionProps> = ({
     </Disclosure>
   )
 }
-
-export default Accordion

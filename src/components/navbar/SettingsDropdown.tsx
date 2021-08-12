@@ -1,11 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
-
 import clsx from "clsx"
+import { Menu, Transition } from "@headlessui/react"
 
 import { elementalIconWhite } from "@/assets/static"
 import { VisionType } from "@/generated/model/characters"
-import { Menu, Transition } from "@headlessui/react"
 
 export const SettingsDropdown: React.FC = () => {
   return (
