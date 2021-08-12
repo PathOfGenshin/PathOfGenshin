@@ -1,5 +1,6 @@
-import { TabType } from "@/components/panels/currentCharacter/tabs/tabType"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+
+import { TabType } from "@/components/panels/currentCharacter/tabs/tabType"
 
 import { RootState } from "../"
 

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
-
 import { useRouter } from "next/router"
-
 import { memoize } from "lodash"
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks"

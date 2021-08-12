@@ -1,6 +1,6 @@
 import { useQuery } from "react-query"
 
-import PropertyIcon from "@/components/genshin/stats/PropertyIcon"
+import { PropertyIcon } from "@/components/genshin/stats/PropertyIcon"
 import { queryTextMappings } from "@/db"
 import { CharacterConfig } from "@/store/party/characterConfig"
 
@@ -50,7 +50,7 @@ const ELEMENTAL_STAT_ROWS: StatRow[] = [
   { key: "FIGHT_PROP_PHYSICAL_SUB_HURT" },
 ]
 
-const StatsInfo: React.FC<StatsInfoProps> = ({ config }: StatsInfoProps) => {
+export const StatsInfo: React.FC<StatsInfoProps> = ({ config }: StatsInfoProps) => {
   const rows = [BASE_STAT_ROWS, ADVANCED_STAT_ROWS, ELEMENTAL_STAT_ROWS]
   const { data: textMappings } = useQuery(
     "fightPropTextMappings",
@@ -84,5 +84,3 @@ const StatsInfo: React.FC<StatsInfoProps> = ({ config }: StatsInfoProps) => {
     </div>
   )
 }
-
-export default StatsInfo

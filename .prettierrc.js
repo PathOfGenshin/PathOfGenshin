@@ -5,13 +5,4 @@ module.exports = {
   tabWidth: 2,
   useTabs: false,
   singleQuote: false,
-  importOrder: [
-    "^(react)$",
-    "^next(.*)$",
-    "^(?!(@|[./]))(.*)$",
-    "^@(.*)$",
-    "^@/(.*)$",
-    "^[./]",
-  ],
-  importOrderSeparation: true,
 }

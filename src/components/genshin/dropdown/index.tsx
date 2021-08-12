@@ -1,7 +1,5 @@
 import { Fragment } from "react"
-
 import clsx from "clsx"
-
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid"
 
@@ -18,7 +16,7 @@ interface DropdownSelectorProps<T> {
 
 const WIDTH_SIZES = Object.freeze({ sm: "w-24", md: "w-36", lg: "w-48" })
 
-const DropdownSelector = <T,>({
+export const DropdownSelector = <T,>({
   label,
   width,
   selected,
@@ -115,5 +113,3 @@ const DropdownSelector = <T,>({
     </div>
   )
 }
-
-export default DropdownSelector

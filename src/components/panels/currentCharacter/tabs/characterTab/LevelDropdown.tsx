@@ -1,6 +1,6 @@
 import { identity, range } from "lodash"
 
-import DropdownSelector from "@/components/genshin/dropdown"
+import { DropdownSelector } from "@/components/genshin/dropdown"
 import { CharacterConfig } from "@/store/party/characterConfig"
 
 interface LevelDropdownProps {

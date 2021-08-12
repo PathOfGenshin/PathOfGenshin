@@ -1,13 +1,11 @@
 import { useState } from "react"
-
 import Link from "next/link"
-
 import clsx from "clsx"
+import { MenuIcon, XIcon } from "@heroicons/react/solid"
 
 import { SettingsDropdown } from "@/components/navbar/SettingsDropdown"
 import { ToggleDarkMode } from "@/components/theme/ToggleDarkMode"
 import { routes } from "@/routes"
-import { MenuIcon, XIcon } from "@heroicons/react/solid"
 
 import { Logo } from "./Logo"
 import { NavbarLink } from "./NavbarLink"
@@ -99,5 +97,3 @@ export const NavBar: React.FC<React.HTMLAttributes<HTMLElement>> = ({
     </nav>
   )
 }
-
-export default NavBar

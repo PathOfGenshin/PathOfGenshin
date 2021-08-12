@@ -1,13 +1,12 @@
 import { HTMLProps } from "react"
-
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { avatarIcon, elementalIcon, qualityBackground } from "@/assets/static"
 import image from "@/styles/image.module.scss"
 
-import SVGRoundBorder from "../icons/SVGRoundBorder"
+import { SVGRoundBorder } from "../icons/SVGRoundBorder"
+
 import { AvatarIconButtonProps, AvatarIconProps } from "./icon"
 
 interface FocusedProps {

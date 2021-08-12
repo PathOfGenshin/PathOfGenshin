@@ -1,6 +1,6 @@
 import { identity, range } from "lodash"
 
-import DropdownSelector from "@/components/genshin/dropdown"
+import { DropdownSelector } from "@/components/genshin/dropdown"
 import { CharacterSkillDepot } from "@/generated/model/characters"
 import { CharacterConfig, ConstellationLevel } from "@/store/party/characterConfig"
 

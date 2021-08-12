@@ -1,5 +1,4 @@
 import clsx from "clsx"
-
 import { Switch as HeadlessSwitch } from "@headlessui/react"
 
 interface SwitchProps {
@@ -11,7 +10,7 @@ interface SwitchProps {
   label?: string
 }
 
-const Switch: React.FC<SwitchProps> = ({
+export const Switch: React.FC<SwitchProps> = ({
   name,
   enabled,
   onChange,
@@ -44,5 +43,3 @@ const Switch: React.FC<SwitchProps> = ({
     </HeadlessSwitch.Group>
   )
 }
-
-export default Switch

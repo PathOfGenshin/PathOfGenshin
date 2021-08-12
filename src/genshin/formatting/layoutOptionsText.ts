@@ -1,6 +1,7 @@
 import { identity } from "lodash"
 
 import { DeviceLayout } from "../device/layout"
+
 import { defaultStringProcessor, formatter, stringReducer } from "./regexBasedFormatter"
 
 export const LAYOUT_OPTIONS_PREFIX = "#"

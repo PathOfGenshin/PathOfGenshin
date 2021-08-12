@@ -1,5 +1,4 @@
 import { useRouter } from "next/router"
-
 import clsx from "clsx"
 import { useQuery } from "react-query"
 
@@ -7,8 +6,7 @@ import { Accordion } from "@/components"
 import { querySingleCharacter, querySingleSkillDepot, querySingleWeapon } from "@/db"
 import { VisionType } from "@/generated/model/characters"
 import { useAppSelector } from "@/store/hooks"
-import { CharacterConfig } from "@/store/party/characterConfig"
-import { SkillLevels } from "@/store/party/characterConfig"
+import { CharacterConfig, SkillLevels } from "@/store/party/characterConfig"
 import {
   CharacterData,
   selectCharacterConfig,
@@ -17,11 +15,11 @@ import {
 } from "@/store/party/partySlice"
 import { selectAnimateAccordion } from "@/store/settings/settingsSlice"
 
-import CharacterInfo from "./CharacterInfo"
-import ConstellationInfo from "./ConstellationInfo"
-import StatsInfo from "./StatsInfo"
-import TalentInfo from "./TalentInfo"
-import WeaponInfo from "./WeaponInfo"
+import { CharacterInfo } from "./CharacterInfo"
+import { ConstellationInfo } from "./ConstellationInfo"
+import { StatsInfo } from "./StatsInfo"
+import { TalentInfo } from "./TalentInfo"
+import { WeaponInfo } from "./WeaponInfo"
 
 export const StatusPanel: React.FC = () => {
   const { asPath } = useRouter()

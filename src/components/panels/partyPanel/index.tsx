@@ -1,10 +1,9 @@
 import Link from "next/link"
-
 import { AnimatePresence, motion, usePresence, Variant } from "framer-motion"
 import { useQuery } from "react-query"
 
-import AddCharacterIcon from "@/components/genshin/characters/AddCharacterIcon"
-import AvatarSideIcon from "@/components/genshin/characters/AvatarSideIcon"
+import { AddCharacterIcon } from "@/components/genshin/characters/AddCharacterIcon"
+import { AvatarSideIcon } from "@/components/genshin/characters/AvatarSideIcon"
 import { isTravelerId } from "@/components/genshin/characters/traveler"
 import { queryCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"

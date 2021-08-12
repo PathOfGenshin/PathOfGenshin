@@ -8,7 +8,6 @@ import { ComponentWithLayout } from "@/components/layouts/types"
 import { queryCharacters } from "@/db"
 import { Character } from "@/generated/model/characters"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import "@/store/party/partySlice"
 import { setTraveler } from "@/store/party/partySlice"
 import {
   selectAnimateAccordion,

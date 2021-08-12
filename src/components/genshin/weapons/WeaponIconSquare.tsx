@@ -1,5 +1,4 @@
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { qualityBackgroundSquare, weaponIcon } from "@/assets/static"

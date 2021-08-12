@@ -1,12 +1,11 @@
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { weaponIcon, qualityBackground } from "@/assets/static"
 import { StarQuality } from "@/generated/model/type_aliases"
 import image from "@/styles/image.module.scss"
 
-import SVGRoundBorder from "../icons/SVGRoundBorder"
+import { SVGRoundBorder } from "../icons/SVGRoundBorder"
 
 interface WeaponIconProps {
   iconName: string

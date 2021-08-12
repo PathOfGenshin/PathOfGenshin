@@ -15,7 +15,7 @@
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
-    "lint": "eslint --ext .ts --ext .tsx --no-error-on-unmatched-pattern -c .eslintrc.js \"./src/**\" && prettier --plugin=./node_modules/@trivago/prettier-plugin-sort-imports --config .prettierrc.js --check ./src"
+    "lint": "eslint --ext .ts --ext .tsx --no-error-on-unmatched-pattern -c .eslintrc.js \"./src/**\" && prettier --config .prettierrc.js --check ./src"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",
@@ -38,7 +38,6 @@
     "sass": "^1.35.1"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^2.0.2",
     "@types/lodash": "^4.14.170",
     "@types/node": "^16.0.0",
     "@types/react": "^17.0.13",
@@ -49,9 +48,11 @@
     "eslint": "^7.30.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.1",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2",
     "tailwindcss": "^2.2.4",

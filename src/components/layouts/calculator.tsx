@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react"
-
 import { noop } from "lodash"
 import { useQueries } from "react-query"
 
@@ -23,14 +22,16 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
   selectIsDatabaseLoaded,
   setDatabaseIsLoaded,
+  selectTravelerGender,
+  setTravelerGender,
 } from "@/store/settings/settingsSlice"
-import { selectTravelerGender, setTravelerGender } from "@/store/settings/settingsSlice"
 import { CURRENT_GAME_VERSION } from "@/version"
 
 import { TravelerGender } from "../genshin/characters/traveler"
+
 import { LayoutProps } from "./types"
 
-const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+export const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const isDatabaseLoaded = useAppSelector(selectIsDatabaseLoaded)
   const dispatch = useAppDispatch()
   const [needGameData, setNeedGameData] = useState<boolean>(false)
@@ -161,5 +162,3 @@ const CalculatorLayout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
     </div>
   )
 }
-
-export default CalculatorLayout

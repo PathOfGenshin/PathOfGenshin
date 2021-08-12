@@ -1,5 +1,4 @@
 import Image from "next/image"
-
 import clsx from "clsx"
 
 import { uiIcon } from "@/assets/static"
@@ -15,7 +14,7 @@ interface TabSelectorProps {
   icon: string
 }
 
-const TabSelector: React.FC<TabSelectorProps> = ({
+export const TabSelector: React.FC<TabSelectorProps> = ({
   tab,
   label,
   isActive,
@@ -45,5 +44,3 @@ const TabSelector: React.FC<TabSelectorProps> = ({
     </button>
   )
 }
-
-export default TabSelector

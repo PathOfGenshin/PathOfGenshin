@@ -1,14 +1,14 @@
 import { useRouter } from "next/router"
+import { ArchiveIcon } from "@heroicons/react/solid"
 
 import { useAppDispatch } from "@/store/hooks"
 import { removeCharacterById } from "@/store/party/partySlice"
-import { ArchiveIcon } from "@heroicons/react/solid"
 
 interface RemoveFromPartyButtonProps {
   characterId: number
 }
 
-const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
+export const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
   characterId,
 }: RemoveFromPartyButtonProps) => {
   const dispatch = useAppDispatch()
@@ -30,5 +30,3 @@ const RemoveFromPartyButton: React.FC<RemoveFromPartyButtonProps> = ({
     </button>
   )
 }
-
-export default RemoveFromPartyButton
