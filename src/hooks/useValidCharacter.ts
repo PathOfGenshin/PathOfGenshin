@@ -1,6 +1,8 @@
+import { ParsedUrlQuery } from "querystring"
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { memoize } from "lodash"
+import { isArray } from "lodash"
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import {
@@ -9,17 +11,15 @@ import {
   setCurrentCharacter,
 } from "@/store/party/partySlice"
 
-const extractName = memoize((asPath: string): string => {
-  const hashIndex = asPath.lastIndexOf("#")
-  if (hashIndex > -1) {
-    return asPath.substring(hashIndex + 1).replace("%20", " ")
-  }
-  return ""
-})
+const getName = (query: ParsedUrlQuery): string => {
+  const charQuery: string | string[] = query?.["char"] ?? ""
+  return isArray(charQuery) ? charQuery[0] : charQuery
+}
 
 interface IsValidCharacter {
   loading: boolean
   validCharacter: boolean
+  queryCharName: string | null
 }
 
 /**
@@ -28,26 +28,32 @@ interface IsValidCharacter {
  * @returns ValidCharacter enum
  */
 export function useValidCharacter(): IsValidCharacter {
-  const { asPath: routerPath } = useRouter()
+  const { query } = useRouter()
   const dispatch = useAppDispatch()
   const party: CharacterData[] = useAppSelector(selectCharacters)
 
   const [loading, setIsLoading] = useState<boolean>(true)
   const [validCharacter, setValidCharacter] = useState<boolean>(false)
+  const [queryCharName, setQueryCharName] = useState<string | null>(null)
 
   useEffect(() => {
-    const charName = extractName(routerPath)
-    if (party.some((char) => char.name === charName)) {
+    const charName: string = getName(query)
+    const isValidName: boolean = party.some(
+      (char: CharacterData) => char.name === charName,
+    )
+
+    if (isValidName) {
       dispatch(setCurrentCharacter(charName))
-      setValidCharacter(true)
-    } else {
-      setValidCharacter(false)
     }
+
+    setValidCharacter(isValidName)
+    setQueryCharName(charName)
     setIsLoading(false)
-  }, [dispatch, routerPath, party])
+  }, [dispatch, party, query])
 
   return {
     loading,
     validCharacter,
+    queryCharName,
   }
 }

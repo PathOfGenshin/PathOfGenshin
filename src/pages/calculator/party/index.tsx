@@ -98,8 +98,8 @@ export const PartyAdd: React.FC & ComponentWithLayout = () => {
           <>Select a character to add to your party.</>
         ) : (
           <>
-            Your party is now full! Please remove a character from your party before
-            adding another to your party.
+            Your party is full! Please remove a character from your party before adding
+            another to your party.
           </>
         )}
       </div>

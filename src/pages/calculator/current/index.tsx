@@ -1,4 +1,5 @@
 import { useQuery } from "react-query"
+import { isEmpty } from "lodash"
 
 import { CalculatorLayout } from "@/components/layouts"
 import { ComponentWithLayout } from "@/components/layouts/types"
@@ -13,7 +14,7 @@ import {
 } from "@/store/party/partySlice"
 
 export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
-  const { validCharacter, loading } = useValidCharacter()
+  const { validCharacter, loading, queryCharName } = useValidCharacter()
 
   const currentCharacter: CharacterData | null = useAppSelector(selectCurrentCharacter)
   const config = useAppSelector(selectCharacterConfig)
@@ -23,14 +24,25 @@ export const CurrentCharacterPage: React.FC & ComponentWithLayout = () => {
     { enabled: !loading && validCharacter },
   )
 
+  if (loading) return <div />
+
   return (
     <div className="flex relative mx-auto w-full max-w-5xl">
-      {!loading && !validCharacter && config && isFetchedCharacter && (
+      {!validCharacter && config && isFetchedCharacter && (
         <div>
-          The specified character is either invalid or does not exist in your party.
+          {isEmpty(queryCharName) ? (
+            <>
+              Select a character in your party, or try adding a new character to your
+              party by clicking the&nbsp;<strong>+</strong>&nbsp;button at the top.
+            </>
+          ) : (
+            <>
+              The specified character is either invalid or does not exist in your party.
+            </>
+          )}
         </div>
       )}
-      {!loading && validCharacter && config && character && (
+      {validCharacter && config && character && (
         <TabContent character={character} config={config} />
       )}
     </div>

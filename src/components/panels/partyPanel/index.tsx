@@ -63,7 +63,7 @@ export const PartyPanel: React.FC = () => {
   const characterItems =
     partyCharacters?.map((char: Character) => (
       <AnimatedListItem key={isTravelerId(char.id) ? char.name : char.id}>
-        <Link href={`/calculator/current#${char.name}`} passHref>
+        <Link href={`/calculator/current?char=${char.name}`} passHref>
           <AvatarSideIcon
             iconName={char.sideIcon}
             charName={char.name}
